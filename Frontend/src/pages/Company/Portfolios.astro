@@ -1,0 +1,37 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SideBar from '../../components/SideBar.astro';
+
+//const { userLogged, params, mapa } = Astro.props;
+const userLogged = "";
+const data = ""; // lista de los PPP
+---
+<div class="flex">
+    <div class="w-1/5 h-full">
+        <SideBar />
+    </div>
+    <div class="w-4/5 h-full">
+        <h1> Resto</h1>
+        <div class="p-4 sm:ml-64">
+            <div class="flex flex-wrap justify-center my-14">
+              {
+                //idproducto={item._id.$oid}
+        
+                data.map((item) => (
+                  <Productcard
+                    titulo={item.titulo}
+                    descripcion={item.descripcion}
+                    fecha_cierre={item.fecha_cierre}
+                    precio={item.precio}
+                    imagenes={item.imagenes}
+                    idproducto={item.idProd}
+                    pagado={item.pagado}
+                  />
+                ))
+              }
+            </div>
+          </div>
+    </div>
+</div>
+
+
