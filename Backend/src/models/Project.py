@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 class Project(BaseModel):
     _id: str
+    idProject: str
     code: str
     company: str
     parent_id: str

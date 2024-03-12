@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 class Program(BaseModel):
     _id: str
+    idProgram: str
     code: str
     company: str
     parent_id: str

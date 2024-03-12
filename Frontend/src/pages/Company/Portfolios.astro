@@ -6,13 +6,14 @@ import SideBar2 from '../../components/SideBar2.astro';
 const url = "http://127.0.0.1:8000";
 //const { userLogged, params, mapa } = Astro.props;
 const userLogged = "";
+const companyId = "65f09026adc0d6e28f9f157c"
 let data;
 async function fetchPortfolios() {
     try {
-      const response = await fetch(`${url}/Companies/Portfolios/65e846ee1a79848c6df345be`);
+      const response = await fetch(`${url}/Companies/Portfolios/${companyId}`);
       if (response.ok) {
         data = await response.json();
-        console.log(data);
+        
       } else {
         throw new Error('Error al obtener portfolios');
       }
@@ -32,8 +33,7 @@ async function fetchPortfolios() {
         
             <div class="flex flex-wrap justify-center my-14">
                 <div class="flex border p-2 border-blue-950">
-                    <p class="p-2">Title</p>
-                        <p class="p-2">Description</p>
+                        <p class="p-2">Title</p>
                         <p class="p-2">Code</p>
                         <p class="p-2">Start Date</p>
                         <p class="p-2">Real Start Date</p>
@@ -48,7 +48,6 @@ async function fetchPortfolios() {
                 data.map((portfolio) => (
                     <div class="flex border p-2 border-blue-950">
                         <p class="p-2">{portfolio.title}</p>
-                        <p class="p-2">{portfolio.description}</p>
                         <p class="p-2">{portfolio.code}</p>
                         <p class="p-2">{portfolio.start_date}</p>
                         <p class="p-2">{portfolio.start_real_date}</p>

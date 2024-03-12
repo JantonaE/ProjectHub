@@ -2,7 +2,8 @@
 import React from 'react';
 
 function Dropdown(props) {
-    return <h1>{props.title}</h1>;
+    const idPPP = props.id;
+    return <h1>{props.title} {props.id}</h1>;
 }
 
 export default Dropdown;

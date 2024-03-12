@@ -1237,6 +1237,10 @@
     "schemas": {
       "Company": {
         "properties": {
+          "idCompany": {
+            "type": "string",
+            "title": "Idcompany"
+          },
           "code": {
             "type": "string",
             "title": "Code"
@@ -1252,6 +1256,7 @@
         },
         "type": "object",
         "required": [
+          "idCompany",
           "code",
           "NIF",
           "name"
@@ -1273,6 +1278,10 @@
       },
       "Person": {
         "properties": {
+          "idPerson": {
+            "type": "string",
+            "title": "Idperson"
+          },
           "DNI": {
             "type": "string",
             "title": "Dni"
@@ -1288,6 +1297,7 @@
         },
         "type": "object",
         "required": [
+          "idPerson",
           "DNI",
           "name",
           "email"
@@ -1296,6 +1306,10 @@
       },
       "Portfolio-Input": {
         "properties": {
+          "idPortfolio": {
+            "type": "string",
+            "title": "Idportfolio"
+          },
           "code": {
             "type": "string",
             "title": "Code"
@@ -1374,6 +1388,7 @@
         },
         "type": "object",
         "required": [
+          "idPortfolio",
           "code",
           "company",
           "title",
@@ -1395,6 +1410,10 @@
       },
       "Portfolio-Output": {
         "properties": {
+          "idPortfolio": {
+            "type": "string",
+            "title": "Idportfolio"
+          },
           "code": {
             "type": "string",
             "title": "Code"
@@ -1473,6 +1492,7 @@
         },
         "type": "object",
         "required": [
+          "idPortfolio",
           "code",
           "company",
           "parent_id",
@@ -1495,6 +1515,10 @@
       },
       "Program": {
         "properties": {
+          "idProgram": {
+            "type": "string",
+            "title": "Idprogram"
+          },
           "code": {
             "type": "string",
             "title": "Code"
@@ -1558,6 +1582,7 @@
         },
         "type": "object",
         "required": [
+          "idProgram",
           "code",
           "company",
           "parent_id",
@@ -1578,6 +1603,10 @@
       },
       "Project": {
         "properties": {
+          "idProject": {
+            "type": "string",
+            "title": "Idproject"
+          },
           "code": {
             "type": "string",
             "title": "Code"
@@ -1641,6 +1670,7 @@
         },
         "type": "object",
         "required": [
+          "idProject",
           "code",
           "company",
           "parent_id",

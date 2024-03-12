@@ -6,13 +6,13 @@ const url = "http://127.0.0.1:8000";
 //const { userLogged, params, mapa } = Astro.props;
 const userLogged = "";
 const company = "Indra";
+const companyId = "65f09026adc0d6e28f9f157c"
 let data;
 async function fetchPortfolios() {
     try {
-      const response = await fetch(`${url}/Companies/Portfolios/65e846ee1a79848c6df345be`);
+      const response = await fetch(`${url}/Companies/Portfolios/${companyId}`);
       if (response.ok) {
         data = await response.json();
-        console.log(data);
       } else {
         throw new Error('Error al obtener portfolios');
       }
@@ -22,7 +22,7 @@ async function fetchPortfolios() {
   }
 
   await fetchPortfolios();
-
+  console.log(data);
 ---
 <div class="flex h-screen overflow-hidden bg-white" >
     <div class="hidden md:flex md:flex-shrink-0" >
@@ -47,9 +47,10 @@ async function fetchPortfolios() {
           </div>
           
           {
-
+            
             data.map((portfolio) => (
-                <Dropdown title={portfolio.title} />
+              
+                <Dropdown id={portfolio.idPortfolio} title={portfolio.title} />
         
             ))
           }

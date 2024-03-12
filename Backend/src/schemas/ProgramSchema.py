@@ -5,6 +5,7 @@ date_format = '%d/%m/%Y'
 def ProgramEntity(item) -> dict:
     return {
         "id": str(item["_id"]),
+        "idProgram": str(item["idProgram"]),
         "code": str(item["code"]),
         "company": str(item["company"]),
         "parent_id": str(item["parent_id"]),

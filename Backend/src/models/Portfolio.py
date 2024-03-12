@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 class Portfolio(BaseModel):
     _id: str
+    idPortfolio: str
     code: str
     company: str
     parent_id: Optional[str] = None
