@@ -28,8 +28,9 @@ async def find_one_company(id: str = Path(description="Id del company a buscar")
 async def find_high_portfolios(id: str = Path(description="Id del company a buscar")) -> list[Portfolio]:
     resList = []
     for port in PortfolioEntityList(conn.ProjectHub.Portfolio.find()):
-        if port["company"] == id and port["parent_id"] != '':
-            resList.append(PortfolioEntity(conn.ProjectHub.Portfolio.find_one({"_id": ObjectId(port["id"])})))
+        if port["company"] == id:
+            if port["parent_id"] == "":
+                resList.append(PortfolioEntity(conn.ProjectHub.Portfolio.find_one({"_id": ObjectId(port["id"])})))
 
     return resList
 
