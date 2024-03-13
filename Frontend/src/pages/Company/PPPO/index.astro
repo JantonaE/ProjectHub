@@ -1,0 +1,31 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SideBar from '../../../components/SideBar.astro';
+
+const url = "http://127.0.0.1:8000";
+
+let data;
+//const idPPPO = params.get("idPPPO");
+
+const idPPPO = Astro.url.searchParams.get("idPPPO");
+console.log(Astro.url.searchParams.get("idPPPO"));
+
+async function fetchPPPOs() {
+    try {
+        const response = await fetch(`${url}/PPPOs/${idPPPO}`);
+        if (response.ok) {
+            data = await response.json();
+        } else {
+            throw new Error('Error al obtener portfolios');
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+await fetchPPPOs();
+---
+
+<h1>
+    Hola, {idPPPO}
+</h1>

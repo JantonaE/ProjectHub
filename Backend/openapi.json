@@ -6,771 +6,6 @@
     "version": "0.1.0"
   },
   "paths": {
-    "/Projects/": {
-      "get": {
-        "tags": [
-          "Projects"
-        ],
-        "summary": "Find All Projects",
-        "description": "Devuelve una lista de proyectos",
-        "operationId": "find_all_projects_Projects__get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/Project"
-                  },
-                  "type": "array",
-                  "title": "Response Find All Projects Projects  Get"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Projects"
-        ],
-        "summary": "Create Project",
-        "description": "Crea un project y lo devuelve",
-        "operationId": "create_project_Projects__post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Project"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Project"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/Projects/{id}": {
-      "get": {
-        "tags": [
-          "Projects"
-        ],
-        "summary": "Find One Project",
-        "description": "Devuelve el project con id pasado por par\u00e1metro",
-        "operationId": "find_one_project_Projects__id__get",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Id del project a buscar",
-              "title": "Id"
-            },
-            "description": "Id del project a buscar"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Project"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Projects"
-        ],
-        "summary": "Delete Project",
-        "description": "Elimina el project con id pasado por par\u00e1metro",
-        "operationId": "delete_project_Projects__id__delete",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Id del project a eliminar",
-              "title": "Id"
-            },
-            "description": "Id del project a eliminar"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Projects"
-        ],
-        "summary": "Update Project",
-        "description": "Actualiza el project con id pasado por par\u00e1metro y lo devuelve",
-        "operationId": "update_project_Projects__id__put",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Id del project a actualizar",
-              "title": "Id"
-            },
-            "description": "Id del project a actualizar"
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Project"
-                  }
-                ],
-                "description": "Datos del project a actualizar",
-                "title": "Project"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Project"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/Portfolios/": {
-      "get": {
-        "tags": [
-          "Portfolios"
-        ],
-        "summary": "Find All Portfolios",
-        "description": "Devuelve una lista de portfolios",
-        "operationId": "find_all_portfolios_Portfolios__get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/Portfolio-Output"
-                  },
-                  "type": "array",
-                  "title": "Response Find All Portfolios Portfolios  Get"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Portfolios"
-        ],
-        "summary": "Create Portfolio",
-        "description": "Crea un portfolio y lo devuelve",
-        "operationId": "create_portfolio_Portfolios__post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Portfolio-Input"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Portfolio-Output"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/Portfolios/{id}": {
-      "get": {
-        "tags": [
-          "Portfolios"
-        ],
-        "summary": "Find One Portfolio",
-        "description": "Devuelve el portfolio con id pasado por par\u00e1metro",
-        "operationId": "find_one_portfolio_Portfolios__id__get",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Id del portfolio a buscar",
-              "title": "Id"
-            },
-            "description": "Id del portfolio a buscar"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Portfolio-Output"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Portfolios"
-        ],
-        "summary": "Delete Portfolio",
-        "description": "Elimina el portfolio con id pasado por par\u00e1metro",
-        "operationId": "delete_portfolio_Portfolios__id__delete",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Id del portfolio a eliminar",
-              "title": "Id"
-            },
-            "description": "Id del portfolio a eliminar"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Portfolios"
-        ],
-        "summary": "Update Portfolio",
-        "description": "Actualiza el portfolio con id pasado por par\u00e1metro y lo devuelve",
-        "operationId": "update_portfolio_Portfolios__id__put",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Id del portfolio a actualizar",
-              "title": "Id"
-            },
-            "description": "Id del portfolio a actualizar"
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Portfolio-Input"
-                  }
-                ],
-                "description": "Datos del portfolio a actualizar",
-                "title": "Portfolio"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Portfolio-Output"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/Portfolios/PortfolioSons/{id}": {
-      "get": {
-        "tags": [
-          "Portfolios"
-        ],
-        "summary": "Find Portfolio Sons",
-        "description": "Devuelve los portfolios con parent_id con id pasado por par\u00e1metro",
-        "operationId": "find_portfolio_sons_Portfolios_PortfolioSons__id__get",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Id del portfolio a buscar sus hijos",
-              "title": "Id"
-            },
-            "description": "Id del portfolio a buscar sus hijos"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Portfolio-Output"
-                  },
-                  "title": "Response Find Portfolio Sons Portfolios Portfoliosons  Id  Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/Portfolios/ProgramSons/{id}": {
-      "get": {
-        "tags": [
-          "Portfolios"
-        ],
-        "summary": "Find Program Sons",
-        "description": "Devuelve los programas con parent_id con id pasado por par\u00e1metro",
-        "operationId": "find_program_sons_Portfolios_ProgramSons__id__get",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Id del portfolio a buscar sus hijos",
-              "title": "Id"
-            },
-            "description": "Id del portfolio a buscar sus hijos"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Program"
-                  },
-                  "title": "Response Find Program Sons Portfolios Programsons  Id  Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/Portfolios/ProjectSons/{id}": {
-      "get": {
-        "tags": [
-          "Portfolios"
-        ],
-        "summary": "Find Project Sons",
-        "description": "Devuelve los proyectos con parent_id con id pasado por par\u00e1metro",
-        "operationId": "find_project_sons_Portfolios_ProjectSons__id__get",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Id del portfolio a buscar sus hijos",
-              "title": "Id"
-            },
-            "description": "Id del portfolio a buscar sus hijos"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Project"
-                  },
-                  "title": "Response Find Project Sons Portfolios Projectsons  Id  Get"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/Programs/": {
-      "get": {
-        "tags": [
-          "Programs"
-        ],
-        "summary": "Find All Programs",
-        "description": "Devuelve una lista de programas",
-        "operationId": "find_all_programs_Programs__get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/Program"
-                  },
-                  "type": "array",
-                  "title": "Response Find All Programs Programs  Get"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Programs"
-        ],
-        "summary": "Create Program",
-        "description": "Crea un program y lo devuelve",
-        "operationId": "create_program_Programs__post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Program"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Program"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/Programs/{id}": {
-      "get": {
-        "tags": [
-          "Programs"
-        ],
-        "summary": "Find One Program",
-        "description": "Devuelve el program con id pasado por par\u00e1metro",
-        "operationId": "find_one_program_Programs__id__get",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Id del program a buscar",
-              "title": "Id"
-            },
-            "description": "Id del program a buscar"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Program"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Programs"
-        ],
-        "summary": "Delete Program",
-        "description": "Elimina el program con id pasado por par\u00e1metro",
-        "operationId": "delete_program_Programs__id__delete",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Id del program a eliminar",
-              "title": "Id"
-            },
-            "description": "Id del program a eliminar"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response"
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Programs"
-        ],
-        "summary": "Update Program",
-        "description": "Actualiza el program con id pasado por par\u00e1metro y lo devuelve",
-        "operationId": "update_program_Programs__id__put",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Id del program a actualizar",
-              "title": "Id"
-            },
-            "description": "Id del program a actualizar"
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "allOf": [
-                  {
-                    "$ref": "#/components/schemas/Program"
-                  }
-                ],
-                "description": "Datos del program a actualizar",
-                "title": "Program"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Program"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/Persons/": {
       "get": {
         "tags": [
@@ -1212,9 +447,264 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Portfolio-Output"
+                    "$ref": "#/components/schemas/PPPO-Output"
                   },
                   "title": "Response Find High Portfolios Companies Portfolios  Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PPPOs/": {
+      "get": {
+        "tags": [
+          "PPPOs"
+        ],
+        "summary": "Find All Pppos",
+        "description": "Devuelve una lista de pppos",
+        "operationId": "find_all_pppos_PPPOs__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PPPO-Output"
+                  },
+                  "type": "array",
+                  "title": "Response Find All Pppos Pppos  Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "PPPOs"
+        ],
+        "summary": "Create Pppo",
+        "description": "Crea un pppo y lo devuelve",
+        "operationId": "create_pppo_PPPOs__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PPPO-Input"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PPPO-Output"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PPPOs/{id}": {
+      "get": {
+        "tags": [
+          "PPPOs"
+        ],
+        "summary": "Find One Pppo",
+        "description": "Devuelve el pppo con id pasado por par\u00e1metro",
+        "operationId": "find_one_pppo_PPPOs__id__get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id del pppo a buscar",
+              "title": "Id"
+            },
+            "description": "Id del pppo a buscar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PPPO-Output"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "PPPOs"
+        ],
+        "summary": "Delete Pppo",
+        "description": "Elimina el pppo con id pasado por par\u00e1metro",
+        "operationId": "delete_pppo_PPPOs__id__delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id del pppo a eliminar",
+              "title": "Id"
+            },
+            "description": "Id del pppo a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "PPPOs"
+        ],
+        "summary": "Update Pppo",
+        "description": "Actualiza el pppo con id pasado por par\u00e1metro y lo devuelve",
+        "operationId": "update_pppo_PPPOs__id__put",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id del pppo a actualizar",
+              "title": "Id"
+            },
+            "description": "Id del pppo a actualizar"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/PPPO-Input"
+                  }
+                ],
+                "description": "Datos del pppo a actualizar",
+                "title": "Pppo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PPPO-Output"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PPPOs/Sons/{id}": {
+      "get": {
+        "tags": [
+          "PPPOs"
+        ],
+        "summary": "Find Pppo Sons",
+        "description": "Devuelve los pppos con parent_id con id pasado por par\u00e1metro",
+        "operationId": "find_pppo_sons_PPPOs_Sons__id__get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id del pppo a buscar sus hijos",
+              "title": "Id"
+            },
+            "description": "Id del pppo a buscar sus hijos"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PPPO-Output"
+                  },
+                  "title": "Response Find Pppo Sons Pppos Sons  Id  Get"
                 }
               }
             }
@@ -1276,6 +766,225 @@
         "type": "object",
         "title": "HTTPValidationError"
       },
+      "PPPO-Input": {
+        "properties": {
+          "idPPPO": {
+            "type": "string",
+            "title": "Idpppo"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "company": {
+            "type": "string",
+            "title": "Company"
+          },
+          "parent_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "planned_value": {
+            "type": "number",
+            "title": "Planned Value"
+          },
+          "actual_cost": {
+            "type": "number",
+            "title": "Actual Cost"
+          },
+          "start_date": {
+            "type": "string",
+            "title": "Start Date"
+          },
+          "finish_date": {
+            "type": "string",
+            "title": "Finish Date"
+          },
+          "start_real_date": {
+            "type": "string",
+            "title": "Start Real Date"
+          },
+          "finish_real_date": {
+            "type": "string",
+            "title": "Finish Real Date"
+          },
+          "risk": {
+            "type": "number",
+            "title": "Risk"
+          },
+          "priority": {
+            "type": "string",
+            "title": "Priority"
+          },
+          "strategic_goal": {
+            "type": "string",
+            "title": "Strategic Goal"
+          },
+          "earned_value": {
+            "type": "number",
+            "title": "Earned Value"
+          },
+          "ROI": {
+            "type": "number",
+            "title": "Roi"
+          },
+          "cost_benefit": {
+            "type": "number",
+            "title": "Cost Benefit"
+          },
+          "PPPO": {
+            "type": "number",
+            "title": "Pppo"
+          }
+        },
+        "type": "object",
+        "required": [
+          "idPPPO",
+          "code",
+          "company",
+          "title",
+          "description",
+          "planned_value",
+          "actual_cost",
+          "start_date",
+          "finish_date",
+          "start_real_date",
+          "finish_real_date",
+          "risk",
+          "priority",
+          "strategic_goal",
+          "earned_value",
+          "ROI",
+          "cost_benefit",
+          "PPPO"
+        ],
+        "title": "PPPO"
+      },
+      "PPPO-Output": {
+        "properties": {
+          "idPPPO": {
+            "type": "string",
+            "title": "Idpppo"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "company": {
+            "type": "string",
+            "title": "Company"
+          },
+          "parent_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "planned_value": {
+            "type": "number",
+            "title": "Planned Value"
+          },
+          "actual_cost": {
+            "type": "number",
+            "title": "Actual Cost"
+          },
+          "start_date": {
+            "type": "string",
+            "title": "Start Date"
+          },
+          "finish_date": {
+            "type": "string",
+            "title": "Finish Date"
+          },
+          "start_real_date": {
+            "type": "string",
+            "title": "Start Real Date"
+          },
+          "finish_real_date": {
+            "type": "string",
+            "title": "Finish Real Date"
+          },
+          "risk": {
+            "type": "number",
+            "title": "Risk"
+          },
+          "priority": {
+            "type": "string",
+            "title": "Priority"
+          },
+          "strategic_goal": {
+            "type": "string",
+            "title": "Strategic Goal"
+          },
+          "earned_value": {
+            "type": "number",
+            "title": "Earned Value"
+          },
+          "ROI": {
+            "type": "number",
+            "title": "Roi"
+          },
+          "cost_benefit": {
+            "type": "number",
+            "title": "Cost Benefit"
+          },
+          "PPPO": {
+            "type": "number",
+            "title": "Pppo"
+          }
+        },
+        "type": "object",
+        "required": [
+          "idPPPO",
+          "code",
+          "company",
+          "parent_id",
+          "title",
+          "description",
+          "planned_value",
+          "actual_cost",
+          "start_date",
+          "finish_date",
+          "start_real_date",
+          "finish_real_date",
+          "risk",
+          "priority",
+          "strategic_goal",
+          "earned_value",
+          "ROI",
+          "cost_benefit",
+          "PPPO"
+        ],
+        "title": "PPPO"
+      },
       "Person": {
         "properties": {
           "idPerson": {
@@ -1303,391 +1012,6 @@
           "email"
         ],
         "title": "Person"
-      },
-      "Portfolio-Input": {
-        "properties": {
-          "idPortfolio": {
-            "type": "string",
-            "title": "Idportfolio"
-          },
-          "code": {
-            "type": "string",
-            "title": "Code"
-          },
-          "company": {
-            "type": "string",
-            "title": "Company"
-          },
-          "parent_id": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Parent Id"
-          },
-          "title": {
-            "type": "string",
-            "title": "Title"
-          },
-          "description": {
-            "type": "string",
-            "title": "Description"
-          },
-          "planned_value": {
-            "type": "number",
-            "title": "Planned Value"
-          },
-          "actual_cost": {
-            "type": "number",
-            "title": "Actual Cost"
-          },
-          "start_date": {
-            "type": "string",
-            "title": "Start Date"
-          },
-          "finish_date": {
-            "type": "string",
-            "title": "Finish Date"
-          },
-          "start_real_date": {
-            "type": "string",
-            "title": "Start Real Date"
-          },
-          "finish_real_date": {
-            "type": "string",
-            "title": "Finish Real Date"
-          },
-          "risk": {
-            "type": "number",
-            "title": "Risk"
-          },
-          "priority": {
-            "type": "string",
-            "title": "Priority"
-          },
-          "strategic_goal": {
-            "type": "string",
-            "title": "Strategic Goal"
-          },
-          "earned_value": {
-            "type": "number",
-            "title": "Earned Value"
-          },
-          "ROI": {
-            "type": "number",
-            "title": "Roi"
-          },
-          "cost_benefit": {
-            "type": "number",
-            "title": "Cost Benefit"
-          }
-        },
-        "type": "object",
-        "required": [
-          "idPortfolio",
-          "code",
-          "company",
-          "title",
-          "description",
-          "planned_value",
-          "actual_cost",
-          "start_date",
-          "finish_date",
-          "start_real_date",
-          "finish_real_date",
-          "risk",
-          "priority",
-          "strategic_goal",
-          "earned_value",
-          "ROI",
-          "cost_benefit"
-        ],
-        "title": "Portfolio"
-      },
-      "Portfolio-Output": {
-        "properties": {
-          "idPortfolio": {
-            "type": "string",
-            "title": "Idportfolio"
-          },
-          "code": {
-            "type": "string",
-            "title": "Code"
-          },
-          "company": {
-            "type": "string",
-            "title": "Company"
-          },
-          "parent_id": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Parent Id"
-          },
-          "title": {
-            "type": "string",
-            "title": "Title"
-          },
-          "description": {
-            "type": "string",
-            "title": "Description"
-          },
-          "planned_value": {
-            "type": "number",
-            "title": "Planned Value"
-          },
-          "actual_cost": {
-            "type": "number",
-            "title": "Actual Cost"
-          },
-          "start_date": {
-            "type": "string",
-            "title": "Start Date"
-          },
-          "finish_date": {
-            "type": "string",
-            "title": "Finish Date"
-          },
-          "start_real_date": {
-            "type": "string",
-            "title": "Start Real Date"
-          },
-          "finish_real_date": {
-            "type": "string",
-            "title": "Finish Real Date"
-          },
-          "risk": {
-            "type": "number",
-            "title": "Risk"
-          },
-          "priority": {
-            "type": "string",
-            "title": "Priority"
-          },
-          "strategic_goal": {
-            "type": "string",
-            "title": "Strategic Goal"
-          },
-          "earned_value": {
-            "type": "number",
-            "title": "Earned Value"
-          },
-          "ROI": {
-            "type": "number",
-            "title": "Roi"
-          },
-          "cost_benefit": {
-            "type": "number",
-            "title": "Cost Benefit"
-          }
-        },
-        "type": "object",
-        "required": [
-          "idPortfolio",
-          "code",
-          "company",
-          "parent_id",
-          "title",
-          "description",
-          "planned_value",
-          "actual_cost",
-          "start_date",
-          "finish_date",
-          "start_real_date",
-          "finish_real_date",
-          "risk",
-          "priority",
-          "strategic_goal",
-          "earned_value",
-          "ROI",
-          "cost_benefit"
-        ],
-        "title": "Portfolio"
-      },
-      "Program": {
-        "properties": {
-          "idProgram": {
-            "type": "string",
-            "title": "Idprogram"
-          },
-          "code": {
-            "type": "string",
-            "title": "Code"
-          },
-          "company": {
-            "type": "string",
-            "title": "Company"
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent Id"
-          },
-          "title": {
-            "type": "string",
-            "title": "Title"
-          },
-          "description": {
-            "type": "string",
-            "title": "Description"
-          },
-          "planned_value": {
-            "type": "number",
-            "title": "Planned Value"
-          },
-          "actual_cost": {
-            "type": "number",
-            "title": "Actual Cost"
-          },
-          "start_date": {
-            "type": "string",
-            "title": "Start Date"
-          },
-          "finish_date": {
-            "type": "string",
-            "title": "Finish Date"
-          },
-          "start_real_date": {
-            "type": "string",
-            "title": "Start Real Date"
-          },
-          "finish_real_date": {
-            "type": "string",
-            "title": "Finish Real Date"
-          },
-          "risk": {
-            "type": "number",
-            "title": "Risk"
-          },
-          "priority": {
-            "type": "string",
-            "title": "Priority"
-          },
-          "strategic_goal": {
-            "type": "string",
-            "title": "Strategic Goal"
-          },
-          "earned_value": {
-            "type": "number",
-            "title": "Earned Value"
-          }
-        },
-        "type": "object",
-        "required": [
-          "idProgram",
-          "code",
-          "company",
-          "parent_id",
-          "title",
-          "description",
-          "planned_value",
-          "actual_cost",
-          "start_date",
-          "finish_date",
-          "start_real_date",
-          "finish_real_date",
-          "risk",
-          "priority",
-          "strategic_goal",
-          "earned_value"
-        ],
-        "title": "Program"
-      },
-      "Project": {
-        "properties": {
-          "idProject": {
-            "type": "string",
-            "title": "Idproject"
-          },
-          "code": {
-            "type": "string",
-            "title": "Code"
-          },
-          "company": {
-            "type": "string",
-            "title": "Company"
-          },
-          "parent_id": {
-            "type": "string",
-            "title": "Parent Id"
-          },
-          "title": {
-            "type": "string",
-            "title": "Title"
-          },
-          "description": {
-            "type": "string",
-            "title": "Description"
-          },
-          "planned_value": {
-            "type": "number",
-            "title": "Planned Value"
-          },
-          "actual_cost": {
-            "type": "number",
-            "title": "Actual Cost"
-          },
-          "start_date": {
-            "type": "string",
-            "title": "Start Date"
-          },
-          "finish_date": {
-            "type": "string",
-            "title": "Finish Date"
-          },
-          "start_real_date": {
-            "type": "string",
-            "title": "Start Real Date"
-          },
-          "finish_real_date": {
-            "type": "string",
-            "title": "Finish Real Date"
-          },
-          "risk": {
-            "type": "number",
-            "title": "Risk"
-          },
-          "priority": {
-            "type": "string",
-            "title": "Priority"
-          },
-          "strategic_goal": {
-            "type": "string",
-            "title": "Strategic Goal"
-          },
-          "earned_value": {
-            "type": "number",
-            "title": "Earned Value"
-          }
-        },
-        "type": "object",
-        "required": [
-          "idProject",
-          "code",
-          "company",
-          "parent_id",
-          "title",
-          "description",
-          "planned_value",
-          "actual_cost",
-          "start_date",
-          "finish_date",
-          "start_real_date",
-          "finish_real_date",
-          "risk",
-          "priority",
-          "strategic_goal",
-          "earned_value"
-        ],
-        "title": "Project"
       },
       "ValidationError": {
         "properties": {

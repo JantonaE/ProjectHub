@@ -2,8 +2,10 @@
 from typing import Optional
 from fastapi import APIRouter, Body, Path,Response
 
-from ..models.Portfolio import Portfolio
-from ..schemas.PortfolioSchema import PortfolioEntity, PortfolioEntityList
+
+from ..models.PPPO import PPPO
+
+from ..schemas.PPPOSchema import PPPOEntity, PPPOEntityList
 
 from ..config.db import conn
 from ..schemas.CompanySchema import CompanyEntity, CompanyEntityList
@@ -22,15 +24,14 @@ async def find_one_company(id: str = Path(description="Id del company a buscar")
     return CompanyEntity(conn.ProjectHub.Company.find_one({"_id": ObjectId(id)}))
 
 
-
 # Get all the highest level portfolios of a Company
-@company.get("/Companies/Portfolios/{id}", tags=["Companies"], response_model=list[Portfolio], description="Devuelve los portfolios sin parent_id de company con id pasado por parámetro")
-async def find_high_portfolios(id: str = Path(description="Id del company a buscar")) -> list[Portfolio]:
+@company.get("/Companies/Portfolios/{id}", tags=["Companies"], response_model=list[PPPO], description="Devuelve los portfolios sin parent_id de company con id pasado por parámetro")
+async def find_high_portfolios(id: str = Path(description="Id del company a buscar")) -> list[PPPO]:
     resList = []
-    for port in PortfolioEntityList(conn.ProjectHub.Portfolio.find()):
+    for port in PPPOEntityList(conn.ProjectHub.PPPO.find()):
         if port["company"] == id:
             if port["parent_id"] == "":
-                resList.append(PortfolioEntity(conn.ProjectHub.Portfolio.find_one({"_id": ObjectId(port["id"])})))
+                resList.append(PPPOEntity(conn.ProjectHub.PPPO.find_one({"_id": ObjectId(port["id"])})))
 
     return resList
 
