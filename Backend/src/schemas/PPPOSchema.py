@@ -18,7 +18,7 @@ def PPPOEntity(item) -> dict:
         "start_real_date": datetime.strptime(item["start_real_date"], date_format).strftime(date_format),
         "finish_real_date": datetime.strptime(item["finish_real_date"], date_format).strftime(date_format),
         "risk": item["risk"],
-        "priority": str(item["priority"]),
+        "priority": item["priority"],
         "strategic_goal": str(item["strategic_goal"]),
         "earned_value": item["earned_value"],
         "ROI": item["ROI"],

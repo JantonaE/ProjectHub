@@ -13,11 +13,11 @@ class PPPO(BaseModel):
     planned_value: float
     actual_cost: float
     start_date: str # FORMATO: string de la forma "dd/mm/yyyy"
-    finish_date: str
-    start_real_date: str # FORMATO: string de la forma "dd/mm/yyyy"
-    finish_real_date: str
+    finish_date: Optional[str] = None
+    start_real_date: Optional[str] = None # FORMATO: string de la forma "dd/mm/yyyy"
+    finish_real_date: Optional[str] = None
     risk: float
-    priority: str
+    priority: float
     strategic_goal: str
     earned_value: float
     ROI: float

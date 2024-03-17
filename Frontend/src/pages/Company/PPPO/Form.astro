@@ -1,18 +1,60 @@
 ---
+import * as lib from "../../../lib/lib"
+import {formatDate} from "../../../lib/utils.ts"
+
 if (Astro.request.method === "POST") {
   try {
+    // OBTENER COMPANY DE LA SESION Y padre
+    const parent_id= "";
+    const company= "65f17d33848e9bfa44eca8cb";
+    
+    //__-----
     const data = await Astro.request.formData();
-    const name = data.get("username");
-    const email = data.get("email");
-    const password = data.get("password");
-    // Do something with the data
+
+    const radioButton = Number(data.get("radio1"));
+    const title = data.get("title").toString();
+    const description = data.get("description").toString();
+    const code = data.get("code").toString();
+    const strategic_goal = data.get("strategic_goal").toString();
+    const planned_value = Number(data.get("planned_value"));
+    const actual_cost = Number(data.get("actual_cost"));
+    const start_date = formatDate(data.get("start_date"));
+    const finish_date = formatDate(data.get("finish_date"));
+    const start_real_date = formatDate(data.get("start_real_date"));
+    const finish_real_date = formatDate(data.get("finish_real_date"));
+    const risk = Number(data.get("risk"));
+    const priority = Number(data.get("priority"));
+    const internal_manager = data.get("internal_manager").toString();
+    const external_manager = data.get("external_manager").toString();
+
+    const res = await lib.createPPPO(
+    radioButton,
+    title,
+    description,
+    code,
+    strategic_goal,
+    planned_value,
+    actual_cost,
+    start_date,
+    finish_date,
+    start_real_date,
+    finish_real_date,
+    risk,
+    priority,
+    internal_manager,
+    external_manager,
+    company,
+    parent_id
+);
+  return Astro.redirect(Astro.url.pathname);
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
     }
   }
 }
-const PPPO = "Portfolio"
+
+
 ---
 <div class="flex items-center justify-center p-12">
   
