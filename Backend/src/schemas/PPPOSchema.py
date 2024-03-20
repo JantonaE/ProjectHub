@@ -5,7 +5,7 @@ date_format = '%d/%m/%Y'
 def PPPOEntity(item) -> dict:
     return {
         "id": str(item["_id"]),
-        "idPPPO": str(item["idPPPO"]),
+        "idPPPO": str(item["_id"]),
         "code": str(item["code"]),
         "company": str(item["company"]),
         "parent_id": str(item["parent_id"]),

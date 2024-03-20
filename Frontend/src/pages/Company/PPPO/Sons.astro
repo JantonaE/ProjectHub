@@ -5,6 +5,7 @@ import SideBar from '../../../components/SideBar.astro';
 const url = "http://127.0.0.1:8000";
 
 const parentId = Astro.url.searchParams.get("parentId");
+console.log("Hey");
 console.log(Astro.url.searchParams.get("parentId"));
 
 let data;
@@ -31,6 +32,13 @@ async function fetchPPPOs() {
   </div>
   <div class="w-4/5 h-full ml-64 overflow-auto text-center flex justify-center m-5">
       <table class="border-collapse border border-blue-950">
+        <thead>
+          <tr>
+            <th class="border p-2">
+              <a href={`/Company/PPPO/Form?parentId=${parentId}`}>+</a>
+            </th>
+          </tr>
+        </thead>
           <thead>
               <tr>
                   <th class="border p-2">Type</th>
@@ -48,7 +56,12 @@ async function fetchPPPOs() {
           <tbody>
               {data && data.map((portfolio) => (
                   <tr key={portfolio.id}>
-                      <td class="border p-2">{portfolio.PPPO}</td>
+                    <td class="border p-2">
+                      {portfolio.PPPO === 0 ? "Portfolio" : 
+                      portfolio.PPPO === 1 ? "Program" :
+                      portfolio.PPPO === 2 ? "Project" :
+                      "Operation"}
+                      </td>
                       <td class="border p-2">{portfolio.title}</td>
                       <td class="border p-2">{portfolio.code}</td>
                       <td class="border p-2">{portfolio.start_date}</td>

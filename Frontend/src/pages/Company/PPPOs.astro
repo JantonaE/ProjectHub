@@ -6,7 +6,7 @@ import FilterNavBar from '../../components/FilterNavBar.astro'
 const url = "http://127.0.0.1:8000";
 //const { userLogged, params, mapa } = Astro.props;
 const userLogged = "";
-const companyId = "65f17d33848e9bfa44eca8cb"
+const companyId = "65f17d33848e9bfa44eca8cb";
 let data;
 async function fetchPortfolios() {
     try {
@@ -39,8 +39,9 @@ async function fetchPortfolios() {
         <thead>
           <tr>
             <th class="border p-2">
-              <a href={`/Company/PPPO/Form`}>+</a>
+              <a href={`/Company/PPPO/Form?parent_id=${""}`}>+</a>
             </th>
+            
           </tr>
         </thead>
         <thead>
@@ -72,8 +73,26 @@ async function fetchPortfolios() {
                     <td class="border p-2">{portfolio.start_real_date}</td>
                     <td class="border p-2">{portfolio.finish_date}</td>
                     <td class="border p-2">{portfolio.finish_real_date}</td>
-                    <td class="border p-2">{portfolio.risk}</td>
-                    <td class="border p-2">{portfolio.priority}</td>
+                    <td class="border p-2">
+                      <span class={portfolio.risk === 0 ? "text-green-500" : 
+              portfolio.risk === 1 ? "text-yellow-500" : 
+              "text-red-500"}>
+                      {portfolio.risk === 0 ? "Low" : 
+                      portfolio.risk === 1 ? "Medium" :
+                      "High"
+                    }
+                      </span>
+                      </td>
+                    <td class="border p-2">
+                      <span class={portfolio.risk === 0 ? "text-green-500" : 
+                      portfolio.priority === 1 ? "text-yellow-500" : 
+                      "text-red-500"}>  
+                      {portfolio.priority === 0 ? "Low" : 
+                      portfolio.priority === 1 ? "Medium" :
+                      "High"
+                    }
+                      </span>
+                    </td>
                     <td class="border p-2">{portfolio.strategic_goal}</td>
                     
                 </tr>

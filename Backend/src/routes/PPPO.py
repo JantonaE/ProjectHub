@@ -33,10 +33,10 @@ async def find_pppo_sons(id: str = Path(description="Id del pppo a buscar sus hi
 
 @pppo.post("/PPPOs/", tags=["PPPOs"], response_model=PPPO, description="Crea un pppo y lo devuelve")
 async def create_pppo(port: PPPO) -> PPPO:
-
     new_port = dict(port)
     id = conn.ProjectHub.PPPO.insert_one(new_port).inserted_id
-
+    new_port["idPPPO"] = str(id)
+    print(PPPOEntity(conn.ProjectHub.PPPO.find_one({"_id": id})))
     return PPPOEntity(conn.ProjectHub.PPPO.find_one({"_id": id}))
     
 @pppo.delete("/PPPOs/{id}", tags=["PPPOs"], description="Elimina el pppo con id pasado por parámetro", status_code=200, response_class=Response)

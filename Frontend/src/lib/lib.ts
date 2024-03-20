@@ -20,7 +20,8 @@ export async function createPPPO(
     parent_id: string
 ) :PPPO {
     const apiUrl = `${import.meta.env.BACKEND_URL}/PPPOs/`;
-  
+    console.log("LIB: ");
+    console.log(radioButton);
     try {
         const res = await fetch(apiUrl, {
             method: "POST",
@@ -28,7 +29,7 @@ export async function createPPPO(
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                idPPPO:"",
+                idPPPO: "",
                 code: code,
                 company: company,
                 parent_id: parent_id,
@@ -46,7 +47,7 @@ export async function createPPPO(
                 earned_value: 0,
                 ROI: 0,
                 cost_benefit: 0,            
-                PPPO: 0
+                PPPO: radioButton
             }),
         });
     

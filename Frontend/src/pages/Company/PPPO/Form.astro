@@ -5,8 +5,15 @@ import {formatDate} from "../../../lib/utils.ts"
 if (Astro.request.method === "POST") {
   try {
     // OBTENER COMPANY DE LA SESION Y padre
-    const parent_id= "";
-    const company= "65f17d33848e9bfa44eca8cb";
+    let parent_id = Astro.url.searchParams.get("parentId");
+    console.log("hey");
+    console.log(parent_id);
+    if (parent_id == null){
+        parent_id = "";
+    }
+      
+    console.log(parent_id);
+    const company= "65f17d33848e9bfa44eca8cb"; // sesion
     
     //__-----
     const data = await Astro.request.formData();
@@ -27,6 +34,10 @@ if (Astro.request.method === "POST") {
     const internal_manager = data.get("internal_manager").toString();
     const external_manager = data.get("external_manager").toString();
 
+    console.log("FORM: ");
+    console.log(radioButton);
+    console.log(priority);
+    console.log(risk);
     const res = await lib.createPPPO(
     radioButton,
     title,
@@ -46,7 +57,8 @@ if (Astro.request.method === "POST") {
     company,
     parent_id
 );
-  return Astro.redirect(Astro.url.pathname);
+  //return Astro.redirect(Astro.url.pathname);
+  return Astro.redirect("/Company/PPPOs");
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
@@ -72,6 +84,7 @@ if (Astro.request.method === "POST") {
               name="radio1"
               id="radioButtonPortfolio"
               class="h-5 w-5"
+              value="0"
             />
             <label
               for="radioButtonPortfolio"
@@ -85,6 +98,7 @@ if (Astro.request.method === "POST") {
               type="radio"
               name="radio1"
               id="radioButtonProgram"
+              value="1"
               class="h-5 w-5"
             />
             <label
@@ -100,6 +114,7 @@ if (Astro.request.method === "POST") {
               name="radio1"
               id="radioButtonProject"
               class="h-5 w-5"
+              value="2"
             />
             <label
               for="radioButtonProject"
@@ -114,6 +129,7 @@ if (Astro.request.method === "POST") {
               name="radio1"
               id="radioButtonOperation"
               class="h-5 w-5"
+              value="3"
             />
             <label
               for="radioButtonOperation"
