@@ -31,6 +31,22 @@ async def find_pppo_sons(id: str = Path(description="Id del pppo a buscar sus hi
     return resList
 # ---
 
+# Get all the Ancestors of a PPPO
+
+@pppo.get("/PPPOs/Ancestors/{id}", tags=["PPPOs"], response_model=list[PPPO], description="Devuelve los ancestros del id pasado por parámetro")
+async def find_pppo_sons(id: str = Path(description="Id del pppo a buscar sus padres")) -> list[PPPO]:
+    resList = []
+    act = PPPOEntity(conn.ProjectHub.PPPO.find_one({"_id": ObjectId(id)}))
+    resList.append(act)
+    parent = act["parent_id"]
+    while (parent != ""):
+        act = PPPOEntity(conn.ProjectHub.PPPO.find_one({"_id": ObjectId(parent)}))
+        resList.append(PPPOEntity(conn.ProjectHub.PPPO.find_one({"_id": ObjectId(act["id"])})))
+        parent = act["parent_id"]
+   
+    return resList
+# ---
+
 @pppo.post("/PPPOs/", tags=["PPPOs"], response_model=PPPO, description="Crea un pppo y lo devuelve")
 async def create_pppo(port: PPPO) -> PPPO:
     new_port = dict(port)

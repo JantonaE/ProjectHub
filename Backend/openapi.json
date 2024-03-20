@@ -721,6 +721,55 @@
           }
         }
       }
+    },
+    "/PPPOs/Ancestors/{id}": {
+      "get": {
+        "tags": [
+          "PPPOs"
+        ],
+        "summary": "Find Pppo Sons",
+        "description": "Devuelve los ancestros del id pasado por par\u00e1metro",
+        "operationId": "find_pppo_sons_PPPOs_Ancestors__id__get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id del pppo a buscar sus padres",
+              "title": "Id"
+            },
+            "description": "Id del pppo a buscar sus padres"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PPPO-Output"
+                  },
+                  "title": "Response Find Pppo Sons Pppos Ancestors  Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {

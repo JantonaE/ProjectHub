@@ -1,0 +1,55 @@
+---
+import {getAncestors} from '../lib/lib';
+const { idPPPO } = Astro.props;
+console.log("ID: ");
+console.log(idPPPO);
+const data = await getAncestors(idPPPO);
+console.log("Info: ");
+console.log(data);
+const companyCode="INDRA"; // Obtenerlo de la sesion
+---
+
+<nav
+  class="relative flex w-full flex-wrap items-center justify-between bg-zinc-50 py-2 shadow-dark-mild dark:bg-neutral-700 lg:py-4">
+  <div class="flex w-full flex-wrap items-center justify-between px-3">
+    <nav class="w-full rounded-md" aria-label="breadcrumb">
+      <ol class="list-reset ms-2 flex">
+        <li>
+            <a
+                href={`/Company/PPPOs`}
+                class="text-blue-600 hover:underline motion-reduce:transition-none-none text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80"
+                >{companyCode}
+            </a>
+        </li> 
+        {data && data.map((pppo, index) => (
+            <>
+                {index !== data.length - 1 ? (
+                    <>
+                        <a class="px-1">/</a>
+                        <li>
+                            <a
+                                href={`/Company/PPPO/Sons?parentId=${pppo.parent_id}`}
+                                class="text-blue-600 hover:underline motion-reduce:transition-none-none text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80"
+                                >{pppo.code}
+                            </a>
+                        </li>
+                    </>
+                ) : (
+                    <>
+                        <a class="px-1">/</a>
+                        <li>
+                            <a>
+                                {pppo.code}
+                            </a>
+                            
+                        </li>
+                    </>
+                )}
+            </>
+        ))}
+        
+        
+      </ol>
+    </nav>
+  </div>
+</nav>

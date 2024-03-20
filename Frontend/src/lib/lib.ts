@@ -82,3 +82,22 @@ export async function getPPPOById(id: string): Promise<PPPO | null> {
         return null;
     }
 }
+
+export async function getAncestors(id: string): Promise<PPPO[] | null> {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/PPPOs/Ancestors/${id}`;
+
+    try {
+        const res = await fetch(apiUrl);
+        console.log("Llega");
+        if (!res.ok) {
+            throw new Error(`Error fetching data: ${res.statusText}`);
+        }
+        
+        const data = await res.json() as PPPO[];
+        
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return null;
+    }
+}
