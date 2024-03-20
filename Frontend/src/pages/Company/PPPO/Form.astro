@@ -1,16 +1,31 @@
 ---
 import * as lib from "../../../lib/lib"
 import {formatDate} from "../../../lib/utils.ts"
+let parent_id = Astro.url.searchParams.get("parentId");
+let pppoType;
+console.log("hey");
+console.log(parent_id);
+if (parent_id == null){
+    parent_id = "";
+    // SOLO PODRAS ELEGIR PORTFOLIO
+    pppoType = -1;
+    console.log("Tipo: ");
+    console.log(pppoType); 
+}else{ // OTRAS OPCIONES A ELEGIR
+    const pppo = await lib.getPPPOById(parent_id);
+    pppoType = pppo.PPPO;
+    console.log("Tipo: ");
+    console.log(pppoType); 
+    
+}
+console.log("Condiciones: ");
+console.log(parent_id);
+console.log(pppoType);
 
 if (Astro.request.method === "POST") {
   try {
     // OBTENER COMPANY DE LA SESION Y padre
-    let parent_id = Astro.url.searchParams.get("parentId");
-    console.log("hey");
-    console.log(parent_id);
-    if (parent_id == null){
-        parent_id = "";
-    }
+    
       
     console.log(parent_id);
     const company= "65f17d33848e9bfa44eca8cb"; // sesion
@@ -69,23 +84,33 @@ if (Astro.request.method === "POST") {
 
 ---
 <div class="flex items-center justify-center p-12">
-  
   <div class="mx-auto w-full max-w-[550px] bg-white">
     <form action="" method="POST">
       
       <div class="mb-5">
+        <h1>{parent_id}</h1>
         <label class="mb-3 block text-base font-medium text-[#07074D]">
           What object would you like to create?
         </label>
         <div class="flex items-center space-x-6">
           <div class="flex items-center">
+            { parent_id === "" || pppoType === 0 ? 
             <input
               type="radio"
               name="radio1"
               id="radioButtonPortfolio"
               class="h-5 w-5"
               value="0"
+            /> : 
+            <input
+              type="radio"
+              name="radio1"
+              id="radioButtonPortfolio"
+              class="h-5 w-5"
+              value="0"
+              disabled
             />
+            }
             <label
               for="radioButtonPortfolio"
               class="pl-3 text-base font-medium text-[#07074D]"
@@ -93,14 +118,25 @@ if (Astro.request.method === "POST") {
               Portfolio
             </label>
           </div>
+
           <div class="flex items-center">
+            { pppoType < 2 && pppoType != -1 ? 
             <input
-              type="radio"
-              name="radio1"
-              id="radioButtonProgram"
-              value="1"
-              class="h-5 w-5"
+            type="radio"
+            name="radio1"
+            id="radioButtonProgram"
+            value="1"
+            class="h-5 w-5"
+            /> : 
+            <input
+            type="radio"
+            name="radio1"
+            id="radioButtonProgram"
+            value="1"
+            class="h-5 w-5"
+            disabled
             />
+            }
             <label
               for="radioButtonProgram"
               class="pl-3 text-base font-medium text-[#07074D]"
@@ -108,14 +144,26 @@ if (Astro.request.method === "POST") {
               Program
             </label>
           </div>
+
           <div class="flex items-center">
+            { pppoType < 3 && pppoType != -1 ? 
+              <input
+              type="radio"
+              name="radio1"
+              id="radioButtonProject"
+              class="h-5 w-5"
+              value="2"
+            /> : 
             <input
               type="radio"
               name="radio1"
               id="radioButtonProject"
               class="h-5 w-5"
               value="2"
+              disabled
             />
+              }
+            
             <label
               for="radioButtonProject"
               class="pl-3 text-base font-medium text-[#07074D]"
@@ -123,14 +171,26 @@ if (Astro.request.method === "POST") {
               Project
             </label>
           </div>
+
           <div class="flex items-center">
+            { pppoType < 2 && pppoType != -1 ? 
+              <input
+              type="radio"
+              name="radio1"
+              id="radioButtonOperation"
+              class="h-5 w-5"
+              value="3"
+            /> : 
             <input
               type="radio"
               name="radio1"
               id="radioButtonOperation"
               class="h-5 w-5"
               value="3"
+              disabled
             />
+              }
+            
             <label
               for="radioButtonOperation"
               class="pl-3 text-base font-medium text-[#07074D]"

@@ -63,3 +63,22 @@ export async function createPPPO(
         return null;
     }
 }
+
+export async function getPPPOById(id: string): Promise<PPPO | null> {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/PPPOs/${id}`;
+    
+    try {
+        const res = await fetch(apiUrl);
+        
+        if (!res.ok) {
+            throw new Error(`Error fetching data: ${res.statusText}`);
+        }
+        
+        const data = await res.json() as PPPO;
+        
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return null;
+    }
+}
