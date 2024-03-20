@@ -70,9 +70,30 @@ async function fetchPortfolios() {
                       
                       </td>
                     <td class="border p-2">{portfolio.start_date}</td>
-                    <td class="border p-2">{portfolio.start_real_date}</td>
-                    <td class="border p-2">{portfolio.finish_date}</td>
-                    <td class="border p-2">{portfolio.finish_real_date}</td>
+                    <td class="border p-2">
+                      <span class={portfolio.start_real_date === "12/12/2100" ? "text-gray-600" : 
+                        "text-black"}>
+                      {portfolio.start_real_date === "12/12/2100" ? "Not Defined" : 
+                      portfolio.start_real_date
+                      }
+                      </span>
+                    </td>
+                    <td class="border p-2">
+                      <span class={portfolio.finish_date === "12/12/2100" ? "text-gray-600" : 
+                        "text-black"}>
+                      {portfolio.finish_date === "12/12/2100" ? "Not Defined" : 
+                      portfolio.finish_date
+                      }
+                      </span>
+                    </td>
+                    <td class="border p-2">
+                      <span class={portfolio.finish_real_date === "12/12/2100" ? "text-gray-600" : 
+                        "text-black"}>
+                      {portfolio.finish_real_date === "12/12/2100" ? "Not Defined" : 
+                      portfolio.finish_real_date
+                      }
+                      </span>
+                    </td>
                     <td class="border p-2">
                       <span class={portfolio.risk === 0 ? "text-green-500" : 
               portfolio.risk === 1 ? "text-yellow-500" : 

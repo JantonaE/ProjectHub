@@ -62,14 +62,59 @@ async function fetchPPPOs() {
                       portfolio.PPPO === 2 ? "Project" :
                       "Operation"}
                       </td>
-                      <td class="border p-2">{portfolio.title}</td>
-                      <td class="border p-2">{portfolio.code}</td>
+                      <td class="border p-2 text-blue-600 hover:underline">
+                      <a href={`/Company/PPPO?idPPPO=${portfolio.idPPPO}`}>{portfolio.title}</a>
+                      
+                      </td>
+                    <td class="border p-2 text-blue-600 hover:underline">
+                      <a href={`/Company/PPPO/Sons?parentId=${portfolio.idPPPO}`}>{portfolio.code}</a>
+                      
+                      </td>
                       <td class="border p-2">{portfolio.start_date}</td>
-                      <td class="border p-2">{portfolio.start_real_date}</td>
-                      <td class="border p-2">{portfolio.finish_date}</td>
-                      <td class="border p-2">{portfolio.finish_real_date}</td>
-                      <td class="border p-2">{portfolio.risk}</td>
-                      <td class="border p-2">{portfolio.priority}</td>
+                      <td class="border p-2">
+                      <span class={portfolio.start_real_date === "12/12/2100" ? "text-gray-600" : 
+                        "text-black"}>
+                      {portfolio.start_real_date === "12/12/2100" ? "Not Defined" : 
+                      portfolio.start_real_date
+                      }
+                      </span>
+                    </td>
+                    <td class="border p-2">
+                      <span class={portfolio.finish_date === "12/12/2100" ? "text-gray-600" : 
+                        "text-black"}>
+                      {portfolio.finish_date === "12/12/2100" ? "Not Defined" : 
+                      portfolio.finish_date
+                      }
+                      </span>
+                    </td>
+                    <td class="border p-2">
+                      <span class={portfolio.finish_real_date === "12/12/2100" ? "text-gray-600" : 
+                        "text-black"}>
+                      {portfolio.finish_real_date === "12/12/2100" ? "Not Defined" : 
+                      portfolio.finish_real_date
+                      }
+                      </span>
+                    </td>
+                    <td class="border p-2">
+                      <span class={portfolio.risk === 0 ? "text-green-500" : 
+              portfolio.risk === 1 ? "text-yellow-500" : 
+              "text-red-500"}>
+                      {portfolio.risk === 0 ? "Low" : 
+                      portfolio.risk === 1 ? "Medium" :
+                      "High"
+                    }
+                      </span>
+                      </td>
+                    <td class="border p-2">
+                      <span class={portfolio.risk === 0 ? "text-green-500" : 
+                      portfolio.priority === 1 ? "text-yellow-500" : 
+                      "text-red-500"}>  
+                      {portfolio.priority === 0 ? "Low" : 
+                      portfolio.priority === 1 ? "Medium" :
+                      "High"
+                    }
+                      </span>
+                    </td>
                       <td class="border p-2">{portfolio.strategic_goal}</td>
                       {/* Add more table cells for additional portfolio data */}
                   </tr>
