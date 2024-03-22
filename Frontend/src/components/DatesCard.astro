@@ -1,0 +1,31 @@
+---
+const { sd , srd, fd, frd } = Astro.props;
+---
+
+<div class="p-6 border">
+    <h5
+      class="mb-2 text-xl font-medium leading-tight text-center">
+      Dates
+    </h5>
+    <div class="justify-center">
+      <p class="mb-4 text-base">
+        Planned Start Date: {sd}
+      </p>
+      <p class="mb-4 text-base">
+          Real Start Date: {srd === "12/12/2100" ? "Not Defined" : 
+          srd
+          } 
+      </p>
+      <p class="mb-4 text-base">
+          Planned Finish Date: {fd === "12/12/2100" ? "Not Defined" : 
+          fd
+          } 
+      </p>
+      <p class="mb-4 text-base">
+          Real Finish Date: {frd === "12/12/2100" ? "Not Defined" : 
+          frd
+          } 
+      </p>
+    </div>
+    
+  </div>

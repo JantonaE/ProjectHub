@@ -1,0 +1,22 @@
+---
+const { external, internal } = Astro.props;
+---
+
+<div class="p-6 border">
+    <h5
+      class="mb-2 text-xl font-medium leading-tight text-center">
+      Managers
+    </h5>
+    <div class="justify-center">
+      <p class="mb-4 text-base">
+        Internal Manager: {internal}
+      </p>
+      <p class="mb-4 text-base">
+          External Manager: {external === "" ? "Not Defined" : 
+          external
+          } 
+      </p>
+    </div>
+    
+    
+  </div>

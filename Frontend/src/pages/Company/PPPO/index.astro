@@ -2,6 +2,8 @@
 import Layout from '../../../layouts/Layout.astro';
 import SideBar from '../../../components/SideBar.astro';
 import Breadcrumb from '../../../components/Breadcrumb.astro';
+import DatesCard from '../../../components/DatesCard.astro';
+import ResponsibleCard from '../../../components/ResponsibleCard.astro';
 const url = "http://127.0.0.1:8000";
 
 let data;
@@ -25,32 +27,53 @@ async function fetchPPPOs() {
 
 await fetchPPPOs();
 ---
-
 <div class="flex">
     <div class="w-1/5 h-full fixed inset-y-0 left-0 min-w-10">
         <SideBar />
     </div>
-    <div class="w-4/5 h-full ml-64 overflow-auto">
-   
-        <div class="flex text-center justify-center m-5 flex-wrap">
-            <Breadcrumb idPPPO={idPPPO} />
-            <div class="m-5">
-                {
-                    data && (
-                        
-                    <p>
-                        Hola, {idPPPO}
+    <div class="w-4/5 h-full ml-64 flex flex-col justify-center items-center">
+        <Breadcrumb idPPPO={idPPPO} />
+        
+        <div class="grid grid-cols-1 grid-rows-1 md:grid-cols-3">
+            <div
+              class="me-4 block rounded-lg bg-white shadow-secondary-1 dark:bg-surface-dark dark:text-white text-surface md:col-span-2">
+              <div class="p-6">
+                <h5
+                  class="mb-2 text-xl font-medium leading-tight">
+                  {data.title}
+                </h5>
+                <p class="mb-4 text-base">
+                    Code:
+                    <a class=" text-blue-600 hover:underline" href=`/Company/PPPO/Sons?parentId=${data.idPPPO}`>
+                        {data.code}
+                    </a>
+                    
+                </p>
+                <p class="mb-4 text-base">
+                    Risk:
+                     {data.risk}
+                </p>
+                <p class="mb-4 text-base">
+                    Priority:
+                     {data.priority}
+                </p>
+                <p class="mb-4 text-base">
+                Description:
+                 {data.description}
+                </p>
+                <p class="mb-4 text-base">
+                    Strategic Goal:
+                     {data.strategic_goal}
                     </p>
-                    <p>
-                    Hola, { data.title}
-                    </p>
-                    )
-                }
+                
+              </div>
             </div>
-            
-           
-            
-        </div>
+          
+            <div
+              class="block rounded-lg bg-white shadow-secondary-1 dark:bg-surface-dark dark:text-white text-surface md:col-span-1">
+              <DatesCard sd={data.start_date} srd={data.start_real_date} fd={data.finish_date} frd={data.finish_real_date}  />
+              <ResponsibleCard internal="Paco Mendez Salas" external="Pedro Sanchez" />
+            </div>
+          </div>
     </div>
-
-
+</div>

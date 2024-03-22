@@ -34,10 +34,10 @@ await fetchPortfolios();
   
  
   <div class="w-4/5 h-full ml-64 overflow-auto">
-   
+    
     <div class="flex text-center justify-center m-5">
-  
       <table class="">
+        
         <thead>
           <tr>
             <th class="border p-2">
@@ -48,12 +48,11 @@ await fetchPortfolios();
         </thead>
         <thead>
             <tr>
+                <th class="border p-2">Type</th>
                 <th class="border p-2">Title</th>
                 <th class="border p-2">Code</th>
-                <th class="border p-2">Start Date</th>
-                <th class="border p-2">Real Start Date</th>
-                <th class="border p-2">Finish Date</th>
-                <th class="border p-2">Real Finish Date</th>
+                <th class="border p-2">Start Date / <br>Real Start Date</th>
+                <th class="border p-2">Finish Date / <br> Real Finish Date</th>
                 <th class="border p-2">Risk</th>
                 <th class="border p-2">Priority</th>
                 <th class="border p-2">Strategic Goal</th>
@@ -62,7 +61,9 @@ await fetchPortfolios();
         <tbody>
             {data && data.map((portfolio) => (
                 <tr >
-                    
+                    <td class="border p-2">
+                      Portfolio
+                      </td>
                     <td class="border p-2 text-blue-600 hover:underline">
                       <a href={`/Company/PPPO?idPPPO=${portfolio.idPPPO}`}>{portfolio.title}</a>
                       
@@ -71,24 +72,23 @@ await fetchPortfolios();
                       <a href={`/Company/PPPO/Sons?parentId=${portfolio.idPPPO}`}>{portfolio.code}</a>
                       
                       </td>
-                    <td class="border p-2">{portfolio.start_date}</td>
-                    <td class="border p-2">
-                      <span class={portfolio.start_real_date === "12/12/2100" ? "text-gray-600" : 
+                    <td class="border p-2">{portfolio.start_date}
+                      - <br><span class={portfolio.start_real_date === "12/12/2100" ? "text-gray-600" : 
                         "text-black"}>
                       {portfolio.start_real_date === "12/12/2100" ? "Not Defined" : 
                       portfolio.start_real_date
                       }
-                      </span>
-                    </td>
+                      </span></td>
+                    
                     <td class="border p-2">
                       <span class={portfolio.finish_date === "12/12/2100" ? "text-gray-600" : 
                         "text-black"}>
                       {portfolio.finish_date === "12/12/2100" ? "Not Defined" : 
                       portfolio.finish_date
-                      }
+                      } 
+
                       </span>
-                    </td>
-                    <td class="border p-2">
+                      - <br>
                       <span class={portfolio.finish_real_date === "12/12/2100" ? "text-gray-600" : 
                         "text-black"}>
                       {portfolio.finish_real_date === "12/12/2100" ? "Not Defined" : 
@@ -96,6 +96,7 @@ await fetchPortfolios();
                       }
                       </span>
                     </td>
+                    
                     <td class="border p-2">
                       <span class={portfolio.risk === 0 ? "text-green-500" : 
               portfolio.risk === 1 ? "text-yellow-500" : 

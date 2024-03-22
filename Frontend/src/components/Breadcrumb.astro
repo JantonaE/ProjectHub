@@ -21,14 +21,14 @@ const companyCode="INDRA"; // Obtenerlo de la sesion
                 >{companyCode}
             </a>
         </li> 
-        {data && data.map((pppo, index) => (
+        {data && data.slice().reverse().map((pppo, index) => (
             <>
                 {index !== data.length - 1 ? (
                     <>
                         <a class="px-1">/</a>
                         <li>
                             <a
-                                href={`/Company/PPPO/Sons?parentId=${pppo.parent_id}`}
+                                href={`/Company/PPPO/Sons?parentId=${pppo.idPPPO}`}
                                 class="text-blue-600 hover:underline motion-reduce:transition-none-none text-black/60 transition duration-200 hover:text-black/80 hover:ease-in-out focus:text-black/80 active:text-black/80 motion-reduce:transition motion-reduce:transition-none dark:text-white/60 dark:hover:text-white/80 dark:focus:text-white/80 dark:active:text-white/80"
                                 >{pppo.code}
                             </a>
