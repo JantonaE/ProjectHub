@@ -1,4 +1,5 @@
 import PPPO from "../api/models/PPPOInput"
+import State from "../api/models/State"
 
 export async function createPPPO(
     radioButton: Number,
@@ -109,6 +110,26 @@ export async function getAncestors(id: string): Promise<PPPO[] | null> {
 
 export async function getTypesOfPPPObyType(type: number): Promise<PPPO[] | null> {
     const apiUrl = `${import.meta.env.BACKEND_URL}/StatesType/${type}`;
+    
+    try {
+        const res = await fetch(apiUrl);
+        
+        if (!res.ok) {
+            throw new Error(`Error fetching data: ${res.statusText}`);
+        }
+        
+        const data = await res.json() as PPPO[];
+        
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return null;
+    }
+}
+
+
+export async function getStateOfPPPO(id: string): Promise<State | null> {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/States/${id}`;
     
     try {
         const res = await fetch(apiUrl);

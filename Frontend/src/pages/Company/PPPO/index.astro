@@ -4,7 +4,9 @@ import SideBar from '../../../components/SideBar.astro';
 import Breadcrumb from '../../../components/Breadcrumb.astro';
 import DatesCard from '../../../components/DatesCard.astro';
 import ResponsibleCard from '../../../components/ResponsibleCard.astro';
-import { getTypesOfPPPObyType } from '../../../lib/lib';
+import StateComponent from '../../../components/StateComponent.astro';
+
+import { getTypesOfPPPObyType, getStateOfPPPO } from '../../../lib/lib';
 const url = "http://127.0.0.1:8000";
 
 let data;
@@ -26,10 +28,36 @@ async function fetchPPPOs() {
     }
 }
 
+
 await fetchPPPOs();
+console.log("hyes");
+console.log(data.state);
+let pppo_state;
+async function fetchState() {
+    try {
+        const response = await fetch(`${url}/States/${data.state}`);
+        console.log(response);
+        if (response.ok) {
+            pppo_state = await response.json();
+        } else {
+            throw new Error('Error al obtener state');
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+//let pppo_state = getStateOfPPPO(data.state);
+
 // Buscar posibles estados
 //const types = await getTypesOfPPPObyType(data.PPPO);
 //console.log(types);
+if(data.state != "To Do"){
+    pppo_state = await fetchState().state;
+}else{
+    pppo_state = data.state;
+}
+console.log("Hoy");
+console.log(pppo_state);
 ---
 <div class="flex">
     <div class="w-1/5 h-full fixed inset-y-0 left-0 min-w-10">
@@ -44,7 +72,7 @@ await fetchPPPOs();
               <div class="p-6">
                 <h5
                   class="mb-2 text-xl font-medium leading-tight">
-                  {data.title} [Estado (progreso..)]
+                  {data.title} <StateComponent state={pppo_state} />
                 </h5>
                 
                 <p class="mb-4 text-base">

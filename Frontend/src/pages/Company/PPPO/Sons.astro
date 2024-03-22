@@ -4,6 +4,7 @@ import SideBar from '../../../components/SideBar.astro';
 //http://127.0.0.1:8000/Companies/Portfolios/65e846ee1a79848c6df345be
 const url = "http://127.0.0.1:8000";
 import Breadcrumb from '../../../components/Breadcrumb.astro';
+import StateComponent from '../../../components/StateComponent.astro';
 
 const parentId = Astro.url.searchParams.get("parentId");
 console.log("Hey");
@@ -52,13 +53,12 @@ async function fetchPPPOs() {
                   <th class="border p-2">Type</th>
                   <th class="border p-2">Title</th>
                   <th class="border p-2">Code</th>
-                  <th class="border p-2">Start Date</th>
-                  <th class="border p-2">Real Start Date</th>
-                  <th class="border p-2">Finish Date</th>
-                  <th class="border p-2">Real Finish Date</th>
+                  <th class="border p-2">Start Date / <br>Real Start Date</th>
+                  <th class="border p-2">Finish Date / <br> Real Finish Date</th>
                   <th class="border p-2">Risk</th>
                   <th class="border p-2">Priority</th>
                   <th class="border p-2">Strategic Goal</th>
+                  <th class="border p-2">State</th>
               </tr>
           </thead>
           <tbody>
@@ -78,24 +78,23 @@ async function fetchPPPOs() {
                       <a href={`/Company/PPPO/Sons?parentId=${portfolio.idPPPO}`}>{portfolio.code}</a>
                       
                       </td>
-                      <td class="border p-2">{portfolio.start_date}</td>
-                      <td class="border p-2">
-                      <span class={portfolio.start_real_date === "12/12/2100" ? "text-gray-600" : 
+                      <td class="border p-2">{portfolio.start_date}
+                      - <br><span class={portfolio.start_real_date === "12/12/2100" ? "text-gray-600" : 
                         "text-black"}>
                       {portfolio.start_real_date === "12/12/2100" ? "Not Defined" : 
                       portfolio.start_real_date
                       }
-                      </span>
-                    </td>
+                      </span></td>
+                    
                     <td class="border p-2">
                       <span class={portfolio.finish_date === "12/12/2100" ? "text-gray-600" : 
                         "text-black"}>
                       {portfolio.finish_date === "12/12/2100" ? "Not Defined" : 
                       portfolio.finish_date
-                      }
+                      } 
+
                       </span>
-                    </td>
-                    <td class="border p-2">
+                      - <br>
                       <span class={portfolio.finish_real_date === "12/12/2100" ? "text-gray-600" : 
                         "text-black"}>
                       {portfolio.finish_real_date === "12/12/2100" ? "Not Defined" : 
@@ -124,7 +123,7 @@ async function fetchPPPOs() {
                       </span>
                     </td>
                       <td class="border p-2">{portfolio.strategic_goal}</td>
-                      {/* Add more table cells for additional portfolio data */}
+                      <td class="border p-2 w-20"><StateComponent state={portfolio.state} /></td>
                   </tr>
               ))}
           </tbody>
