@@ -22,9 +22,10 @@ async function fetchPortfolios() {
       console.error(error);
     }
   }
-
+  console.log("gola");
 await fetchPortfolios();
-  
+
+
 ---
 
 <div class="flex">
@@ -34,8 +35,11 @@ await fetchPortfolios();
   
  
   <div class="w-4/5 h-full ml-64 overflow-auto">
-    
+    <nav class="w-full">
+      <Breadcrumb />
+    </nav>
     <div class="flex text-center justify-center m-5">
+      
       <table class="">
         
         <thead>

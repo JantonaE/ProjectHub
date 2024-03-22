@@ -7,3 +7,5 @@ class Person(BaseModel):
     DNI: str
     name: str
     email: str
+    pppo_internal: Optional[list[str]] = None # list of id of PPPOs in which he is internal manager
+    pppo_external: Optional[list[str]] = None

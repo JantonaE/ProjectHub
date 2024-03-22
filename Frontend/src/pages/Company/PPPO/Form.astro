@@ -22,6 +22,7 @@ console.log("Condiciones: ");
 console.log(parent_id);
 console.log(pppoType);
 
+
 if (Astro.request.method === "POST") {
   try {
     // OBTENER COMPANY DE LA SESION Y padre
@@ -48,6 +49,8 @@ if (Astro.request.method === "POST") {
     const priority = Number(data.get("priority"));
     const internal_manager = data.get("internal_manager").toString();
     const external_manager = data.get("external_manager").toString();
+    // Cambiar:
+    const state = "To Do";
 
     console.log("FORM: ");
     console.log(radioButton);
@@ -70,7 +73,8 @@ if (Astro.request.method === "POST") {
     internal_manager,
     external_manager,
     company,
-    parent_id
+    parent_id,
+    state
 );
   //return Astro.redirect(Astro.url.pathname);
   return Astro.redirect("/Company/PPPOs");
@@ -233,6 +237,7 @@ if (Astro.request.method === "POST") {
           maxlength="300"
           />
       </div>
+      
       <div class="mb-5">
         <label
           for="title"

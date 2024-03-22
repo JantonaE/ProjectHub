@@ -23,3 +23,6 @@ class PPPO(BaseModel):
     ROI: float
     cost_benefit: float
     PPPO: float # 0->Portfolio 1->Program 2->Project 3->Operation
+    state: str # id del state
+    internal_manager: str # id of the person managing
+    external_manager: Optional[str]

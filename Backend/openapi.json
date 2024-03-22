@@ -21,7 +21,7 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/Person"
+                    "$ref": "#/components/schemas/Person-Output"
                   },
                   "type": "array",
                   "title": "Response Find All Persons Persons  Get"
@@ -42,7 +42,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Person"
+                "$ref": "#/components/schemas/Person-Input"
               }
             }
           },
@@ -54,7 +54,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Person"
+                  "$ref": "#/components/schemas/Person-Output"
                 }
               }
             }
@@ -99,7 +99,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Person"
+                  "$ref": "#/components/schemas/Person-Output"
                 }
               }
             }
@@ -179,7 +179,7 @@
               "schema": {
                 "allOf": [
                   {
-                    "$ref": "#/components/schemas/Person"
+                    "$ref": "#/components/schemas/Person-Input"
                   }
                 ],
                 "description": "Datos del person a actualizar",
@@ -194,7 +194,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Person"
+                  "$ref": "#/components/schemas/Person-Output"
                 }
               }
             }
@@ -770,6 +770,261 @@
           }
         }
       }
+    },
+    "/States/": {
+      "get": {
+        "tags": [
+          "States"
+        ],
+        "summary": "Find All States",
+        "description": "Devuelve una lista de states",
+        "operationId": "find_all_states_States__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/State"
+                  },
+                  "type": "array",
+                  "title": "Response Find All States States  Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "States"
+        ],
+        "summary": "Create State",
+        "description": "Crea un state y lo devuelve",
+        "operationId": "create_state_States__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/State"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/State"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/States/{id}": {
+      "get": {
+        "tags": [
+          "States"
+        ],
+        "summary": "Find One State",
+        "description": "Devuelve el state con id pasado por par\u00e1metro",
+        "operationId": "find_one_state_States__id__get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id del state a buscar",
+              "title": "Id"
+            },
+            "description": "Id del state a buscar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/State"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "States"
+        ],
+        "summary": "Delete State",
+        "description": "Elimina el state con id pasado por par\u00e1metro",
+        "operationId": "delete_state_States__id__delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id del state a eliminar",
+              "title": "Id"
+            },
+            "description": "Id del state a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "States"
+        ],
+        "summary": "Update State",
+        "description": "Actualiza el state con id pasado por par\u00e1metro y lo devuelve",
+        "operationId": "update_state_States__id__put",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id del state a actualizar",
+              "title": "Id"
+            },
+            "description": "Id del state a actualizar"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/State"
+                  }
+                ],
+                "description": "Datos del state a actualizar",
+                "title": "State"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/State"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/StatesType/{state_type}": {
+      "get": {
+        "tags": [
+          "States"
+        ],
+        "summary": "Find All States Of Type",
+        "description": "Devuelve una lista de states filtrados",
+        "operationId": "find_all_states_of_type_StatesType__state_type__get",
+        "parameters": [
+          {
+            "name": "state_type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id del state a actualizar",
+              "title": "State Type"
+            },
+            "description": "Id del state a actualizar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/State"
+                  },
+                  "title": "Response Find All States Of Type Statestype  State Type  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -920,6 +1175,25 @@
           "PPPO": {
             "type": "number",
             "title": "Pppo"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "internal_manager": {
+            "type": "string",
+            "title": "Internal Manager"
+          },
+          "external_manager": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External Manager"
           }
         },
         "type": "object",
@@ -938,7 +1212,10 @@
           "earned_value",
           "ROI",
           "cost_benefit",
-          "PPPO"
+          "PPPO",
+          "state",
+          "internal_manager",
+          "external_manager"
         ],
         "title": "PPPO"
       },
@@ -1047,6 +1324,25 @@
           "PPPO": {
             "type": "number",
             "title": "Pppo"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "internal_manager": {
+            "type": "string",
+            "title": "Internal Manager"
+          },
+          "external_manager": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External Manager"
           }
         },
         "type": "object",
@@ -1069,11 +1365,14 @@
           "earned_value",
           "ROI",
           "cost_benefit",
-          "PPPO"
+          "PPPO",
+          "state",
+          "internal_manager",
+          "external_manager"
         ],
         "title": "PPPO"
       },
-      "Person": {
+      "Person-Input": {
         "properties": {
           "idPerson": {
             "type": "string",
@@ -1090,6 +1389,34 @@
           "email": {
             "type": "string",
             "title": "Email"
+          },
+          "pppo_internal": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pppo Internal"
+          },
+          "pppo_external": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pppo External"
           }
         },
         "type": "object",
@@ -1100,6 +1427,87 @@
           "email"
         ],
         "title": "Person"
+      },
+      "Person-Output": {
+        "properties": {
+          "idPerson": {
+            "type": "string",
+            "title": "Idperson"
+          },
+          "DNI": {
+            "type": "string",
+            "title": "Dni"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "pppo_internal": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pppo Internal"
+          },
+          "pppo_external": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pppo External"
+          }
+        },
+        "type": "object",
+        "required": [
+          "idPerson",
+          "DNI",
+          "name",
+          "email",
+          "pppo_internal",
+          "pppo_external"
+        ],
+        "title": "Person"
+      },
+      "State": {
+        "properties": {
+          "idState": {
+            "type": "string",
+            "title": "Idstate"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "type": {
+            "type": "number",
+            "title": "Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "idState",
+          "state",
+          "type"
+        ],
+        "title": "State"
       },
       "ValidationError": {
         "properties": {

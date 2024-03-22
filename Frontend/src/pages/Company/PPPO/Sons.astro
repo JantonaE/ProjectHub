@@ -31,11 +31,14 @@ async function fetchPPPOs() {
   <div class="w-1/5 h-full fixed inset-y-0 left-0 min-w-10">
       <SideBar />
   </div>
-  <div class="w-4/5 ml-64 overflow-auto text-center justify-center m-5">
-      <table class="border-collapse border border-blue-950">
-        <nav class="w-full">
-          <Breadcrumb idPPPO={parentId} />
-        </nav>
+  <div class="w-4/5 h-full ml-64 overflow-auto">
+    <nav class="w-full">
+      <Breadcrumb idPPPO={parentId} />
+    </nav>
+    <div class="flex text-center justify-center m-5">
+      
+      <table class="">
+        
 
         <thead>
           <tr>
@@ -126,6 +129,8 @@ async function fetchPPPOs() {
               ))}
           </tbody>
       </table>
+    </div>
+      
   </div>
 </div>
 

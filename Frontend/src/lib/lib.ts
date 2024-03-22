@@ -17,7 +17,8 @@ export async function createPPPO(
     internal_manager: string,
     external_manager: string,
     company: string,
-    parent_id: string
+    parent_id: string,
+    state: string
 ) :PPPO {
     const apiUrl = `${import.meta.env.BACKEND_URL}/PPPOs/`;
     console.log("LIB: ");
@@ -47,7 +48,10 @@ export async function createPPPO(
                 earned_value: 0,
                 ROI: 0,
                 cost_benefit: 0,            
-                PPPO: radioButton
+                PPPO: radioButton,
+                state: state,
+                internal_manager: internal_manager,
+                external_manager: external_manager
             }),
         });
     
@@ -89,6 +93,26 @@ export async function getAncestors(id: string): Promise<PPPO[] | null> {
     try {
         const res = await fetch(apiUrl);
         console.log("Llega");
+        if (!res.ok) {
+            throw new Error(`Error fetching data: ${res.statusText}`);
+        }
+        
+        const data = await res.json() as PPPO[];
+        
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return null;
+    }
+}
+
+
+export async function getTypesOfPPPObyType(type: number): Promise<PPPO[] | null> {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/StatesType/${type}`;
+    
+    try {
+        const res = await fetch(apiUrl);
+        
         if (!res.ok) {
             throw new Error(`Error fetching data: ${res.statusText}`);
         }

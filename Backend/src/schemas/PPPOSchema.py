@@ -23,7 +23,10 @@ def PPPOEntity(item) -> dict:
         "earned_value": item["earned_value"],
         "ROI": item["ROI"],
         "cost_benefit": item["cost_benefit"],
-        "PPPO": item["PPPO"]
+        "PPPO": item["PPPO"],
+        "state": str(item["state"]),
+        "internal_manager": str(item["internal_manager"]),
+        "external_manager": str(item["external_manager"])
     }
 
 def PPPOEntityList(entity) -> list:
