@@ -8,7 +8,8 @@ def PersonEntity(item) -> dict:
         "email": str(item["email"]),
         "pppo_internal": item["pppo_internal"],
         "pppo_external": item["pppo_external"],
-        "password": str(item["password"])
+        "password": str(item["password"]),
+        "company": str(item["company"])
     }
 
 def PersonEntityList(entity) -> list:

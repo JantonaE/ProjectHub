@@ -1557,6 +1557,10 @@
           "password": {
             "type": "string",
             "title": "Password"
+          },
+          "company": {
+            "type": "string",
+            "title": "Company"
           }
         },
         "type": "object",
@@ -1565,7 +1569,8 @@
           "DNI",
           "name",
           "email",
-          "password"
+          "password",
+          "company"
         ],
         "title": "Person"
       },
@@ -1618,6 +1623,10 @@
           "password": {
             "type": "string",
             "title": "Password"
+          },
+          "company": {
+            "type": "string",
+            "title": "Company"
           }
         },
         "type": "object",
@@ -1628,7 +1637,8 @@
           "email",
           "pppo_internal",
           "pppo_external",
-          "password"
+          "password",
+          "company"
         ],
         "title": "Person"
       },
