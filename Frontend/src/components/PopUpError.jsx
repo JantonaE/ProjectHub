@@ -14,7 +14,7 @@ function Component(props) {
   return (
     <>
       {isVisible && (
-        <Alert color="failure" className="relative" icon={HiInformationCircle}>
+        <Alert color="failure" className="relative p-2 m-2 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200" icon={HiInformationCircle}>
           <span className="font-medium">Invalid Code! </span> There is an existing brother with the same code.
           <button className="absolute font-medium right-1 px-3" onClick={handleDismiss}>X</button>
           

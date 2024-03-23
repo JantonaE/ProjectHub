@@ -43,8 +43,7 @@ if (Astro.request.method === "POST") {
       console.log(invalid_code);
       // Meter Pop Up
 
-      //return Astro.redirect(`/Company/PPPO/Form?parentId=${parent_id}`); 
-
+    
     }else{
       console.log("Valido");
       console.log(invalid_code);
@@ -84,9 +83,13 @@ if (Astro.request.method === "POST") {
       parent_id,
       state
   );
-    //return Astro.redirect(Astro.url.pathname);
+    
     formSent = true;
-    //return Astro.redirect("/Company/PPPOs");
+    if (parent_id == ""){
+      return Astro.redirect("/Company/PPPOs");
+    }else{
+      return Astro.redirect(`/Company/PPPO/Sons?parentId=${parent_id}`);
+    }
     }
     
   } catch (error) {
@@ -103,8 +106,7 @@ if (Astro.request.method === "POST") {
   
   <div class="mx-auto w-full max-w-[550px] bg-white">
     {invalid_code && <PopUpError client:load />}
-    {!invalid_code && formSent && <PopUpCreation type={radioButton == 0 ? "Portfolio" : 
-    radioButton == 1 ? "Program" : radioButton == 2 ? "Project" : "Operation"} client:load />}
+    
     <form action="" method="POST">
       
       <div class="mb-5">
