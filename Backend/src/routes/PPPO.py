@@ -47,6 +47,17 @@ async def find_pppo_sons(id: str = Path(description="Id del pppo a buscar sus pa
     return resList
 # ---
 
+# See if there is an existing "brother" with same code
+
+@pppo.get("/PPPOs/Brother/", tags=["PPPOs"], response_model=bool, description="Verifica si hay algún hermano con el mismo código del padre")
+async def find_pppo_brothers_with_code(id: str = Query(None, description="Id del PPPO padre"),
+                                       code: str = Query(None, description="Código del PPPO")) -> bool:
+    parent_id = ObjectId(id)
+    count = conn.ProjectHub.PPPO.count_documents({"parent_id": id, "code": code})
+    return count >= 1
+
+
+# ---
 @pppo.post("/PPPOs/", tags=["PPPOs"], response_model=PPPO, description="Crea un pppo y lo devuelve")
 async def create_pppo(port: PPPO) -> PPPO:
     new_port = dict(port)

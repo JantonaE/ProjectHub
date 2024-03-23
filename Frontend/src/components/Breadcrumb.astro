@@ -1,11 +1,9 @@
 ---
 import {getAncestors} from '../lib/lib';
 const { idPPPO } = Astro.props;
-console.log("ID: ");
-console.log(idPPPO);
+
 const data = await getAncestors(idPPPO);
-console.log("Info: ");
-console.log(data);
+
 const companyCode="INDRA"; // Obtenerlo de la sesion
 ---
 

@@ -146,3 +146,22 @@ export async function getStateOfPPPO(id: string): Promise<State | null> {
         return null;
     }
 }
+
+export async function lookForBrothersWithCode(id: string, code: string) {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/PPPOs/Brother/?id=${id}&code=${code}`;
+    
+    try {
+        const res = await fetch(apiUrl);
+        
+        if (!res.ok) {
+            throw new Error(`Error fetching data: ${res.statusText}`);
+        }
+        
+        const data = await res.json();
+        
+        return data; // Devuelve true si hay hermanos con el mismo código, false de lo contrario
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return null;
+    }
+}

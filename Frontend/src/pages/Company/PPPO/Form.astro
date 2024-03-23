@@ -1,83 +1,88 @@
 ---
 import * as lib from "../../../lib/lib"
+import { lookForBrothersWithCode } from "../../../lib/lib";
 import {formatDate} from "../../../lib/utils.ts"
 let parent_id = Astro.url.searchParams.get("parentId");
 let pppoType;
-console.log("hey");
-console.log(parent_id);
+
 if (parent_id == null){
     parent_id = "";
     // SOLO PODRAS ELEGIR PORTFOLIO
     pppoType = -1;
-    console.log("Tipo: ");
-    console.log(pppoType); 
+
 }else{ // OTRAS OPCIONES A ELEGIR
     const pppo = await lib.getPPPOById(parent_id);
     pppoType = pppo.PPPO;
-    console.log("Tipo: ");
-    console.log(pppoType); 
-    
+
 }
-console.log("Condiciones: ");
-console.log(parent_id);
-console.log(pppoType);
 
 
 if (Astro.request.method === "POST") {
   try {
     // OBTENER COMPANY DE LA SESION Y padre
     
-      
-    console.log(parent_id);
     const company= "65f17d33848e9bfa44eca8cb"; // sesion
     
     //__-----
     const data = await Astro.request.formData();
 
     const radioButton = Number(data.get("radio1"));
-    const title = data.get("title").toString();
-    const description = data.get("description").toString();
     const code = data.get("code").toString();
-    const strategic_goal = data.get("strategic_goal").toString();
-    const planned_value = Number(data.get("planned_value"));
-    const actual_cost = Number(data.get("actual_cost"));
-    const start_date = formatDate(data.get("start_date"));
-    const finish_date = formatDate(data.get("finish_date"));
-    const start_real_date = formatDate(data.get("start_real_date"));
-    const finish_real_date = formatDate(data.get("finish_real_date"));
-    const risk = Number(data.get("risk"));
-    const priority = Number(data.get("priority"));
-    const internal_manager = data.get("internal_manager").toString();
-    const external_manager = data.get("external_manager").toString();
-    // Cambiar:
-    const state = "To Do";
+    // Look if there is a brother with the same code -> Cant create
 
-    console.log("FORM: ");
-    console.log(radioButton);
-    console.log(priority);
-    console.log(risk);
-    const res = await lib.createPPPO(
-    radioButton,
-    title,
-    description,
-    code,
-    strategic_goal,
-    planned_value,
-    actual_cost,
-    start_date,
-    finish_date,
-    start_real_date,
-    finish_real_date,
-    risk,
-    priority,
-    internal_manager,
-    external_manager,
-    company,
-    parent_id,
-    state
-);
-  //return Astro.redirect(Astro.url.pathname);
-  return Astro.redirect("/Company/PPPOs");
+    console.log(parent_id);
+    console.log(code);
+    let invalid_code = await lookForBrothersWithCode(parent_id,code);
+    if(invalid_code){
+      console.log("Invalido");
+      console.log(invalid_code);
+      // Meter Pop Up
+
+      return Astro.redirect(`/Company/PPPO/Form?parentId=${parent_id}`); 
+
+    }else{
+      console.log("Valido");
+      console.log(invalid_code);
+      const title = data.get("title").toString();
+      const description = data.get("description").toString();
+      const strategic_goal = data.get("strategic_goal").toString();
+      const planned_value = Number(data.get("planned_value"));
+      const actual_cost = Number(data.get("actual_cost"));
+      const start_date = formatDate(data.get("start_date"));
+      const finish_date = formatDate(data.get("finish_date"));
+      const start_real_date = formatDate(data.get("start_real_date"));
+      const finish_real_date = formatDate(data.get("finish_real_date"));
+      const risk = Number(data.get("risk"));
+      const priority = Number(data.get("priority"));
+      const internal_manager = data.get("internal_manager").toString();
+      const external_manager = data.get("external_manager").toString();
+      // Cambiar:
+      const state = "To Do";
+
+      const res = await lib.createPPPO(
+      radioButton,
+      title,
+      description,
+      code,
+      strategic_goal,
+      planned_value,
+      actual_cost,
+      start_date,
+      finish_date,
+      start_real_date,
+      finish_real_date,
+      risk,
+      priority,
+      internal_manager,
+      external_manager,
+      company,
+      parent_id,
+      state
+  );
+    //return Astro.redirect(Astro.url.pathname);
+    return Astro.redirect("/Company/PPPOs");
+    }
+    
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
