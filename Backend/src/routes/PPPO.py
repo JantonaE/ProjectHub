@@ -56,6 +56,21 @@ async def find_pppo_brothers_with_code(id: str = Query(None, description="Id del
     count = conn.ProjectHub.PPPO.count_documents({"parent_id": id, "code": code})
     return count >= 1
 
+# ----
+
+# See if there is an existing "brother" with same code in the company
+
+@pppo.get("/PPPOs/BrotherAncestor/", tags=["PPPOs"], response_model=bool, description="Verifica si hay algún hermano con el mismo código del padre")
+async def find_pppo_ancestor_with_code(id: str = Query(None, description="Id de la compañia"),
+                                       code: str = Query(None, description="Código del PPPO")) -> bool:
+    
+    count = conn.ProjectHub.PPPO.count_documents({"parent_id": "", "code": code,"company":id})
+    return count >= 1
+
+
+# ---
+
+
 
 # ---
 @pppo.post("/PPPOs/", tags=["PPPOs"], response_model=PPPO, description="Crea un pppo y lo devuelve")

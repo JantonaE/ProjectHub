@@ -850,6 +850,63 @@
         }
       }
     },
+    "/PPPOs/BrotherAncestor/": {
+      "get": {
+        "tags": [
+          "PPPOs"
+        ],
+        "summary": "Find Pppo Ancestor With Code",
+        "description": "Verifica si hay alg\u00fan hermano con el mismo c\u00f3digo del padre",
+        "operationId": "find_pppo_ancestor_with_code_PPPOs_BrotherAncestor__get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Id de la compa\u00f1ia",
+              "title": "Id"
+            },
+            "description": "Id de la compa\u00f1ia"
+          },
+          {
+            "name": "code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "C\u00f3digo del PPPO",
+              "title": "Code"
+            },
+            "description": "C\u00f3digo del PPPO"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean",
+                  "title": "Response Find Pppo Ancestor With Code Pppos Brotherancestor  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/States/": {
       "get": {
         "tags": [
