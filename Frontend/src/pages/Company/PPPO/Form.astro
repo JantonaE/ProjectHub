@@ -1,9 +1,14 @@
 ---
+import PopUpCreation from "../../../components/PopUpCreation.jsx";
+import PopUpError from "../../../components/PopUpError.jsx";
 import * as lib from "../../../lib/lib"
 import { lookForBrothersWithCode } from "../../../lib/lib";
 import {formatDate} from "../../../lib/utils.ts"
 let parent_id = Astro.url.searchParams.get("parentId");
 let pppoType;
+let invalid_code;
+let formSent = false;
+let radioButton;
 
 if (parent_id == null){
     parent_id = "";
@@ -26,19 +31,19 @@ if (Astro.request.method === "POST") {
     //__-----
     const data = await Astro.request.formData();
 
-    const radioButton = Number(data.get("radio1"));
+    radioButton = Number(data.get("radio1"));
     const code = data.get("code").toString();
     // Look if there is a brother with the same code -> Cant create
 
     console.log(parent_id);
     console.log(code);
-    let invalid_code = await lookForBrothersWithCode(parent_id,code);
+    invalid_code = await lookForBrothersWithCode(parent_id,code);
     if(invalid_code){
       console.log("Invalido");
       console.log(invalid_code);
       // Meter Pop Up
 
-      return Astro.redirect(`/Company/PPPO/Form?parentId=${parent_id}`); 
+      //return Astro.redirect(`/Company/PPPO/Form?parentId=${parent_id}`); 
 
     }else{
       console.log("Valido");
@@ -80,7 +85,8 @@ if (Astro.request.method === "POST") {
       state
   );
     //return Astro.redirect(Astro.url.pathname);
-    return Astro.redirect("/Company/PPPOs");
+    formSent = true;
+    //return Astro.redirect("/Company/PPPOs");
     }
     
   } catch (error) {
@@ -92,8 +98,13 @@ if (Astro.request.method === "POST") {
 
 
 ---
+
 <div class="flex items-center justify-center p-12">
+  
   <div class="mx-auto w-full max-w-[550px] bg-white">
+    {invalid_code && <PopUpError client:load />}
+    {!invalid_code && formSent && <PopUpCreation type={radioButton == 0 ? "Portfolio" : 
+    radioButton == 1 ? "Program" : radioButton == 2 ? "Project" : "Operation"} client:load />}
     <form action="" method="POST">
       
       <div class="mb-5">

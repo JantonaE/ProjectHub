@@ -19,4 +19,8 @@ npm run openapi
 npm run astro dev
 ```
 
+## Utilizar Flowbite
+```sh
+npm install flowbite-react
+```
 
