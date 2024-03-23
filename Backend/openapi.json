@@ -212,6 +212,28 @@
         }
       }
     },
+    "/Person/Login/": {
+      "post": {
+        "tags": [
+          "Persons"
+        ],
+        "summary": "Find Logged Person1",
+        "description": "Devuelve la persona con los parametros pasados",
+        "operationId": "find_logged_person1_Person_Login__post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Person-Output"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/Companies/": {
       "get": {
         "tags": [
@@ -1474,6 +1496,10 @@
               }
             ],
             "title": "Pppo External"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
           }
         },
         "type": "object",
@@ -1481,7 +1507,8 @@
           "idPerson",
           "DNI",
           "name",
-          "email"
+          "email",
+          "password"
         ],
         "title": "Person"
       },
@@ -1530,6 +1557,10 @@
               }
             ],
             "title": "Pppo External"
+          },
+          "password": {
+            "type": "string",
+            "title": "Password"
           }
         },
         "type": "object",
@@ -1539,7 +1570,8 @@
           "name",
           "email",
           "pppo_internal",
-          "pppo_external"
+          "pppo_external",
+          "password"
         ],
         "title": "Person"
       },

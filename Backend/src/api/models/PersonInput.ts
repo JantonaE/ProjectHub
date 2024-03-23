@@ -55,6 +55,12 @@ export interface PersonInput {
      * @memberof PersonInput
      */
     pppoExternal?: Array<string>;
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonInput
+     */
+    password: string;
 }
 
 /**
@@ -65,6 +71,7 @@ export function instanceOfPersonInput(value: object): boolean {
     if (!('dNI' in value)) return false;
     if (!('name' in value)) return false;
     if (!('email' in value)) return false;
+    if (!('password' in value)) return false;
     return true;
 }
 
@@ -84,6 +91,7 @@ export function PersonInputFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'email': json['email'],
         'pppoInternal': json['pppo_internal'] == null ? undefined : json['pppo_internal'],
         'pppoExternal': json['pppo_external'] == null ? undefined : json['pppo_external'],
+        'password': json['password'],
     };
 }
 
@@ -99,6 +107,7 @@ export function PersonInputToJSON(value?: PersonInput | null): any {
         'email': value['email'],
         'pppo_internal': value['pppoInternal'],
         'pppo_external': value['pppoExternal'],
+        'password': value['password'],
     };
 }
 

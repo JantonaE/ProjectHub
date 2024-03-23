@@ -13,7 +13,6 @@ let data;
 //const idPPPO = params.get("idPPPO");
 
 const idPPPO = Astro.url.searchParams.get("idPPPO");
-console.log(Astro.url.searchParams.get("idPPPO"));
 
 async function fetchPPPOs() {
     try {
@@ -30,13 +29,11 @@ async function fetchPPPOs() {
 
 
 await fetchPPPOs();
-console.log("hyes");
-console.log(data.state);
+
 let pppo_state;
 async function fetchState() {
     try {
         const response = await fetch(`${url}/States/${data.state}`);
-        console.log(response);
         if (response.ok) {
             pppo_state = await response.json();
         } else {
@@ -56,8 +53,7 @@ if(data.state != "To Do"){
 }else{
     pppo_state = data.state;
 }
-console.log("Hoy");
-console.log(pppo_state);
+
 ---
 <div class="flex">
     <div class="w-1/5 h-full fixed inset-y-0 left-0 min-w-10">

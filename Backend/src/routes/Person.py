@@ -1,6 +1,7 @@
 
 from typing import Optional
-from fastapi import APIRouter, Body, Path,Response
+from fastapi import APIRouter, Body, Path, Request,Response
+from fastapi.params import Form
 
 from ..config.db import conn
 from ..schemas.PersonSchema import PersonEntity, PersonEntityList
@@ -40,3 +41,20 @@ async def update_person(id: str = Path(description="Id del person a actualizar")
     conn.ProjectHub.Person.find_one_and_update({"_id": ObjectId(id)}, {"$set": dict(person)})
 
     return PersonEntity(conn.ProjectHub.Person.find_one({"_id": ObjectId(id)}))
+
+# Get User with email and password
+from fastapi import HTTPException
+
+
+@person.post("/Person/Login/", tags=["Persons"], response_model=Person, description="Devuelve la persona con los parametros pasados")
+async def find_logged_person1(request: Request) -> Person:
+    data = await request.form()
+    email = data.get("email")
+    password = data.get("password")
+    
+    if email and password:
+        user = conn.ProjectHub.Person.find_one({"email": email, "password": password})
+        if user is not None:
+            return PersonEntity(user)
+    raise HTTPException(status_code=404, detail="Credenciales inválidas")
+

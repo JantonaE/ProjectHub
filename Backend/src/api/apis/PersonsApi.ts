@@ -36,6 +36,11 @@ export interface DeletePersonPersonsIdDeleteRequest {
     id: string;
 }
 
+export interface FindLoggedPersonPersonsLoginPostRequest {
+    email: string;
+    password: string;
+}
+
 export interface FindOnePersonPersonsIdGetRequest {
     id: string;
 }
@@ -147,6 +152,71 @@ export class PersonsApi extends runtime.BaseAPI {
      */
     async findAllPersonsPersonsGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<PersonOutput>> {
         const response = await this.findAllPersonsPersonsGetRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Devuelve el person con los parametros pasados
+     * Find Logged Person
+     */
+    async findLoggedPersonPersonsLoginPostRaw(requestParameters: FindLoggedPersonPersonsLoginPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PersonOutput>> {
+        if (requestParameters['email'] == null) {
+            throw new runtime.RequiredError(
+                'email',
+                'Required parameter "email" was null or undefined when calling findLoggedPersonPersonsLoginPost().'
+            );
+        }
+
+        if (requestParameters['password'] == null) {
+            throw new runtime.RequiredError(
+                'password',
+                'Required parameter "password" was null or undefined when calling findLoggedPersonPersonsLoginPost().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const consumes: runtime.Consume[] = [
+            { contentType: 'application/x-www-form-urlencoded' },
+        ];
+        // @ts-ignore: canConsumeForm may be unused
+        const canConsumeForm = runtime.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): any };
+        let useForm = false;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new URLSearchParams();
+        }
+
+        if (requestParameters['email'] != null) {
+            formParams.append('email', requestParameters['email'] as any);
+        }
+
+        if (requestParameters['password'] != null) {
+            formParams.append('password', requestParameters['password'] as any);
+        }
+
+        const response = await this.request({
+            path: `/Persons/Login/`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PersonOutputFromJSON(jsonValue));
+    }
+
+    /**
+     * Devuelve el person con los parametros pasados
+     * Find Logged Person
+     */
+    async findLoggedPersonPersonsLoginPost(requestParameters: FindLoggedPersonPersonsLoginPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PersonOutput> {
+        const response = await this.findLoggedPersonPersonsLoginPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

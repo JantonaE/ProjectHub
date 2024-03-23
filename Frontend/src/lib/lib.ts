@@ -165,3 +165,56 @@ export async function lookForBrothersWithCode(id: string, code: string) {
         return null;
     }
 }
+/*
+export async function loginUser(email: string, password: string) {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/Persons/Login/`;
+    
+    try {
+        const res = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
+        console.log(JSON.stringify({ email, password }));
+        console.log(res);
+        console.log("Peta");
+        if (!res.ok) {
+            throw new Error(`Error fetching data: ${res.statusText}`);
+        }
+        
+        const data = await res.json();
+        
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return null;
+    }
+}
+*/
+
+
+export async function loginUser(email: string, password: string): Promise<Person | null> {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/Person/Login/`;
+    
+    try {
+        const res = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({ email, password })
+        });
+        
+        if (!res.ok) {
+            throw new Error(`Error fetching data: ${res.statusText}`);
+        }
+        
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return null;
+    }
+}

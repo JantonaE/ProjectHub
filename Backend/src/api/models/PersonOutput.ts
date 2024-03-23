@@ -55,6 +55,12 @@ export interface PersonOutput {
      * @memberof PersonOutput
      */
     pppoExternal: Array<string> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof PersonOutput
+     */
+    password: string;
 }
 
 /**
@@ -67,6 +73,7 @@ export function instanceOfPersonOutput(value: object): boolean {
     if (!('email' in value)) return false;
     if (!('pppoInternal' in value)) return false;
     if (!('pppoExternal' in value)) return false;
+    if (!('password' in value)) return false;
     return true;
 }
 
@@ -86,6 +93,7 @@ export function PersonOutputFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'email': json['email'],
         'pppoInternal': json['pppo_internal'],
         'pppoExternal': json['pppo_external'],
+        'password': json['password'],
     };
 }
 
@@ -101,6 +109,7 @@ export function PersonOutputToJSON(value?: PersonOutput | null): any {
         'email': value['email'],
         'pppo_internal': value['pppoInternal'],
         'pppo_external': value['pppoExternal'],
+        'password': value['password'],
     };
 }
 
