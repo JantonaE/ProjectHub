@@ -1,10 +1,23 @@
 ---
-import {getAncestors} from '../lib/lib';
+import { getUser } from '../lib/auth';
+import {getAncestors, getCompanyById} from '../lib/lib';
 const { idPPPO } = Astro.props;
 
-const data = await getAncestors(idPPPO);
 
-const companyCode="INDRA"; // Obtenerlo de la sesion
+let user = await getUser();
+if(user == null){
+  return Astro.redirect('/');
+}
+let company = await getCompanyById(user.company);
+const companyCode=company.code; // Obtenerlo de la sesion
+
+let data;
+if(idPPPO != null){
+    data = await getAncestors(idPPPO);
+}else{
+    const data = companyCode;
+}
+
 ---
 
 <nav

@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { setUser } from '../lib/auth';
 import * as lib from "../lib/lib"
 
 if (Astro.request.method === "POST") {
@@ -15,9 +16,10 @@ if (Astro.request.method === "POST") {
   );
 	console.log("Sesion");
     console.log(res);
-	// Guardar sesion el user y la compañia !!!
+	await setUser(res);
 
-    //return Astro.redirect("/Company/PPPOs");
+
+    return Astro.redirect("/Company/PPPOs");
     }catch (error) {
     if (error instanceof Error) {
       console.error(error.message);

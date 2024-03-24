@@ -1,5 +1,8 @@
 import PPPO from "../api/models/PPPOInput"
 import State from "../api/models/State"
+//import Company from "../api/models/Company"
+import type { Person } from "../api/models/Person";
+import type { Company } from "../api/models/Company";
 
 export async function createPPPO(
     radioButton: Number,
@@ -203,6 +206,25 @@ export async function loginUser(email: string, password: string): Promise<Person
         }
         
         const data = await res.json();
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return null;
+    }
+}
+
+export async function getCompanyById(id: string): Promise<Company | null> {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/Companies/${id}`;
+    
+    try {
+        const res = await fetch(apiUrl);
+        
+        if (!res.ok) {
+            throw new Error(`Error fetching data: ${res.statusText}`);
+        }
+        
+        const data = await res.json() as Company;
+        
         return data;
     } catch (error) {
         console.error("Error fetching data:", error);

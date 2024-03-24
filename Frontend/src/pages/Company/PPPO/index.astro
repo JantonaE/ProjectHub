@@ -7,7 +7,12 @@ import ResponsibleCard from '../../../components/ResponsibleCard.astro';
 import StateComponent from '../../../components/StateComponent.astro';
 
 import { getTypesOfPPPObyType, getStateOfPPPO } from '../../../lib/lib';
+import { getUser } from '../../../lib/auth';
 const url = "http://127.0.0.1:8000";
+let cid = await getUser();
+if(cid == null){
+  return Astro.redirect('/');
+}
 
 let data;
 //const idPPPO = params.get("idPPPO");

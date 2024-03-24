@@ -5,9 +5,13 @@ import SideBar from '../../../components/SideBar.astro';
 const url = "http://127.0.0.1:8000";
 import Breadcrumb from '../../../components/Breadcrumb.astro';
 import StateComponent from '../../../components/StateComponent.astro';
+import { getUser } from '../../../lib/auth';
 
 const parentId = Astro.url.searchParams.get("parentId");
-
+let cid = await getUser();
+if(cid == null){
+  return Astro.redirect('/');
+}
 
 let data;
 async function fetchPPPOs() {

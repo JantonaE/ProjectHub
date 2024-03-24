@@ -1,6 +1,7 @@
 ---
 import PopUpCreation from "../../../components/PopUpCreation.jsx";
 import PopUpError from "../../../components/PopUpError.jsx";
+import { getUser } from "../../../lib/auth";
 import * as lib from "../../../lib/lib"
 import { lookForBrothersWithCode ,lookForBrothersAncestorWithCode } from "../../../lib/lib";
 import {formatDate} from "../../../lib/utils.ts"
@@ -9,7 +10,14 @@ let pppoType;
 let invalid_code;
 let formSent = false;
 let radioButton;
-
+let company;
+let user = await getUser();
+if(user == null){
+  console.log("redirect");
+  return Astro.redirect('/');
+}else{
+  company = user.company;
+}
 if (parent_id == null){
     parent_id = "";
     // SOLO PODRAS ELEGIR PORTFOLIO
@@ -26,7 +34,6 @@ if (Astro.request.method === "POST") {
   try {
     // OBTENER COMPANY DE LA SESION Y padre
     
-    const company= "65f17d33848e9bfa44eca8cb"; // sesion
     
     //__-----
     const data = await Astro.request.formData();
