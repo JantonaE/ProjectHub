@@ -1,6 +1,11 @@
 {
   "dependencies": {
+    "@astrojs/react": "^3.1.0",
+    "@types/react": "^18.2.69",
+    "@types/react-dom": "^18.2.22",
     "flowbite-react": "^0.7.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3"
   }
 }

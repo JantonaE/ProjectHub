@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import { setUser } from '../lib/auth';
 import * as lib from "../lib/lib"
 
+setUser(null); // ?¿?
+
 if (Astro.request.method === "POST") {
   try {
 	console.log("Sesion1");

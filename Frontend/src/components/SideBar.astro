@@ -1,8 +1,8 @@
 ---
-import Dropdown from '../components/Dropdown.jsx';
+//import Dropdown from '../components/Dropdown.jsx';
 import { getUser, setUser } from '../lib/auth';
 import { getCompanyById } from '../lib/lib';
-import Logout from "../components/Logout.jsx";
+
 
 
 //http://127.0.0.1:8000/Companies/Portfolios/65e846ee1a79848c6df345be
@@ -16,7 +16,11 @@ if(user == null){
   return Astro.redirect('/');
 }
 let company = await getCompanyById(user.company);
-const companyCode=company.code; // Obtenerlo de la sesion
+let companyCode = "";
+if(company != null){
+  companyCode=company.code;
+}
+
 const companyId = user.company;
 
 let data;
@@ -48,7 +52,7 @@ async function fetchPortfolios() {
                 </svg>
                <!-- === Nombre de la compañia === -->
                 {company?.name}
-                <Logout setUser={setUser} />
+                
               </span>          </a>
             <button class="hidden rounded-lg focus:outline-none focus:shadow-outline">
               <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
@@ -57,14 +61,18 @@ async function fetchPortfolios() {
               </svg>
             </button>
           </div>
-          
-          {data && data.length > 0 ? (
+          <!-- === {data && data.length > 0 ? (
             data.map((portfolio) => (
               <Dropdown key={portfolio.idPortfolio} id={portfolio.idPortfolio} title={portfolio.title} />
             ))
           ) : (
             <p>No portfolios available</p>
+            
           )}
+          
+           === -->
+          <a href="/">Cerrar Sesion</a>
+          
         </div>
       </div>
     </div>

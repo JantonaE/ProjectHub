@@ -9,7 +9,11 @@ if(user == null){
   return Astro.redirect('/');
 }
 let company = await getCompanyById(user.company);
-const companyCode=company.code; // Obtenerlo de la sesion
+let companyCode = "";
+if (company != null){
+    companyCode=company.code; // Obtenerlo de la sesion
+}
+
 
 let data;
 if(idPPPO != null){

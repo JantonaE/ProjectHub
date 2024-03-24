@@ -1,22 +1,23 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+//import Layout from '../../layouts/Layout.astro';
 import SideBar from '../../components/SideBar.astro';
-import FilterNavBar from '../../components/FilterNavBar.astro';
+//import FilterNavBar from '../../components/FilterNavBar.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import StateComponent from '../../components/StateComponent.astro';
 import { getUser } from '../../lib/auth';
-//http://127.0.0.1:8000/Companies/Portfolios/65e846ee1a79848c6df345be
+
+
 const url = "http://127.0.0.1:8000";
-//const { userLogged, params, mapa } = Astro.props;
-const userLogged = "";
-//const companyId = "65f17d33848e9bfa44eca8cb";
-console.log("Desde APP:");
+
+
+console.log("Desde PPPOs:");
 let cid = await getUser();
 let companyId: any;
 if(cid == null){
   console.log("redirect");
   return Astro.redirect('/');
 }else{
+  console.log("User:");
   console.log(cid);
   companyId = cid.company;
   console.log(cid.company);
