@@ -1,0 +1,61 @@
+---
+import TreeView from "../components/TreeView";
+import * as lib from "../lib/lib";
+import { getUser } from "../lib/auth";
+
+async function getAllPPPOs(portfolioId) {
+    let result = [];
+    let children = await lib.fetchPPPOs(portfolioId);
+    if (children) {
+        for (let child of children) {
+            let childInfo = {
+                label: child.title, // Utiliza 'label' en lugar de 'title' para ajustarte al formato deseado
+            };
+            let grandchildren = await getAllPPPOs(child.idPPPO);
+            if (grandchildren.length > 0) {
+                childInfo.submenu = grandchildren;
+            }
+            result.push(childInfo);
+        }
+    }
+    return result;
+}
+
+let user = await getUser();
+let company;
+if (user == null) {
+    console.log("redirect");
+    return Astro.redirect('/');
+} else {
+    company = user.company;
+}
+
+let portfolios = await lib.fetchPortfolios(company);
+
+let allData = [];
+for (let portfolio of portfolios) {
+    let portfolioInfo = {
+        label: portfolio.title, // Utiliza 'label' en lugar de 'title' para ajustarte al formato deseado
+    };
+    let children = await getAllPPPOs(portfolio.idPPPO);
+    if (children.length > 0) {
+        portfolioInfo.submenu = children;
+    }
+    allData.push(portfolioInfo);
+}
+
+console.log(JSON.stringify(allData, null, 2)); // Imprimir como formato JSON para mejor visualización
+const menuData= JSON.stringify(allData, null, 2);
+console.log(typeof(menuData));
+console.log("parse");
+console.log(typeof(JSON.parse(menuData)));
+---
+{
+  allData && allData.map((pppo) =>(
+    <h1>{pppo.title}</h1>
+  ))
+}
+
+
+
+<TreeView menuData={menuData} client:load />

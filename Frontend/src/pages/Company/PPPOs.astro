@@ -82,7 +82,7 @@ await fetchPortfolios();
             </tr>
         </thead>
         <tbody>
-            {data && data.map((portfolio: { idPPPO: any; title: unknown; code: unknown; start_date: unknown; start_real_date: unknown; finish_date: unknown; finish_real_date: unknown; risk: number; priority: number; strategic_goal: unknown; state: any; }) => (
+            {data && data.map((portfolio) => (
                 <tr >
                     <td class="border p-2">
                       Portfolio

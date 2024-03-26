@@ -231,3 +231,37 @@ export async function getCompanyById(id: string): Promise<Company | null> {
         return null;
     }
 }
+
+
+export async function fetchPortfolios(companyId: string): Promise<PPPO[] | null> {
+    const apiUrl = `http://127.0.0.1:8000/Companies/Portfolios/${companyId}`;
+    try {
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+            const portfolios = await response.json();
+            return portfolios;
+        } else {
+            throw new Error('Error al obtener portfolios');
+        }
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+
+export async function fetchPPPOs(parentId: string): Promise<PPPO[] | null> {
+    const apiUrl = `http://127.0.0.1:8000/PPPOs/Sons/${parentId}`;
+    try {
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+            const pppos = await response.json();
+            return pppos;
+        } else {
+            throw new Error('Error al obtener PPPOs');
+        }
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}

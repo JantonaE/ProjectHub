@@ -1,0 +1,23 @@
+---
+import Dropdown123 from "./Dropdown123.astro";
+const url = "http://127.0.0.1:8000";
+import * as lib from "../lib/lib"
+
+const {parentId} = Astro.props;
+console.log(parentId);
+
+let data = await lib.fetchPPPOs(parentId);
+  
+---
+
+{
+  data && data.map((portfolio,index) =>(
+  <a href={`/Company/PPPO/Sons?parentId=${portfolio.idPPPO}`}>{portfolio.title}</a>
+  <br>
+  <div>
+    
+     <Dropdown123 parentId={portfolio.idPPPO} />
+       
+    </div>
+  ))
+}
