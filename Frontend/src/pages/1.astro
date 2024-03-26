@@ -10,6 +10,7 @@ async function getAllPPPOs(portfolioId) {
         for (let child of children) {
             let childInfo = {
                 label: child.title, // Utiliza 'label' en lugar de 'title' para ajustarte al formato deseado
+                parentId: child.idPPPO
             };
             let grandchildren = await getAllPPPOs(child.idPPPO);
             if (grandchildren.length > 0) {
@@ -36,6 +37,7 @@ let allData = [];
 for (let portfolio of portfolios) {
     let portfolioInfo = {
         label: portfolio.title, // Utiliza 'label' en lugar de 'title' para ajustarte al formato deseado
+        parentId: portfolio.idPPPO
     };
     let children = await getAllPPPOs(portfolio.idPPPO);
     if (children.length > 0) {
@@ -50,12 +52,6 @@ console.log(typeof(menuData));
 console.log("parse");
 console.log(typeof(JSON.parse(menuData)));
 ---
-{
-  allData && allData.map((pppo) =>(
-    <h1>{pppo.title}</h1>
-  ))
-}
-
 
 
 <TreeView menuData={menuData} client:load />

@@ -24,6 +24,7 @@ function Dropdown({menuData}) {
             {subMenu.map((subItem, index) => (
               <li key={index} onClick={toggleSubMenu}>
                 {subItem.label}
+                <a href={`/Company/PPPO/Sons?parentId=${subItem.parentId}`}>+</a>
                 {subItem.submenu && renderSubMenu(subItem.submenu)}
               </li>
             ))}
@@ -37,6 +38,7 @@ function Dropdown({menuData}) {
             {menuData.map((item, index) => (
               <li key={index} onClick={toggleSubMenu}>
                 {item.label}
+                <a href={`/Company/PPPO/Sons?parentId=${item.parentId}`}>+</a>
                 {item.submenu && renderSubMenu(item.submenu)}
               </li>
             ))}
