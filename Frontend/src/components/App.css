@@ -1,11 +1,38 @@
-#root {
-    color: black;
-  }
-  
-  .submenu {
-    display: none;
-  }
-  
-  ul {
-    cursor: pointer;
-  }
+.submenu {
+  display: none; /* Ocultar los submenús por defecto */
+}
+
+ul {
+  cursor: pointer; /* Cambiar el cursor al pasar por encima de los elementos de lista */
+}
+
+li {
+  list-style: none; /* Quitar los puntos de lista */
+}
+
+li:hover {
+  background-color: #f0f0f0; /* Cambiar el color de fondo al pasar por encima de un elemento de lista */
+}
+
+a {
+  text-decoration: none; /* Quitar subrayado de los enlaces */
+  margin-left: 5px; /* Añadir un margen izquierdo a los enlaces */
+  color: blue; /* Cambiar el color del texto de los enlaces */
+}
+
+/* Cambiar el color de fondo del submenú al pasar el mouse sobre él */
+.submenu li:hover {
+  background-color: #ccc;
+}
+
+/* Aplicar una fuente de letra específica al menú */
+ul {
+  font-family: "Arial", sans-serif; /* Cambia "Arial" por la fuente deseada */
+}
+
+
+/* Aumentar el tamaño de la fuente y capitalizar el texto */
+ul li {
+  font-size: 1.1rem; /* Tamaño de fuente ligeramente mayor */
+  text-transform: capitalize; /* Capitalizar el texto */
+}

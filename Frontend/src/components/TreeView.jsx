@@ -36,11 +36,16 @@ function Dropdown({menuData}) {
         <div>
           <ul>
             {menuData.map((item, index) => (
+              <div className="flex">
               <li key={index} onClick={toggleSubMenu}>
                 {item.label}
-                <a href={`/Company/PPPO/Sons?parentId=${item.parentId}`}>+</a>
+                <a href={`/Company/PPPO/Sons?parentId=${item.parentId}`}>
+                  +
+                </a>
                 {item.submenu && renderSubMenu(item.submenu)}
               </li>
+              </div>
+              
             ))}
           </ul>
         </div>
