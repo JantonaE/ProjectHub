@@ -1,15 +1,10 @@
 ---
-//import Dropdown from '../components/Dropdown.jsx';
-import { getUser, setUser } from '../lib/auth';
+
+import { getUser } from '../lib/auth';
 import { getCompanyById } from '../lib/lib';
 import TreeView from "../components/TreeView";
 import * as lib from "../lib/lib";
 
-
-const url = "http://127.0.0.1:8000";
-//const { userLogged, params, mapa } = Astro.props;
-const userLogged = "";
-//const company = "Indra";
 
 let user = await getUser();
 if(user == null){
@@ -23,7 +18,7 @@ if(company != null){
 let companyName = company?.name;
 company = user.company;
 
-async function getAllPPPOs(portfolioId) {
+async function getAllPPPOs(portfolioId : string) {
     let result = [];
     let children = await lib.fetchPPPOs(portfolioId);
     if (children) {
@@ -42,8 +37,10 @@ async function getAllPPPOs(portfolioId) {
     return result;
 }
 
+let portfolios; 
+portfolios = await lib.fetchPortfolios(company);
 
-let portfolios = await lib.fetchPortfolios(company);
+
 
 let allData = [];
 for (let portfolio of portfolios) {

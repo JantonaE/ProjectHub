@@ -110,7 +110,7 @@ if(data.state != "To Do"){
             <div
               class="block rounded-lg bg-white shadow-secondary-1 dark:bg-surface-dark dark:text-white text-surface md:col-span-1">
               <DatesCard sd={data.start_date} srd={data.start_real_date} fd={data.finish_date} frd={data.finish_real_date}  />
-              <ResponsibleCard internal="Paco Mendez Salas" external="Pedro Sanchez" />
+              <ResponsibleCard internal={data.internal_manager} external={data.external_manager} />
             </div>
           </div>
     </div>

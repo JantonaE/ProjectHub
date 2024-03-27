@@ -285,7 +285,7 @@ export async function getPersonsByCompany(companyId: string): Promise<Person[] |
 export async function updatePersonExternalManager(pppoId: string, external_pppo: string) {
     // Determinar qué campo usar para buscar a la persona
     
-    const apiUrl = `${import.meta.env.BACKEND_URL}/Persons/by_dni/${external_pppo}`;
+    const apiUrl = `${import.meta.env.BACKEND_URL}/Persons/${external_pppo}`;
     let updateResponse: Response; // Declaramos updateResponse aquí para que esté disponible en todo el alcance de la función
     
     console.log(apiUrl);
@@ -341,7 +341,7 @@ export async function updatePersonExternalManager(pppoId: string, external_pppo:
 export async function updatePersonInternalManager(pppoId: string, internal_pppo: string) {
     // Determinar qué campo usar para buscar a la persona
     
-    const apiUrl = `${import.meta.env.BACKEND_URL}/Persons/by_dni/${internal_pppo}`;
+    const apiUrl = `${import.meta.env.BACKEND_URL}/Persons/${internal_pppo}`;
     let updateResponse: Response; // Declaramos updateResponse aquí para que esté disponible en todo el alcance de la función
     
     console.log(apiUrl);
@@ -389,6 +389,26 @@ export async function updatePersonInternalManager(pppoId: string, internal_pppo:
     } catch (error) {
         console.error('Error:', error);
         console.error('Update failed response:', await updateResponse?.text());
+        return null;
+    }
+}
+
+
+export async function getPersonById(id: string): Promise<Person | null> {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/Persons/${id}`;
+    
+    try {
+        const res = await fetch(apiUrl);
+        
+        if (!res.ok) {
+            throw new Error(`Error fetching data: ${res.statusText}`);
+        }
+        
+        const data = await res.json() as Person;
+        
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
         return null;
     }
 }
