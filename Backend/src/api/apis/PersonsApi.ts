@@ -40,6 +40,10 @@ export interface FindOnePersonPersonsIdGetRequest {
     id: string;
 }
 
+export interface FindPersonsByCompanyPersonsByCompanyCompanyGetRequest {
+    company: string;
+}
+
 export interface UpdatePersonPersonsIdPutRequest {
     id: string;
     personInput: PersonInput;
@@ -210,6 +214,41 @@ export class PersonsApi extends runtime.BaseAPI {
      */
     async findOnePersonPersonsIdGet(requestParameters: FindOnePersonPersonsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PersonOutput> {
         const response = await this.findOnePersonPersonsIdGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Devuelve una lista de persons filtrados por la compañía
+     * Find Persons By Company
+     */
+    async findPersonsByCompanyPersonsByCompanyCompanyGetRaw(requestParameters: FindPersonsByCompanyPersonsByCompanyCompanyGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<PersonOutput>>> {
+        if (requestParameters['company'] == null) {
+            throw new runtime.RequiredError(
+                'company',
+                'Required parameter "company" was null or undefined when calling findPersonsByCompanyPersonsByCompanyCompanyGet().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/Persons/by_company/{company}`.replace(`{${"company"}}`, encodeURIComponent(String(requestParameters['company']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(PersonOutputFromJSON));
+    }
+
+    /**
+     * Devuelve una lista de persons filtrados por la compañía
+     * Find Persons By Company
+     */
+    async findPersonsByCompanyPersonsByCompanyCompanyGet(requestParameters: FindPersonsByCompanyPersonsByCompanyCompanyGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<PersonOutput>> {
+        const response = await this.findPersonsByCompanyPersonsByCompanyCompanyGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

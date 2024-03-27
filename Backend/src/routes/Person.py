@@ -58,3 +58,13 @@ async def find_logged_person1(request: Request) -> Person:
             return PersonEntity(user)
     raise HTTPException(status_code=404, detail="Credenciales inválidas")
 
+
+# Get user by company
+@person.get("/Persons/by_company/{company}", tags=["Persons"], response_model=list[Person], description="Devuelve una lista de persons filtrados por la compañía")
+async def find_persons_by_company(company: str = Path(description="Nombre de la compañía para filtrar las personas")) -> list[Person]:
+    return PersonEntityList(conn.ProjectHub.Person.find({"company": company}))
+
+@person.get("/Persons/by_dni/{dni}", tags=["Persons"], response_model=Person, description="Devuelve el person con el DNI pasado por parámetro")
+async def find_person_by_dni(dni: str = Path(description="DNI del person a buscar")) -> Person:
+    return PersonEntity(conn.ProjectHub.Person.find_one({"DNI": dni}))
+

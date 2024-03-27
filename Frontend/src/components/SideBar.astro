@@ -58,11 +58,8 @@ for (let portfolio of portfolios) {
     allData.push(portfolioInfo);
 }
 
-console.log(JSON.stringify(allData, null, 2)); // Imprimir como formato JSON para mejor visualización
 const menuData= JSON.stringify(allData, null, 2);
-console.log(typeof(menuData));
-console.log("parse");
-console.log(typeof(JSON.parse(menuData)));
+
 ---
 <div class="flex h-screen overflow-hidden bg-white" >
     <div class="hidden md:flex md:flex-shrink-0" >

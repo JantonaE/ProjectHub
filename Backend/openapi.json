@@ -234,6 +234,100 @@
         }
       }
     },
+    "/Persons/by_company/{company}": {
+      "get": {
+        "tags": [
+          "Persons"
+        ],
+        "summary": "Find Persons By Company",
+        "description": "Devuelve una lista de persons filtrados por la compa\u00f1\u00eda",
+        "operationId": "find_persons_by_company_Persons_by_company__company__get",
+        "parameters": [
+          {
+            "name": "company",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Nombre de la compa\u00f1\u00eda para filtrar las personas",
+              "title": "Company"
+            },
+            "description": "Nombre de la compa\u00f1\u00eda para filtrar las personas"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Person-Output"
+                  },
+                  "title": "Response Find Persons By Company Persons By Company  Company  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Persons/by_dni/{dni}": {
+      "get": {
+        "tags": [
+          "Persons"
+        ],
+        "summary": "Find Person By Dni",
+        "description": "Devuelve el person con el DNI pasado por par\u00e1metro",
+        "operationId": "find_person_by_dni_Persons_by_dni__dni__get",
+        "parameters": [
+          {
+            "name": "dni",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "DNI del person a buscar",
+              "title": "Dni"
+            },
+            "description": "DNI del person a buscar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Person-Output"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/Companies/": {
       "get": {
         "tags": [

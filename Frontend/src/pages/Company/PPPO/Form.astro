@@ -29,6 +29,9 @@ if (parent_id == null){
 
 }
 
+// Get the possible managers
+const persons = await lib.getPersonsByCompany(company);
+console.log(persons);
 
 if (Astro.request.method === "POST") {
   try {
@@ -98,7 +101,19 @@ if (Astro.request.method === "POST") {
       parent_id,
       state
   );
+  
+    // Internal Manager update pppo
+    // External Manager update pppo
+    console.log("Envio");
+    console.log(res.idPPPO);
+    console.log(external_manager);
+    if(external_manager != ""){
+      await lib.updatePersonExternalManager(res.idPPPO,external_manager);
+    }
+    await lib.updatePersonInternalManager(res.idPPPO,internal_manager);
     
+
+   
     formSent = true;
     if (parent_id == ""){
       return Astro.redirect("/Company/PPPOs");
@@ -478,14 +493,15 @@ if (Astro.request.method === "POST") {
             >
               Internal Manager
             </label>
-              <input
-                required
-                type="text"
-                name="internal_manager"
-                id="internal_manager"
-                placeholder="DNI of internal manager"
-                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-              />
+            <select required name="internal_manager" id="internal_manager" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+              {
+                persons && persons.map((person) => (
+                  <option value={person.dNI}>{person.name}</option>
+                ))
+              }
+              
+            </select>
+              
             </div>
           </div>
           <div class="w-full px-3 sm:w-1/2">
@@ -497,13 +513,16 @@ if (Astro.request.method === "POST") {
             >
               External Manager
             </label>
-              <input
-                type="text"
-                name="external_manager"
-                id="external_manager"
-                placeholder="DNI of external manager"
-                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-              />
+            <select name="external_manager" id="external_manager" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+              <option value="">None</option>
+              {
+                persons && persons.map((person) => (
+                  <option value={person.dNI}>{person.name}</option>
+                ))
+              }
+              
+            </select>
+              
             </div>
           </div>
         </div> 

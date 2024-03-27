@@ -234,7 +234,7 @@ export async function getCompanyById(id: string): Promise<Company | null> {
 
 
 export async function fetchPortfolios(companyId: string): Promise<PPPO[] | null> {
-    const apiUrl = `http://127.0.0.1:8000/Companies/Portfolios/${companyId}`;
+    const apiUrl = `${import.meta.env.BACKEND_URL}/Companies/Portfolios/${companyId}`;
     try {
         const response = await fetch(apiUrl);
         if (response.ok) {
@@ -251,7 +251,7 @@ export async function fetchPortfolios(companyId: string): Promise<PPPO[] | null>
 
 
 export async function fetchPPPOs(parentId: string): Promise<PPPO[] | null> {
-    const apiUrl = `http://127.0.0.1:8000/PPPOs/Sons/${parentId}`;
+    const apiUrl = `${import.meta.env.BACKEND_URL}/PPPOs/Sons/${parentId}`;
     try {
         const response = await fetch(apiUrl);
         if (response.ok) {
@@ -262,6 +262,133 @@ export async function fetchPPPOs(parentId: string): Promise<PPPO[] | null> {
         }
     } catch (error) {
         console.error(error);
+        return null;
+    }
+}
+
+export async function getPersonsByCompany(companyId: string): Promise<Person[] | null> {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/Persons/by_company/${companyId}`;
+    try {
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+            const persons = await response.json();
+            return persons;
+        } else {
+            throw new Error('Error al obtener PPPOs');
+        }
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+export async function updatePersonExternalManager(pppoId: string, external_pppo: string) {
+    // Determinar qué campo usar para buscar a la persona
+    
+    const apiUrl = `${import.meta.env.BACKEND_URL}/Persons/by_dni/${external_pppo}`;
+    let updateResponse: Response; // Declaramos updateResponse aquí para que esté disponible en todo el alcance de la función
+    
+    console.log(apiUrl);
+    try {
+        // Obtener la persona por su external_pppo o internal_pppo
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error('Error al obtener la persona');
+        }
+        const person = await response.json() as Person;
+        
+        // Actualizar el array pppo_external
+        const updatedPppoExternal = [...person.pppo_external, pppoId];
+
+        const updatedUserData = {
+            "idPerson": person.idPerson,
+            "DNI": person.DNI,
+            "name": person.name,
+            "email": person.email,
+            "pppo_internal": person.pppo_internal,
+            "pppo_external": updatedPppoExternal,
+            "password": person.password,
+            "company": person.company,
+        };
+
+        const apiUrlUpdate = `${import.meta.env.BACKEND_URL}/Persons/${person.idPerson}`;
+        console.log(person);
+        console.log(apiUrlUpdate);
+        // Actualizar la persona
+        updateResponse = await fetch(apiUrlUpdate, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedUserData),
+        });
+
+        if (!updateResponse.ok) {
+            throw new Error('Error al actualizar la persona');
+        }
+
+        // Devolver la persona actualizada
+        // return updatedPerson;
+        
+    } catch (error) {
+        console.error('Error:', error);
+        console.error('Update failed response:', await updateResponse?.text());
+        return null;
+    }
+}
+
+
+export async function updatePersonInternalManager(pppoId: string, internal_pppo: string) {
+    // Determinar qué campo usar para buscar a la persona
+    
+    const apiUrl = `${import.meta.env.BACKEND_URL}/Persons/by_dni/${internal_pppo}`;
+    let updateResponse: Response; // Declaramos updateResponse aquí para que esté disponible en todo el alcance de la función
+    
+    console.log(apiUrl);
+    try {
+        // Obtener la persona por su external_pppo o internal_pppo
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error('Error al obtener la persona');
+        }
+        const person = await response.json() as Person;
+        
+        // Actualizar el array pppo_external
+        const updatedPppoInternal = [...person.pppo_internal, pppoId];
+
+        const updatedUserData = {
+            "idPerson": person.idPerson,
+            "DNI": person.DNI,
+            "name": person.name,
+            "email": person.email,
+            "pppo_internal": updatedPppoInternal,
+            "pppo_external": person.pppo_external,
+            "password": person.password,
+            "company": person.company,
+        };
+
+        const apiUrlUpdate = `${import.meta.env.BACKEND_URL}/Persons/${person.idPerson}`;
+        console.log(person);
+        console.log(apiUrlUpdate);
+        // Actualizar la persona
+        updateResponse = await fetch(apiUrlUpdate, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedUserData),
+        });
+
+        if (!updateResponse.ok) {
+            throw new Error('Error al actualizar la persona');
+        }
+
+        // Devolver la persona actualizada
+        // return updatedPerson;
+        
+    } catch (error) {
+        console.error('Error:', error);
+        console.error('Update failed response:', await updateResponse?.text());
         return null;
     }
 }

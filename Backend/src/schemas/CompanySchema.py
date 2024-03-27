@@ -2,7 +2,7 @@
 def CompanyEntity(item) -> dict:
     return {
         "id": str(item["_id"]),
-        "idCompany": str(item["idCompany"]),
+        "idCompany": str(item["_id"]),
         "code": str(item["code"]),
         "NIF": str(item["NIF"]),
         "name": str(item["name"])

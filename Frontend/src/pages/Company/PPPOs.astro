@@ -9,18 +9,12 @@ import { getUser } from '../../lib/auth';
 
 const url = "http://127.0.0.1:8000";
 
-
-console.log("Desde PPPOs:");
 let cid = await getUser();
 let companyId: any;
 if(cid == null){
-  console.log("redirect");
   return Astro.redirect('/');
 }else{
-  console.log("User:");
-  console.log(cid);
   companyId = cid.company;
-  console.log(cid.company);
 }
 
 //const companyId = Astro.cookies.get('company');

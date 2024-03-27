@@ -40,6 +40,16 @@ export interface FindOnePppoPPPOsIdGetRequest {
     id: string;
 }
 
+export interface FindPppoAncestorWithCodePPPOsBrotherAncestorGetRequest {
+    id?: string;
+    code?: string;
+}
+
+export interface FindPppoBrothersWithCodePPPOsBrotherGetRequest {
+    id?: string;
+    code?: string;
+}
+
 export interface FindPppoSonsPPPOsAncestorsIdGetRequest {
     id: string;
 }
@@ -190,6 +200,86 @@ export class PPPOsApi extends runtime.BaseAPI {
      */
     async findOnePppoPPPOsIdGet(requestParameters: FindOnePppoPPPOsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PPPOOutput> {
         const response = await this.findOnePppoPPPOsIdGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Verifica si hay algún hermano con el mismo código del padre
+     * Find Pppo Ancestor With Code
+     */
+    async findPppoAncestorWithCodePPPOsBrotherAncestorGetRaw(requestParameters: FindPppoAncestorWithCodePPPOsBrotherAncestorGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<boolean>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['id'] != null) {
+            queryParameters['id'] = requestParameters['id'];
+        }
+
+        if (requestParameters['code'] != null) {
+            queryParameters['code'] = requestParameters['code'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/PPPOs/BrotherAncestor/`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<boolean>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     * Verifica si hay algún hermano con el mismo código del padre
+     * Find Pppo Ancestor With Code
+     */
+    async findPppoAncestorWithCodePPPOsBrotherAncestorGet(requestParameters: FindPppoAncestorWithCodePPPOsBrotherAncestorGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<boolean> {
+        const response = await this.findPppoAncestorWithCodePPPOsBrotherAncestorGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Verifica si hay algún hermano con el mismo código del padre
+     * Find Pppo Brothers With Code
+     */
+    async findPppoBrothersWithCodePPPOsBrotherGetRaw(requestParameters: FindPppoBrothersWithCodePPPOsBrotherGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<boolean>> {
+        const queryParameters: any = {};
+
+        if (requestParameters['id'] != null) {
+            queryParameters['id'] = requestParameters['id'];
+        }
+
+        if (requestParameters['code'] != null) {
+            queryParameters['code'] = requestParameters['code'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/PPPOs/Brother/`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<boolean>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     * Verifica si hay algún hermano con el mismo código del padre
+     * Find Pppo Brothers With Code
+     */
+    async findPppoBrothersWithCodePPPOsBrotherGet(requestParameters: FindPppoBrothersWithCodePPPOsBrotherGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<boolean> {
+        const response = await this.findPppoBrothersWithCodePPPOsBrotherGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

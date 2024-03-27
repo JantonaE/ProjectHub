@@ -19,6 +19,10 @@ import { mapValues } from '../runtime';
  * @interface Person
  */
 export interface Person {
+    company: any;
+    password: any;
+    pppo_internal: any;
+    pppo_external: any;
     /**
      * 
      * @type {string}
@@ -30,7 +34,7 @@ export interface Person {
      * @type {string}
      * @memberof Person
      */
-    dNI: string;
+    DNI: string;
     /**
      * 
      * @type {string}
