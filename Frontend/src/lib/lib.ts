@@ -419,7 +419,8 @@ export async function updatePPPO(
 ): Promise<PPPO | null> {
     const apiUrl = `${import.meta.env.BACKEND_URL}/PPPOs/${pppoId}`;
     let updateResponse: Response;
-
+    console.log(pppoId);
+    console.log(updatePPPO);
     try {
         // Realizar la solicitud de actualización del PPPO
         updateResponse = await fetch(apiUrl, {
@@ -454,6 +455,22 @@ export async function getStates(): Promise<State[] | null> {
             return states;
         } else {
             throw new Error('Error al obtener portfolios');
+        }
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+export async function getDeletedStatesByType(stateType) {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/States/DeletedByType/${stateType}`;
+    try {
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+            const state = await response.json();
+            return state;
+        } else {
+            throw new Error('Error al obtener el estado eliminado por tipo');
         }
     } catch (error) {
         console.error(error);

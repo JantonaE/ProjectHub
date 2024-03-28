@@ -1,7 +1,8 @@
 ---
 import * as lib from "../lib/lib"
 import { getUser } from "../lib/auth";
-import Dropdown123 from "../components/Dropdown123.astro";
+import DeleteModal from "../components/DeleteModal.astro";
+
 let user = await getUser();
 let company;
 if(user == null){
@@ -10,37 +11,5 @@ if(user == null){
 }else{
   company = user.company;
 }
-let data = await lib.fetchPortfolios(company);
-//lib.fetchPPPOs(idPortfolio)
 ---
-{
-  data && data.map((portfolio, index) => (
-    <div>
-      <a href={`/Company/PPPO/Sons?parentId=${portfolio.idPPPO}`}>{portfolio.title}</a>
-      <br />
-      <div>
-        <button id={`toggleButton_${index}`} class="toggleButton">+</button>
-        <div id={`dropdown_${index}`} class="dropdown hidden">
-          <Dropdown123 parentId={portfolio.idPPPO} />
-        </div>
-      </div>
-    </div>
-  ))
-}
-
-<style>
-  .hidden {
-    display: none;
-  }
-</style>
-
-<script>
-  const toggleButtons = document.querySelectorAll('.toggleButton');
-
-  toggleButtons.forEach((button, index) => {
-    button.addEventListener('click', () => {
-      const dropdown = document.getElementById(`dropdown_${index}`);
-      dropdown.classList.toggle('hidden');
-    });
-  });
-</script>
+<DeleteModal />

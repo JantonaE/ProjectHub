@@ -1,0 +1,36 @@
+---
+import * as lib from "../../../lib/lib"
+const idPPPO = Astro.url.searchParams.get("idPPPO");
+
+let pppo = await lib.getPPPOById(idPPPO);
+let state = await lib.getDeletedStatesByType(pppo.PPPO);
+
+const updatedData = {
+        idPPPO: pppo.idPPPO,
+        code: pppo.code,
+        company: pppo.company,
+        parent_id: pppo.parent_id,
+        title: pppo.title,
+        description: pppo.description,
+        planned_value: pppo.planned_value,
+        actual_cost: pppo.actual_cost,
+        start_date: pppo.start_date,
+        finish_date: pppo.finish_date,
+        start_real_date: pppo.start_real_date,
+        finish_real_date: pppo.finish_real_date,
+        risk: pppo.risk,
+        priority: pppo.priority,
+        strategic_goal: pppo.strategic_goal,
+        earned_value: pppo.earned_value,
+        ROI: pppo.ROI,
+        cost_benefit: pppo.cost_benefit,
+        PPPO: pppo.PPPO,
+        state: state.idState,
+        internal_manager: pppo.internal_manager,
+        external_manager: pppo.external_manager 
+        };
+console.log(updatedData);
+await lib.updatePPPO(idPPPO,updatedData);
+
+return Astro.redirect(`/Company/PPPO?idPPPO=${pppo.idPPPO}`);
+---

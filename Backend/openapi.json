@@ -1255,6 +1255,51 @@
           }
         }
       }
+    },
+    "/States/DeletedByType/{state_type}": {
+      "get": {
+        "tags": [
+          "States"
+        ],
+        "summary": "Find Deleted State By Type",
+        "description": "Devuelve el estado con el type pasado por par\u00e1metro y estado 'Deleted'",
+        "operationId": "find_deleted_state_by_type_States_DeletedByType__state_type__get",
+        "parameters": [
+          {
+            "name": "state_type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "description": "Id del state a actualizar",
+              "title": "State Type"
+            },
+            "description": "Id del state a actualizar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/State"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {

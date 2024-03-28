@@ -58,3 +58,10 @@ async def find_all_states_of_type(
 
     return resList
 
+@state.get("/States/DeletedByType/{state_type}", tags=["States"], response_model=State, description="Devuelve el estado con el type pasado por parámetro y estado 'Deleted'")
+async def find_deleted_state_by_type(
+    state_type: float = Path(description="Id del state a actualizar")
+) -> State:
+    return StateEntity(conn.ProjectHub.State.find_one({"type": state_type, "state": "Deleted"}))
+
+

@@ -8,6 +8,7 @@ import StateComponent from '../../../components/StateComponent.astro';
 
 
 import { getUser } from '../../../lib/auth';
+import DeleteModal from '../../../components/DeleteModal.astro';
 const url = "http://127.0.0.1:8000";
 let cid = await getUser();
 if(cid == null){
@@ -84,6 +85,10 @@ await fetchPPPOs();
                 <p class="mb-4 text-base">
                     <a class="hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none" href={`/Company/PPPO/Form?parentId=${data.parent_id}&update=${data.idPPPO}`}>Update</a>
                 </p>
+                <p class="mb-4 text-base">
+                    <DeleteModal idPPPO={idPPPO} />
+                </p>
+                
               </div>
             </div>
           
