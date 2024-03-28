@@ -57,7 +57,7 @@ await fetchPortfolios();
         <thead>
           <tr>
             <th class="border p-2">
-              <a href={`/Company/PPPO/Form?parent_id=${""}`}>+</a>
+              <a href={`/Company/PPPO/Form?parent_id=${""}&update=${""}`}>+</a>
             </th>
             
           </tr>
@@ -76,7 +76,8 @@ await fetchPortfolios();
             </tr>
         </thead>
         <tbody>
-            {data && data.map((portfolio) => (
+            {
+            data && data.map((portfolio) => (
                 <tr >
                     <td class="border p-2">
                       Portfolio
@@ -137,7 +138,8 @@ await fetchPortfolios();
                     <td class="border p-2">{portfolio.strategic_goal}</td>
                     <td class="border p-2 w-20"><StateComponent state={portfolio.state} /></td>
                 </tr>
-            ))}
+            ))
+          }
         </tbody>
     </table>
     </div>

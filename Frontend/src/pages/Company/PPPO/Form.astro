@@ -22,22 +22,25 @@ if(user == null){
 }else{
   company = user.company;
 }
+if (parent_id == null && update == ""){
+    parent_id = "";
+    // SOLO PODRAS ELEGIR PORTFOLIO
+    pppoType = -1;
+    states = await lib.getStatesByType(0);
 
-if(update != ""){ // Update of PPPO
+}else if(update == ""){ // OTRAS OPCIONES A ELEGIR
+    const pppo = await lib.getPPPOById(parent_id);
+    pppoType = pppo.PPPO;
+    states = await lib.getStatesByType(pppoType);
+    
+}else if(update != ""){ // Update of PPPO
   updatePPPO = await lib.getPPPOById(update);
   states = await lib.getStatesByType(updatePPPO.PPPO);
 }
 
-if (parent_id == null){
-    parent_id = "";
-    // SOLO PODRAS ELEGIR PORTFOLIO
-    pppoType = -1;
 
-}else{ // OTRAS OPCIONES A ELEGIR
-    const pppo = await lib.getPPPOById(parent_id);
-    pppoType = pppo.PPPO;
 
-}
+
 
 // Get the possible managers
 const persons = await lib.getPersonsByCompany(company);
@@ -46,16 +49,11 @@ const persons = await lib.getPersonsByCompany(company);
 if (Astro.request.method === "POST") {
   try {
     // OBTENER COMPANY DE LA SESION Y padre
-    
-    
-    //__-----
     const data = await Astro.request.formData();
 
     radioButton = Number(data.get("radio1"));
     const code = data.get("code").toString();
     // Look if there is a brother with the same code -> Cant create
-
-  
 
     if(parent_id == ""){
       invalid_code = await lookForBrothersAncestorWithCode(company,code);
@@ -87,7 +85,6 @@ if (Astro.request.method === "POST") {
       
       if(updatePPPO == null){ // Creation
         console.log("Creacion");
-        state = "To Do";
         const res = await lib.createPPPO(
           radioButton,
           title,
@@ -600,6 +597,23 @@ if (Astro.request.method === "POST") {
               
             </div>
           </div>
+          <div class="mb-5">
+            <label
+            for="text"
+            class="mb-3 block text-base font-medium text-[#07074D]"
+          >
+            States
+          </label>
+          <select required name="state" id="state" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+            {
+              states && states.map((state) => (
+                <option value={state.idState}>{state.state}</option>
+              ))
+            }
+            
+          </select>
+            
+          </div>
         </div> 
         
       
@@ -618,24 +632,6 @@ if (Astro.request.method === "POST") {
         }
         {
           updatePPPO != null && (
-
-          <div class="mb-5">
-              <label
-              for="text"
-              class="mb-3 block text-base font-medium text-[#07074D]"
-            >
-              States
-            </label>
-            <select required name="state" id="state" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
-              {
-                states && states.map((state) => (
-                  <option value={state.idState}>{state.state}</option>
-                ))
-              }
-              
-            </select>
-              
-            </div>
           <button
           class="hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none"
         >
