@@ -3,7 +3,7 @@
 import PopUpError from "../../../components/PopUpError.jsx";
 import { getUser } from "../../../lib/auth";
 import * as lib from "../../../lib/lib"
-import { lookForBrothersWithCode ,lookForBrothersAncestorWithCode } from "../../../lib/lib";
+import { lookForBrothersWithCode ,lookForBrothersAncestorWithCode,getStatesByType } from "../../../lib/lib";
 import {formatDate,convertToISOFormat} from "../../../lib/utils.ts";
 
 let parent_id = Astro.url.searchParams.get("parentId");
@@ -12,6 +12,7 @@ let updatePPPO = null;
 let pppoType;
 let invalid_code;
 let formSent = false;
+let states;
 let radioButton;
 let company;
 let user = await getUser();
@@ -24,7 +25,7 @@ if(user == null){
 
 if(update != ""){ // Update of PPPO
   updatePPPO = await lib.getPPPOById(update);
-
+  states = await lib.getStatesByType(updatePPPO.PPPO);
 }
 
 if (parent_id == null){
@@ -80,11 +81,13 @@ if (Astro.request.method === "POST") {
       const priority = Number(data.get("priority"));
       const internal_manager = data.get("internal_manager").toString();
       const external_manager = data.get("external_manager").toString();
+      let state = data.get("state").toString();
       // Cambiar:
-      const state = "To Do";
+      
       
       if(updatePPPO == null){ // Creation
         console.log("Creacion");
+        state = "To Do";
         const res = await lib.createPPPO(
           radioButton,
           title,
@@ -144,7 +147,7 @@ if (Astro.request.method === "POST") {
         ROI: updatePPPO.ROI,
         cost_benefit: updatePPPO.cost_benefit,
         PPPO: updatePPPO.PPPO,
-        state: updatePPPO.state,
+        state: state,
         internal_manager: internal_manager,
         external_manager: external_manager 
         };
@@ -604,6 +607,8 @@ if (Astro.request.method === "POST") {
       <div>
         {
           updatePPPO == null && (
+
+          
           <button
           class="hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none"
         >
@@ -613,6 +618,24 @@ if (Astro.request.method === "POST") {
         }
         {
           updatePPPO != null && (
+
+          <div class="mb-5">
+              <label
+              for="text"
+              class="mb-3 block text-base font-medium text-[#07074D]"
+            >
+              States
+            </label>
+            <select required name="state" id="state" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+              {
+                states && states.map((state) => (
+                  <option value={state.idState}>{state.state}</option>
+                ))
+              }
+              
+            </select>
+              
+            </div>
           <button
           class="hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none"
         >

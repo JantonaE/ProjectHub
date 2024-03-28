@@ -6,7 +6,7 @@ import DatesCard from '../../../components/DatesCard.astro';
 import ResponsibleCard from '../../../components/ResponsibleCard.astro';
 import StateComponent from '../../../components/StateComponent.astro';
 
-import { getTypesOfPPPObyType, getStateOfPPPO } from '../../../lib/lib';
+
 import { getUser } from '../../../lib/auth';
 const url = "http://127.0.0.1:8000";
 let cid = await getUser();
@@ -53,11 +53,7 @@ async function fetchState() {
 // Buscar posibles estados
 //const types = await getTypesOfPPPObyType(data.PPPO);
 //console.log(types);
-if(data.state != "To Do"){
-    pppo_state = await fetchState().state;
-}else{
-    pppo_state = data.state;
-}
+await fetchState();
 
 ---
 <div class="flex">
@@ -77,7 +73,7 @@ if(data.state != "To Do"){
               <div class="p-6">
                 <h5
                   class="mb-2 text-xl font-medium leading-tight">
-                  {data.title} <StateComponent state={pppo_state} />
+                  {data.title}<StateComponent state={pppo_state.state} />
                 </h5>
                 
                 <p class="mb-4 text-base">

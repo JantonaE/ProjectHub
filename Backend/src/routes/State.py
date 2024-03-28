@@ -57,3 +57,4 @@ async def find_all_states_of_type(
             resList.append(StateEntity(conn.ProjectHub.State.find_one({"_id": ObjectId(state["id"])})))
 
     return resList
+

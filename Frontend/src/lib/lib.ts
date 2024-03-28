@@ -111,7 +111,7 @@ export async function getAncestors(id: string): Promise<PPPO[] | null> {
 }
 
 
-export async function getTypesOfPPPObyType(type: number): Promise<PPPO[] | null> {
+export async function getStatesByType(type: number): Promise<State[] | null> {
     const apiUrl = `${import.meta.env.BACKEND_URL}/StatesType/${type}`;
     
     try {
@@ -121,7 +121,7 @@ export async function getTypesOfPPPObyType(type: number): Promise<PPPO[] | null>
             throw new Error(`Error fetching data: ${res.statusText}`);
         }
         
-        const data = await res.json() as PPPO[];
+        const data = await res.json() as State[];
         
         return data;
     } catch (error) {
@@ -440,6 +440,23 @@ export async function updatePPPO(
     } catch (error) {
         console.error('Error:', error);
         console.error('Update failed response:', await updateResponse?.text());
+        return null;
+    }
+}
+
+
+export async function getStates(): Promise<State[] | null> {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/States/`;
+    try {
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+            const states = await response.json();
+            return states;
+        } else {
+            throw new Error('Error al obtener portfolios');
+        }
+    } catch (error) {
+        console.error(error);
         return null;
     }
 }
