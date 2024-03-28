@@ -412,3 +412,34 @@ export async function getPersonById(id: string): Promise<Person | null> {
         return null;
     }
 }
+
+export async function updatePPPO(
+    pppoId: string,
+    updatedPPPO: PPPO
+): Promise<PPPO | null> {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/PPPOs/${pppoId}`;
+    let updateResponse: Response;
+
+    try {
+        // Realizar la solicitud de actualización del PPPO
+        updateResponse = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedPPPO),
+        });
+
+        if (!updateResponse.ok) {
+            throw new Error('Error al actualizar el PPPO');
+        }
+
+        // Devolver el PPPO actualizado
+        return updatedPPPO;
+
+    } catch (error) {
+        console.error('Error:', error);
+        console.error('Update failed response:', await updateResponse?.text());
+        return null;
+    }
+}

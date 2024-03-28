@@ -20,3 +20,21 @@ export function formatDate(inputDate) {
 
     return result;
 }
+
+export function convertToISOFormat(inputDate) {
+    // Dividimos la fecha en día, mes y año
+    const [day, month, year] = inputDate.split('/').map(Number);
+
+    // Creamos una nueva fecha en formato "yyyy-mm-dd"
+    const formattedDate = new Date(year, month - 1, day);
+
+    // Verificamos si la fecha es válida
+    if (isNaN(formattedDate.getTime())) {
+        return "2100-12-12"; // Devolvemos una fecha por defecto si la fecha es inválida
+    }
+
+    // Formateamos la fecha como "yyyy-mm-dd"
+    const result = formattedDate.toISOString().split('T')[0];
+
+    return result;
+}

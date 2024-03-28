@@ -40,7 +40,7 @@ async function getAllPPPOs(portfolioId : string) {
 let portfolios; 
 portfolios = await lib.fetchPortfolios(company);
 
-
+let menuData = null;
 
 let allData = [];
 for (let portfolio of portfolios) {
@@ -55,7 +55,7 @@ for (let portfolio of portfolios) {
     allData.push(portfolioInfo);
 }
 
-const menuData= JSON.stringify(allData, null, 2);
+menuData= JSON.stringify(allData, null, 2);
 
 ---
 <div class="flex h-screen overflow-hidden bg-white" >
@@ -80,16 +80,7 @@ const menuData= JSON.stringify(allData, null, 2);
               </svg>
             </button>
           </div>
-          <!-- === {data && data.length > 0 ? (
-            data.map((portfolio) => (
-              <Dropdown key={portfolio.idPortfolio} id={portfolio.idPortfolio} title={portfolio.title} />
-            ))
-          ) : (
-            <p>No portfolios available</p>
-            
-          )}
-          
-           === -->
+        
            <div class="m-5">
             <TreeView menuData={menuData} client:load />
            </div>

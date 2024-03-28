@@ -1,11 +1,14 @@
 ---
-import PopUpCreation from "../../../components/PopUpCreation.jsx";
+
 import PopUpError from "../../../components/PopUpError.jsx";
 import { getUser } from "../../../lib/auth";
 import * as lib from "../../../lib/lib"
 import { lookForBrothersWithCode ,lookForBrothersAncestorWithCode } from "../../../lib/lib";
-import {formatDate} from "../../../lib/utils.ts"
+import {formatDate,convertToISOFormat} from "../../../lib/utils.ts";
+
 let parent_id = Astro.url.searchParams.get("parentId");
+let update = Astro.url.searchParams.get("update");
+let updatePPPO = null;
 let pppoType;
 let invalid_code;
 let formSent = false;
@@ -18,6 +21,12 @@ if(user == null){
 }else{
   company = user.company;
 }
+
+if(update != ""){ // Update of PPPO
+  updatePPPO = await lib.getPPPOById(update);
+
+}
+
 if (parent_id == null){
     parent_id = "";
     // SOLO PODRAS ELEGIR PORTFOLIO
@@ -31,7 +40,7 @@ if (parent_id == null){
 
 // Get the possible managers
 const persons = await lib.getPersonsByCompany(company);
-console.log(persons);
+
 
 if (Astro.request.method === "POST") {
   try {
@@ -45,9 +54,7 @@ if (Astro.request.method === "POST") {
     const code = data.get("code").toString();
     // Look if there is a brother with the same code -> Cant create
 
-    console.log(parent_id);
-    console.log(company);
-    console.log(code);
+  
 
     if(parent_id == ""){
       invalid_code = await lookForBrothersAncestorWithCode(company,code);
@@ -56,17 +63,12 @@ if (Astro.request.method === "POST") {
     }
     
 
-    if(invalid_code){
-      console.log("Invalido");
-      console.log(invalid_code);
-      // Meter Pop Up
-
     
-    }else{
       console.log("Valido");
       console.log(invalid_code);
       const title = data.get("title").toString();
       const description = data.get("description").toString();
+      console.log(description);
       const strategic_goal = data.get("strategic_goal").toString();
       const planned_value = Number(data.get("planned_value"));
       const actual_cost = Number(data.get("actual_cost"));
@@ -80,54 +82,93 @@ if (Astro.request.method === "POST") {
       const external_manager = data.get("external_manager").toString();
       // Cambiar:
       const state = "To Do";
+      
+      if(updatePPPO == null){ // Creation
+        console.log("Creacion");
+        const res = await lib.createPPPO(
+          radioButton,
+          title,
+          description,
+          code,
+          strategic_goal,
+          planned_value,
+          actual_cost,
+          start_date,
+          finish_date,
+          start_real_date,
+          finish_real_date,
+          risk,
+          priority,
+          internal_manager,
+          external_manager,
+          company,
+          parent_id,
+          state
+      );
+      
+        // Internal Manager update pppo
+        // External Manager update pppo
+        if(external_manager != ""){
+          await lib.updatePersonExternalManager(res.idPPPO,external_manager);
+        }
+        await lib.updatePersonInternalManager(res.idPPPO,internal_manager);
+        
 
-      const res = await lib.createPPPO(
-      radioButton,
-      title,
-      description,
-      code,
-      strategic_goal,
-      planned_value,
-      actual_cost,
-      start_date,
-      finish_date,
-      start_real_date,
-      finish_real_date,
-      risk,
-      priority,
-      internal_manager,
-      external_manager,
-      company,
-      parent_id,
-      state
-  );
-  
-    // Internal Manager update pppo
-    // External Manager update pppo
-    console.log("Envio");
-    console.log(res.idPPPO);
-    console.log(external_manager);
-    if(external_manager != ""){
-      await lib.updatePersonExternalManager(res.idPPPO,external_manager);
-    }
-    await lib.updatePersonInternalManager(res.idPPPO,internal_manager);
-    
+      
+        formSent = true;
+        if (parent_id == ""){
+          return Astro.redirect("/Company/PPPOs");
+        }else{
+          return Astro.redirect(`/Company/PPPO/Sons?parentId=${parent_id}`);
+        }
+        
+      }else{ //Update
+        console.log("Update");
+        const updatedData = {
+        idPPPO: updatePPPO.idPPPO,
+        code: updatePPPO.code,
+        company: updatePPPO.company,
+        parent_id: updatePPPO.parent_id,
+        title: title,
+        description: description,
+        planned_value: planned_value,
+        actual_cost: actual_cost,
+        start_date: start_date,
+        finish_date: finish_date,
+        start_real_date: start_real_date,
+        finish_real_date: finish_real_date,
+        risk: risk,
+        priority: priority,
+        strategic_goal: strategic_goal,
+        earned_value: updatePPPO.earned_value,
+        ROI: updatePPPO.ROI,
+        cost_benefit: updatePPPO.cost_benefit,
+        PPPO: updatePPPO.PPPO,
+        state: updatePPPO.state,
+        internal_manager: internal_manager,
+        external_manager: external_manager 
+        };
+        console.log("Estamo ready");
+        console.log(updatedData);
+        // Llamar a la función updatePPPO con el ID del PPPO y los datos actualizados
+        await lib.updatePPPO(update, updatedData);
+        formSent = true;
+        
+        
+        return Astro.redirect(`/Company/PPPO?idPPPO=${update}`);
+        
+      }
 
-   
-    formSent = true;
-    if (parent_id == ""){
-      return Astro.redirect("/Company/PPPOs");
-    }else{
-      return Astro.redirect(`/Company/PPPO/Sons?parentId=${parent_id}`);
-    }
-    }
-    
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message);
-    }
-  }
-}
+      }
+      catch (error) {
+        if (error instanceof Error) {
+          console.error(error.message);
+        }
+      }
+  } 
+
+
+
 
 
 ---
@@ -135,11 +176,12 @@ if (Astro.request.method === "POST") {
 <div class="flex items-center justify-center p-12">
   
   <div class="mx-auto w-full max-w-[550px] bg-white">
-    {invalid_code && <PopUpError client:load />}
+    {invalid_code && update == "" && <PopUpError client:load />}
     
     <form action="" method="POST">
-      
-      <div class="mb-5">
+      {
+         updatePPPO == null && (
+        <div class="mb-5">
         <label class="mb-3 block text-base font-medium text-[#07074D]">
           What object would you like to create?
         </label>
@@ -251,6 +293,9 @@ if (Astro.request.method === "POST") {
           </div>
         </div>
       </div>
+        )
+      }
+      
       <div class="mb-5">
         <label
           for="title"
@@ -263,6 +308,7 @@ if (Astro.request.method === "POST") {
           type="text"
           name="title"
           id="title"
+          value={updatePPPO ? updatePPPO.title : ""}
           placeholder="Title"
           minlength="3"
           maxlength="50"
@@ -282,9 +328,11 @@ if (Astro.request.method === "POST") {
           id="description"
           placeholder="Description"
           class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-          maxlength="300"
+          maxlength="300">
+          {updatePPPO ? updatePPPO.description : ""}
+        </textarea>
           
-          />
+          
       </div>
       
       <div class="mb-5">
@@ -300,6 +348,7 @@ if (Astro.request.method === "POST") {
           name="code"
           id="code"
           placeholder="Code"
+          value={updatePPPO ? updatePPPO.code : ""}
           minlength="2"
           maxlength="10"
           required
@@ -319,6 +368,7 @@ if (Astro.request.method === "POST") {
           name="strategic_goal"
           id="strategic_goal"
           placeholder="Strategic Goal"
+          value={updatePPPO ? updatePPPO.strategic_goal: ""}
           minlength="5"
           maxlength="50"
           required
@@ -339,6 +389,7 @@ if (Astro.request.method === "POST") {
               type="number"
               min="0"
               name="planned_value"
+              value={updatePPPO ? updatePPPO.planned_value : ""}
               id="planned_value"
               placeholder="Enter your planned value"
               class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
@@ -356,6 +407,7 @@ if (Astro.request.method === "POST") {
             <input
               type="number"
               min="0"
+              value={updatePPPO ? updatePPPO.actual_cost : ""}
               name="actual_cost"
               id="actual_cost"
               placeholder="Enter your actual cost"
@@ -377,6 +429,11 @@ if (Astro.request.method === "POST") {
             <input
               required
               type="date"
+              value={
+                updatePPPO && updatePPPO.start_date && convertToISOFormat(updatePPPO.start_date) !== "2100-12-11"
+                ? convertToISOFormat(updatePPPO.start_date)
+                : ""
+            }
               name="start_date"
               id="start_date"
               class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
@@ -393,6 +450,11 @@ if (Astro.request.method === "POST") {
             </label>
             <input
               type="date"
+              value={
+                updatePPPO && convertToISOFormat(updatePPPO.finish_date) !== "2100-12-11"
+                ? convertToISOFormat(updatePPPO.finish_date)
+                : ""
+            }
               name="finish_date"
               id="finish_date"
               class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
@@ -411,6 +473,11 @@ if (Astro.request.method === "POST") {
             </label>
             <input
               type="date"
+              value={
+                updatePPPO && convertToISOFormat(updatePPPO.start_real_date) !== "2100-12-11"
+                ? convertToISOFormat(updatePPPO.start_real_date)
+                : ""
+            }
               name="start_real_date"
               id="start_real_date"
               class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
@@ -428,6 +495,11 @@ if (Astro.request.method === "POST") {
             <input
               type="date"
               name="finish_real_date"
+              value={
+                updatePPPO && convertToISOFormat(updatePPPO.finish_real_date) !== "2100-12-11"
+                ? convertToISOFormat(updatePPPO.finish_real_date)
+                : ""
+            }
               id="finish_real_date"
               class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
             />
@@ -530,11 +602,25 @@ if (Astro.request.method === "POST") {
       
 
       <div>
-        <button
+        {
+          updatePPPO == null && (
+          <button
           class="hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none"
         >
           Create
         </button>
+          )
+        }
+        {
+          updatePPPO != null && (
+          <button
+          class="hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none"
+        >
+          Update
+        </button>
+          )
+        }
+        
       </div>
     </form>
   </div>

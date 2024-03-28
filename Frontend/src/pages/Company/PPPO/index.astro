@@ -97,13 +97,15 @@ if(data.state != "To Do"){
                 </p>
                 <p class="mb-4 text-base">
                 Description:
-                 {data.PPPO}
+                 {data.description}
                 </p>
                 <p class="mb-4 text-base">
                     Strategic Goal:
                      {data.strategic_goal}
-                    </p>
-                
+                </p>
+                <p class="mb-4 text-base">
+                    <a href={`/Company/PPPO/Form?parentId=${data.parent_id}&update=${data.idPPPO}`}>Update</a>
+                </p>
               </div>
             </div>
           
