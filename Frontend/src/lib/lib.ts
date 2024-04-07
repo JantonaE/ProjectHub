@@ -11,7 +11,7 @@ export async function createPPPO(
     code: string,
     strategic_goal: string,
     planned_value: Number,
-    actual_cost: Number,
+    actual_cost: Number | null,
     start_date: string,
     finish_date: string | null,
     start_real_date: string | null,
@@ -25,8 +25,8 @@ export async function createPPPO(
     state: string
 ) :PPPO {
     const apiUrl = `${import.meta.env.BACKEND_URL}/PPPOs/`;
-    console.log("LIB: ");
-    console.log(radioButton);
+    console.log("Cost: ");
+    console.log(actual_cost);
     try {
         const res = await fetch(apiUrl, {
             method: "POST",

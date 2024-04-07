@@ -397,7 +397,7 @@ if (Astro.request.method === "POST") {
             <input
               type="number"
               min="0"
-              value={updatePPPO ? updatePPPO.actual_cost : ""}
+              value={updatePPPO && updatePPPO.actual_cost != 0 ? updatePPPO.actual_cost : ""}
               name="actual_cost"
               id="actual_cost"
               placeholder="Enter your actual cost"
