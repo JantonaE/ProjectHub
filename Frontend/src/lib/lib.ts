@@ -477,3 +477,46 @@ export async function getDeletedStatesByType(stateType) {
         return null;
     }
 }
+
+
+export async function createPerson(
+    DNI: string,
+    name: string,
+    email: string,
+    password: string,
+    company:string
+) :Promise<Person> {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/Persons/`;
+    console.log(apiUrl);
+    try {
+        const res = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idPerson: "",
+                DNI: DNI, 
+                name: name,
+                email: email, 
+                pppo_internal: [],
+                pppo_external: [],
+                password: password,
+                company: company,
+                admin: 0
+
+            }),
+        });
+    
+        if (!res.ok) {
+            throw new Error(`Error fetching data: ${res.statusText}`);
+        }
+    
+        const data = await res.json() as PPPO;
+    
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return null;
+    }
+}

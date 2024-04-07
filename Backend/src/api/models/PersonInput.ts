@@ -67,6 +67,12 @@ export interface PersonInput {
      * @memberof PersonInput
      */
     company: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof PersonInput
+     */
+    admin: number;
 }
 
 /**
@@ -79,6 +85,7 @@ export function instanceOfPersonInput(value: object): boolean {
     if (!('email' in value)) return false;
     if (!('password' in value)) return false;
     if (!('company' in value)) return false;
+    if (!('admin' in value)) return false;
     return true;
 }
 
@@ -100,6 +107,7 @@ export function PersonInputFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'pppoExternal': json['pppo_external'] == null ? undefined : json['pppo_external'],
         'password': json['password'],
         'company': json['company'],
+        'admin': json['admin'],
     };
 }
 
@@ -117,6 +125,7 @@ export function PersonInputToJSON(value?: PersonInput | null): any {
         'pppo_external': value['pppoExternal'],
         'password': value['password'],
         'company': value['company'],
+        'admin': value['admin'],
     };
 }
 

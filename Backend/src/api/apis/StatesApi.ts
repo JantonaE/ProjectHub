@@ -37,6 +37,10 @@ export interface FindAllStatesOfTypeStatesTypeStateTypeGetRequest {
     stateType: string;
 }
 
+export interface FindDeletedStateByTypeStatesDeletedByTypeStateTypeGetRequest {
+    stateType: number;
+}
+
 export interface FindOneStateStatesIdGetRequest {
     id: string;
 }
@@ -183,6 +187,41 @@ export class StatesApi extends runtime.BaseAPI {
      */
     async findAllStatesStatesGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<State>> {
         const response = await this.findAllStatesStatesGetRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Devuelve el estado con el type pasado por parámetro y estado \'Deleted\'
+     * Find Deleted State By Type
+     */
+    async findDeletedStateByTypeStatesDeletedByTypeStateTypeGetRaw(requestParameters: FindDeletedStateByTypeStatesDeletedByTypeStateTypeGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<State>> {
+        if (requestParameters['stateType'] == null) {
+            throw new runtime.RequiredError(
+                'stateType',
+                'Required parameter "stateType" was null or undefined when calling findDeletedStateByTypeStatesDeletedByTypeStateTypeGet().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/States/DeletedByType/{state_type}`.replace(`{${"state_type"}}`, encodeURIComponent(String(requestParameters['stateType']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => StateFromJSON(jsonValue));
+    }
+
+    /**
+     * Devuelve el estado con el type pasado por parámetro y estado \'Deleted\'
+     * Find Deleted State By Type
+     */
+    async findDeletedStateByTypeStatesDeletedByTypeStateTypeGet(requestParameters: FindDeletedStateByTypeStatesDeletedByTypeStateTypeGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<State> {
+        const response = await this.findDeletedStateByTypeStatesDeletedByTypeStateTypeGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -1321,6 +1321,10 @@
           "name": {
             "type": "string",
             "title": "Name"
+          },
+          "admin": {
+            "type": "string",
+            "title": "Admin"
           }
         },
         "type": "object",
@@ -1328,7 +1332,8 @@
           "idCompany",
           "code",
           "NIF",
-          "name"
+          "name",
+          "admin"
         ],
         "title": "Company"
       },
@@ -1700,6 +1705,10 @@
           "company": {
             "type": "string",
             "title": "Company"
+          },
+          "admin": {
+            "type": "number",
+            "title": "Admin"
           }
         },
         "type": "object",
@@ -1709,7 +1718,8 @@
           "name",
           "email",
           "password",
-          "company"
+          "company",
+          "admin"
         ],
         "title": "Person"
       },
@@ -1766,6 +1776,10 @@
           "company": {
             "type": "string",
             "title": "Company"
+          },
+          "admin": {
+            "type": "number",
+            "title": "Admin"
           }
         },
         "type": "object",
@@ -1777,7 +1791,8 @@
           "pppo_internal",
           "pppo_external",
           "password",
-          "company"
+          "company",
+          "admin"
         ],
         "title": "Person"
       },

@@ -8,3 +8,4 @@ class Company(BaseModel):
     code: str
     NIF: str
     name: str
+    admin: str 

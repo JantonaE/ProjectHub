@@ -5,7 +5,8 @@ def CompanyEntity(item) -> dict:
         "idCompany": str(item["_id"]),
         "code": str(item["code"]),
         "NIF": str(item["NIF"]),
-        "name": str(item["name"])
+        "name": str(item["name"]),
+        "admin": str(item["admin"])
     }
 
 def CompanyEntityList(entity) -> list:

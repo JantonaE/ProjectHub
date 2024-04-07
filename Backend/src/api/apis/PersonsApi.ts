@@ -40,6 +40,10 @@ export interface FindOnePersonPersonsIdGetRequest {
     id: string;
 }
 
+export interface FindPersonByDniPersonsByDniDniGetRequest {
+    dni: string;
+}
+
 export interface FindPersonsByCompanyPersonsByCompanyCompanyGetRequest {
     company: string;
 }
@@ -214,6 +218,41 @@ export class PersonsApi extends runtime.BaseAPI {
      */
     async findOnePersonPersonsIdGet(requestParameters: FindOnePersonPersonsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PersonOutput> {
         const response = await this.findOnePersonPersonsIdGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Devuelve el person con el DNI pasado por parámetro
+     * Find Person By Dni
+     */
+    async findPersonByDniPersonsByDniDniGetRaw(requestParameters: FindPersonByDniPersonsByDniDniGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<PersonOutput>> {
+        if (requestParameters['dni'] == null) {
+            throw new runtime.RequiredError(
+                'dni',
+                'Required parameter "dni" was null or undefined when calling findPersonByDniPersonsByDniDniGet().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/Persons/by_dni/{dni}`.replace(`{${"dni"}}`, encodeURIComponent(String(requestParameters['dni']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => PersonOutputFromJSON(jsonValue));
+    }
+
+    /**
+     * Devuelve el person con el DNI pasado por parámetro
+     * Find Person By Dni
+     */
+    async findPersonByDniPersonsByDniDniGet(requestParameters: FindPersonByDniPersonsByDniDniGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<PersonOutput> {
+        const response = await this.findPersonByDniPersonsByDniDniGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

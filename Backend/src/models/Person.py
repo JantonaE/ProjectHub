@@ -11,3 +11,4 @@ class Person(BaseModel):
     pppo_external: Optional[list[str]] = None
     password: str
     company: str
+    admin: float # 0 -> No es admin de la compañia, 1-> Si es admin
