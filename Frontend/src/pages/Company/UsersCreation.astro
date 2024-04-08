@@ -1,9 +1,8 @@
 ---
-//{invalid_code && update == "" && <PopUpError client:load />}
-import { isLineBreak } from "typescript";
+
 import { getUser } from "../../lib/auth";
 
-import { createPerson } from "../../lib/lib";
+import { createPerson, getCompanyById } from "../../lib/lib";
 
 
 let company;
@@ -18,7 +17,7 @@ if(user == null){
     return Astro.redirect('/');
   }
 }
-
+let companyObject = await getCompanyById(company);
 if (Astro.request.method === "POST") {
   try {
     // OBTENER COMPANY DE LA SESION Y padre
@@ -46,7 +45,11 @@ if (Astro.request.method === "POST") {
 <div class="flex items-center justify-center p-12">
   
     <div class="mx-auto w-full max-w-[550px] bg-white">
-      
+      <div class="mb-5">
+        <div class="mb-3 block text-base font-medium text-[#07074D]">
+          Create user for the company "{companyObject.name}"
+        </div>
+      </div>
       
       <form action="" method="POST">
        
