@@ -150,7 +150,12 @@ if (Astro.request.method === "POST") {
         // Llamar a la función updatePPPO con el ID del PPPO y los datos actualizados
         await lib.updatePPPO(update, updatedData);
         formSent = true;
-        
+        // Internal Manager update pppo
+        // External Manager update pppo
+        if(external_manager != ""){
+          await lib.updatePersonExternalManager(updatedData.idPPPO,external_manager);
+        }
+        await lib.updatePersonInternalManager(updatedData.idPPPO,internal_manager);
         
         return Astro.redirect(`/Company/PPPO?idPPPO=${update}`);
         

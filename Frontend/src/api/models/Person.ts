@@ -19,6 +19,7 @@ import { mapValues } from '../runtime';
  * @interface Person
  */
 export interface Person {
+    admin: any;
     company: any;
     password: any;
     pppo_internal: any;

@@ -287,7 +287,7 @@ export async function updatePersonExternalManager(pppoId: string, external_pppo:
     
     const apiUrl = `${import.meta.env.BACKEND_URL}/Persons/${external_pppo}`;
     let updateResponse: Response; // Declaramos updateResponse aquí para que esté disponible en todo el alcance de la función
-    
+    //let persona = await getPersonById(external_pppo);
     console.log(apiUrl);
     try {
         // Obtener la persona por su external_pppo o internal_pppo
@@ -309,6 +309,7 @@ export async function updatePersonExternalManager(pppoId: string, external_pppo:
             "pppo_external": updatedPppoExternal,
             "password": person.password,
             "company": person.company,
+            "admin" : person.admin,
         };
 
         const apiUrlUpdate = `${import.meta.env.BACKEND_URL}/Persons/${person.idPerson}`;
@@ -365,6 +366,7 @@ export async function updatePersonInternalManager(pppoId: string, internal_pppo:
             "pppo_external": person.pppo_external,
             "password": person.password,
             "company": person.company,
+            "admin" : person.admin,
         };
 
         const apiUrlUpdate = `${import.meta.env.BACKEND_URL}/Persons/${person.idPerson}`;
@@ -518,5 +520,29 @@ export async function createPerson(
     } catch (error) {
         console.error("Error fetching data:", error);
         return null;
+    }
+}
+
+export async function getPPPOsByIds(ids: string[]): Promise<PPPO[]> {
+    const apiUrl = import.meta.env.BACKEND_URL; // Suponiendo que la URL base es la misma
+    
+    try {
+        const ppposPromises = ids.map(async (id) => {
+            const url = `${apiUrl}/PPPOs/${id}`;
+            const res = await fetch(url);
+            
+            if (!res.ok) {
+                throw new Error(`Error fetching data for ID ${id}: ${res.statusText}`);
+            }
+            
+            return res.json();
+        });
+        
+        const pppos = await Promise.all(ppposPromises);
+        
+        return pppos;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return [];
     }
 }
