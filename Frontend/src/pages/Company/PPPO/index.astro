@@ -56,7 +56,7 @@ await fetchPPPOs();
               <div class="p-6">
                 <h5
                   class="mb-2 text-xl font-medium leading-tight">
-                  {data.title}<StateComponent state={data.state} />
+                  {data.title}  <StateComponent state={data.state} />
                 </h5>
                 
                 <p class="mb-4 text-base">
@@ -67,27 +67,44 @@ await fetchPPPOs();
                     
                 </p>
                 <p class="mb-4 text-base">
-                    Risk: (Iconos?)
-                     {data.risk}
+                    Risk: 
+                     <span class={data.risk === 0 ? "text-green-500" : 
+                     data.risk === 1 ? "text-yellow-500" : 
+                     "text-red-500"}>  
+                     {data.risk === 0 ? "Low" : 
+                     data.risk === 1 ? "Medium" :
+                     "High"
+                   }
+                     </span>
                 </p>
                 <p class="mb-4 text-base">
                     Priority:
-                     {data.priority}
+                    <span class={data.priority === 0 ? "text-green-500" : 
+                    data.priority  === 1 ? "text-yellow-500" : 
+                    "text-red-500"}>  
+                    {data.priority  === 0 ? "Low" : 
+                    data.priority  === 1 ? "Medium" :
+                    "High"
+                  }
+                    </span>
                 </p>
                 <p class="mb-4 text-base">
-                Description:
+                Description: <br>
                  {data.description}
                 </p>
                 <p class="mb-4 text-base">
-                    Strategic Goal:
+                    Strategic Goal: <br>
                      {data.strategic_goal}
                 </p>
-                <p class="mb-4 text-base">
-                    <a class="hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none" href={`/Company/PPPO/Form?parentId=${data.parent_id}&update=${data.idPPPO}`}>Update</a>
-                </p>
-                <p class="mb-4 text-base">
-                    <DeleteModal idPPPO={idPPPO} />
-                </p>
+                <div class="w-full flex">
+                    <p class="mb-4 text-base m-2">
+                        <a class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" href={`/Company/PPPO/Form?parentId=${data.parent_id}&update=${data.idPPPO}`}>Update</a>
+                    </p>
+                    <p class="mb-4 text-base m-2">
+                        <DeleteModal idPPPO={idPPPO} />
+                    </p>
+                </div>
+                
                 
               </div>
             </div>

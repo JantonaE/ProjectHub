@@ -57,9 +57,19 @@ await fetchPortfolios();
         <thead>
           <tr>
             <th class="border p-2">
-              <a href={`/Company/PPPO/Form?parent_id=${""}&update=${""}`}>+</a>
+              <a href={`/Company/PPPO/Form?parent_id=${""}&update=${""}`}>
+                +
+              </a>
             </th>
-            
+            <th class="border p-2" colspan="2">
+              HIlasd
+            </th>
+            <th class="border p-2">
+              Mas actual
+            </th>
+            <th class="border p-2">
+              Mas actual
+            </th>
           </tr>
         </thead>
         <thead>
@@ -71,6 +81,7 @@ await fetchPortfolios();
                 <th class="border p-2">Finish Date / <br> Real Finish Date</th>
                 <th class="border p-2">Risk</th>
                 <th class="border p-2">Priority</th>
+                <th class="border p-2">P.V / A.C</th>
                 <th class="border p-2">Strategic Goal</th>
                 <th class="border p-2">State</th>
             </tr>
@@ -135,6 +146,7 @@ await fetchPortfolios();
                     }
                       </span>
                     </td>
+                    <td class="border p-2">{portfolio.planned_value} - {portfolio.actual_cost == 0 ? "Not Defined" : portfolio.actual_cost}</td>
                     <td class="border p-2">{portfolio.strategic_goal}</td>
                     <td class="border p-2 w-20"><StateComponent state={portfolio.state} /></td>
                 </tr>
