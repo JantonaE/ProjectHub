@@ -40,7 +40,7 @@ if(idPerson != null){
     
    
     <div class="w-4/5 h-full ml-64 overflow-auto">
-        <div class="flex">
+        <div class="flex text-center justify-center items-center">
             <a class="m-5">
                 DNI: {person?.DNI}
             </a>
@@ -51,41 +51,14 @@ if(idPerson != null){
                 Email: {person?.email}
             </a>
         </div>
+        
         <div class="flex text-center justify-center m-5">   
             <table class="">
-              <thead>
-                  <tr>
-                      <th class="border p-2">Type</th>
-                      <th class="border p-2">Title</th>
-                      <th class="border p-2">Code</th>
-                      <th class="border p-2">Strategic Goal</th>
-                      
-                  </tr>
-              </thead>
-              <tbody>
-                  {
-                  data_external && data_external.map((portfolio) => (
-                      <tr >
-                          <td class="border p-2">
-                            Portfolio
-                            </td>
-                          <td class="border p-2 text-blue-600 hover:underline">
-                            <a href={`/Company/PPPO?idPPPO=${portfolio.idPPPO}`}>{portfolio.title}</a>
-                            
-                            </td>
-                          <td class="border p-2 text-blue-600 hover:underline">
-                            <a href={`/Company/PPPO/Sons?parentId=${portfolio.idPPPO}`}>{portfolio.code}</a>
-                            
-                            </td>
-                          <td class="border p-2">{portfolio.strategic_goal}</td>              
-                      </tr>
-                  ))
-                }
-              </tbody>
-          </table>
-          </div>
-          <div class="flex text-center justify-center m-5">   
-            <table class="">
+                <thead>
+                    <tr>
+                        <th class="p-2" colspan="4">Internal Manager</th>
+                    </tr>
+                </thead>
               <thead>
                   <tr>
                       <th class="border p-2">Type</th>
@@ -117,5 +90,44 @@ if(idPerson != null){
               </tbody>
           </table>
           </div>
+        <div class="flex text-center justify-center m-5">
+            <table class="">
+            <thead>
+                <tr>
+                    <th class="p-2" colspan="4">External Manager</th>
+                </tr>
+            </thead>
+              <thead>
+                  <tr>
+                      <th class="border p-2">Type</th>
+                      <th class="border p-2">Title</th>
+                      <th class="border p-2">Code</th>
+                      <th class="border p-2">Strategic Goal</th>
+                      
+                  </tr>
+              </thead>
+              <tbody>
+                  {
+                  data_external && data_external.map((portfolio) => (
+                      <tr >
+                          <td class="border p-2">
+                            Portfolio
+                            </td>
+                          <td class="border p-2 text-blue-600 hover:underline">
+                            <a href={`/Company/PPPO?idPPPO=${portfolio.idPPPO}`}>{portfolio.title}</a>
+                            
+                            </td>
+                          <td class="border p-2 text-blue-600 hover:underline">
+                            <a href={`/Company/PPPO/Sons?parentId=${portfolio.idPPPO}`}>{portfolio.code}</a>
+                            
+                            </td>
+                          <td class="border p-2">{portfolio.strategic_goal}</td>              
+                      </tr>
+                  ))
+                }
+              </tbody>
+          </table>
+          </div>
+          
     </div>
 </div>
