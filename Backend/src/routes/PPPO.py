@@ -135,14 +135,14 @@ async def find_all_pppos_filter(
     finish_dateMax: str = Query(None, description="Fecha de fin planeada (máxima) - El formato debe ser 'dd/mm/yyyy'"),
     finish_real_dateMin: str = Query(None, description="Fecha de fin real (mínima) - El formato debe ser 'dd/mm/yyyy'"),
     finish_real_dateMax: str = Query(None, description="Fecha de fin real (máxima) - El formato debe ser 'dd/mm/yyyy'"),
-    state: str = Query(None, description="Estado del PPPO"),
+    #state: str = Query(None, description="Estado del PPPO"),
     sortedBy: str = Query(None, description="Campo por el que se ordena la lista"),
     desc: bool = Query(False, description="Ordenar por orden descendente")
 ) -> list[PPPO]:
     
     resList = []
     print("Inicia")
-    if search is None and planned_valueMin is None and planned_valueMax is None and actual_costMin is None and actual_costMax is None and earned_valueMin is None and earned_valueMax is None and risk is None and priority is None and start_dateMin is None and start_dateMax is None and start_real_dateMin is None and start_real_dateMax is None and finish_dateMin is None and finish_dateMax is None and finish_real_dateMin is None and finish_real_dateMax is None and state is None:
+    if search is None and planned_valueMin is None and planned_valueMax is None and actual_costMin is None and actual_costMax is None and earned_valueMin is None and earned_valueMax is None and risk is None and priority is None and start_dateMin is None and start_dateMax is None and start_real_dateMin is None and start_real_dateMax is None and finish_dateMin is None and finish_dateMax is None and finish_real_dateMin is None and finish_real_dateMax is None:
         print("Entra al vacio")
         print(parent_id)
         print(company)
@@ -237,9 +237,9 @@ async def find_all_pppos_filter(
                 if not (compare_dates(item["finish_real_date"], finish_real_dateMax) <= 0):
                     ok = False
 
-            if state is not None:
-                if not (item["state"] == state):
-                    ok = False
+            #if state is not None:
+            #    if not (item["state"] == state):
+            #        ok = False
 
 
             if ok:

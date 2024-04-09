@@ -1194,17 +1194,6 @@
             "description": "Fecha de fin real (m\u00e1xima) - El formato debe ser 'dd/mm/yyyy'"
           },
           {
-            "name": "state",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string",
-              "description": "Estado del PPPO",
-              "title": "State"
-            },
-            "description": "Estado del PPPO"
-          },
-          {
             "name": "sortedBy",
             "in": "query",
             "required": false,
