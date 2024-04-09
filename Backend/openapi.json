@@ -583,72 +583,6 @@
         }
       }
     },
-    "/PPPOs/": {
-      "get": {
-        "tags": [
-          "PPPOs"
-        ],
-        "summary": "Find All Pppos",
-        "description": "Devuelve una lista de pppos",
-        "operationId": "find_all_pppos_PPPOs__get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/PPPO-Output"
-                  },
-                  "type": "array",
-                  "title": "Response Find All Pppos Pppos  Get"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "PPPOs"
-        ],
-        "summary": "Create Pppo",
-        "description": "Crea un pppo y lo devuelve",
-        "operationId": "create_pppo_PPPOs__post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PPPO-Input"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PPPO-Output"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/PPPOs/{id}": {
       "get": {
         "tags": [
@@ -843,9 +777,9 @@
         "tags": [
           "PPPOs"
         ],
-        "summary": "Find Pppo Sons",
+        "summary": "Find Pppo Ancestors",
         "description": "Devuelve los ancestros del id pasado por par\u00e1metro",
-        "operationId": "find_pppo_sons_PPPOs_Ancestors__id__get",
+        "operationId": "find_pppo_ancestors_PPPOs_Ancestors__id__get",
         "parameters": [
           {
             "name": "id",
@@ -869,7 +803,7 @@
                   "items": {
                     "$ref": "#/components/schemas/PPPO-Output"
                   },
-                  "title": "Response Find Pppo Sons Pppos Ancestors  Id  Get"
+                  "title": "Response Find Pppo Ancestors Pppos Ancestors  Id  Get"
                 }
               }
             }
@@ -984,6 +918,327 @@
                 "schema": {
                   "type": "boolean",
                   "title": "Response Find Pppo Ancestor With Code Pppos Brotherancestor  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/PPPOs/": {
+      "post": {
+        "tags": [
+          "PPPOs"
+        ],
+        "summary": "Create Pppo",
+        "description": "Crea un pppo y lo devuelve",
+        "operationId": "create_pppo_PPPOs__post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PPPO-Input"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PPPO-Output"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "PPPOs"
+        ],
+        "summary": "Find All Pppos Filter",
+        "description": "Devuelve una lista de PPPO filtrados",
+        "operationId": "find_all_pppos_filter_PPPOs__get",
+        "parameters": [
+          {
+            "name": "parent_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Id del padre",
+              "title": "Parent Id"
+            },
+            "description": "Id del padre"
+          },
+          {
+            "name": "company",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Compa\u00f1ia",
+              "title": "Company"
+            },
+            "description": "Compa\u00f1ia"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "B\u00fasqueda en T\u00edtulo o C\u00f3digo",
+              "title": "Search"
+            },
+            "description": "B\u00fasqueda en T\u00edtulo o C\u00f3digo"
+          },
+          {
+            "name": "planned_valueMin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "description": "P.V (m\u00ednimo)",
+              "title": "Planned Valuemin"
+            },
+            "description": "P.V (m\u00ednimo)"
+          },
+          {
+            "name": "planned_valueMax",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "description": "P.V (m\u00e1ximo)",
+              "title": "Planned Valuemax"
+            },
+            "description": "P.V (m\u00e1ximo)"
+          },
+          {
+            "name": "actual_costMin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "description": "A.C (m\u00ednimo)",
+              "title": "Actual Costmin"
+            },
+            "description": "A.C (m\u00ednimo)"
+          },
+          {
+            "name": "actual_costMax",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "description": "A.C (m\u00e1ximo)",
+              "title": "Actual Costmax"
+            },
+            "description": "A.C (m\u00e1ximo)"
+          },
+          {
+            "name": "earned_valueMin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "description": "Earned Value (m\u00ednimo)",
+              "title": "Earned Valuemin"
+            },
+            "description": "Earned Value (m\u00ednimo)"
+          },
+          {
+            "name": "earned_valueMax",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "description": "Earned Value (m\u00e1ximo)",
+              "title": "Earned Valuemax"
+            },
+            "description": "Earned Value (m\u00e1ximo)"
+          },
+          {
+            "name": "risk",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "description": "Riesgo del PPPO",
+              "title": "Risk"
+            },
+            "description": "Riesgo del PPPO"
+          },
+          {
+            "name": "priority",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "description": "Prioridad del PPPO",
+              "title": "Priority"
+            },
+            "description": "Prioridad del PPPO"
+          },
+          {
+            "name": "start_dateMin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Fecha de inicio planeada (m\u00ednima) - El formato debe ser 'dd/mm/yyyy'",
+              "title": "Start Datemin"
+            },
+            "description": "Fecha de inicio planeada (m\u00ednima) - El formato debe ser 'dd/mm/yyyy'"
+          },
+          {
+            "name": "start_dateMax",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Fecha de inicio planeada (m\u00e1xima) - El formato debe ser 'dd/mm/yyyy'",
+              "title": "Start Datemax"
+            },
+            "description": "Fecha de inicio planeada (m\u00e1xima) - El formato debe ser 'dd/mm/yyyy'"
+          },
+          {
+            "name": "start_real_dateMin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Fecha de inicio real (m\u00ednima) - El formato debe ser 'dd/mm/yyyy'",
+              "title": "Start Real Datemin"
+            },
+            "description": "Fecha de inicio real (m\u00ednima) - El formato debe ser 'dd/mm/yyyy'"
+          },
+          {
+            "name": "start_real_dateMax",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Fecha de inicio real (m\u00e1xima) - El formato debe ser 'dd/mm/yyyy'",
+              "title": "Start Real Datemax"
+            },
+            "description": "Fecha de inicio real (m\u00e1xima) - El formato debe ser 'dd/mm/yyyy'"
+          },
+          {
+            "name": "finish_dateMin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Fecha de fin planeada (m\u00ednima) - El formato debe ser 'dd/mm/yyyy'",
+              "title": "Finish Datemin"
+            },
+            "description": "Fecha de fin planeada (m\u00ednima) - El formato debe ser 'dd/mm/yyyy'"
+          },
+          {
+            "name": "finish_dateMax",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Fecha de fin planeada (m\u00e1xima) - El formato debe ser 'dd/mm/yyyy'",
+              "title": "Finish Datemax"
+            },
+            "description": "Fecha de fin planeada (m\u00e1xima) - El formato debe ser 'dd/mm/yyyy'"
+          },
+          {
+            "name": "finish_real_dateMin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Fecha de fin real (m\u00ednima) - El formato debe ser 'dd/mm/yyyy'",
+              "title": "Finish Real Datemin"
+            },
+            "description": "Fecha de fin real (m\u00ednima) - El formato debe ser 'dd/mm/yyyy'"
+          },
+          {
+            "name": "finish_real_dateMax",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Fecha de fin real (m\u00e1xima) - El formato debe ser 'dd/mm/yyyy'",
+              "title": "Finish Real Datemax"
+            },
+            "description": "Fecha de fin real (m\u00e1xima) - El formato debe ser 'dd/mm/yyyy'"
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Estado del PPPO",
+              "title": "State"
+            },
+            "description": "Estado del PPPO"
+          },
+          {
+            "name": "sortedBy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Campo por el que se ordena la lista",
+              "title": "Sortedby"
+            },
+            "description": "Campo por el que se ordena la lista"
+          },
+          {
+            "name": "desc",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Ordenar por orden descendente",
+              "default": false,
+              "title": "Desc"
+            },
+            "description": "Ordenar por orden descendente"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PPPO-Output"
+                  },
+                  "title": "Response Find All Pppos Filter Pppos  Get"
                 }
               }
             }
