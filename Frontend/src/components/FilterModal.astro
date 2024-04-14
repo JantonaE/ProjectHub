@@ -1,5 +1,65 @@
 ---
-const idPPPO = Astro.url.searchParams.get("idPPPO");
+import { getUser } from "../lib/auth";
+import { getFilteredPPPOs } from "../lib/lib";
+import { formatDate } from "../lib/utils";
+
+const parent_id = Astro.url.searchParams.get("parentId");
+console.log("LLegamos");
+let company;
+let user = await getUser();
+if(user == null){
+  console.log("redirect");
+  return Astro.redirect('/');
+}else{
+  company = user.company;
+}
+
+if (Astro.request.method === "POST") {
+  try {
+    console.log("Entra al post");
+    // OBTENER COMPANY DE LA SESION Y padre
+    const data = await Astro.request.formData();
+
+    
+    const search = data.get("search").toString();
+    const planned_valueMin = Number(data.get("planned_valueMin"));
+    const planned_valueMax = Number(data.get("planned_valueMax"));
+    const actual_costMin = Number(data.get("actual_costMin"));
+    const actual_costMax = Number(data.get("actual_costMax"));
+    const earned_valueMin = Number(data.get("earned_valueMin"));
+    const earned_valueMax = Number(data.get("earned_valueMax"));
+    const start_dateMin = formatDate(data.get("start_dateMin"));
+    const start_dateMax = formatDate(data.get("start_dateMax"));
+    const start_real_dateMin = formatDate(data.get("start_real_dateMin"));
+    const start_real_dateMax = formatDate(data.get("start_real_dateMax"));
+    const finish_dateMin = formatDate(data.get("finish_dateMin"));
+    const finish_dateMax = formatDate(data.get("finish_dateMax"));
+    const finish_real_dateMin = formatDate(data.get("finish_real_dateMin"));
+    const finish_real_dateMax = formatDate(data.get("finish_real_dateMax"));
+    const risk = Number(data.get("risk"));
+    const priority = Number(data.get("priority"));
+    let lista = await getFilteredPPPOs(company,parent_id,search,planned_valueMin,planned_valueMax,actual_costMin,actual_costMax,
+        earned_valueMin,earned_valueMax,start_dateMin,start_dateMax,start_real_dateMin,start_real_dateMax,finish_dateMin,
+        finish_dateMax,finish_real_dateMin,finish_real_dateMax,risk,priority
+    );
+    console.log("Lista");
+    console.log(lista);
+    if (parent_id == ""){
+        return Astro.redirect("/Company/PPPOs");
+    }else{
+        return Astro.redirect(`/Company/PPPO/Sons?parentId=${parent_id}`);
+    }  
+    
+
+
+      }
+      catch (error) {
+        if (error instanceof Error) {
+          console.error(error.message);
+        }
+      }
+  } 
+
 ---
 
 <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -18,6 +78,7 @@ const idPPPO = Astro.url.searchParams.get("idPPPO");
                 <label class="mb-3 block  text-2xl font-medium text-[#07074D]">
                     Filters
                 </label>
+                <form action="" method="POST">
                 <div>
                     <div class="mb-5">
                         <label
@@ -320,13 +381,14 @@ const idPPPO = Astro.url.searchParams.get("idPPPO");
                       </div> 
                 </div>
                 
-                <a href=`/Company/PPPO/Delete?idPPPO=${idPPPO}`>
-                    <button data-modal-hide="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
-                        Filter
-                    </button>
-                </a>
                 
+                <button data-modal-hide="popup-modal" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                    Filter
+                </button>
+                
+            
                 <button data-modal-hide="popup-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">No, cancel</button>
+            </form>
             </div>
         </div>
     </div>

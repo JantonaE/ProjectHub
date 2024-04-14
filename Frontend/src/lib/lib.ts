@@ -546,3 +546,55 @@ export async function getPPPOsByIds(ids: string[]): Promise<PPPO[]> {
         return [];
     }
 }
+
+// Filtros
+export async function getFilteredPPPOs(company: string,
+    parent_id: string,
+    search: string,
+    planned_valueMin: number,
+    planned_valueMax: number,
+    actual_costMin: number,
+    actual_costMax: number,
+    earned_valueMin: number,
+    earned_valueMax: number,
+    start_dateMin: string,
+    start_dateMax: string,
+    start_real_dateMin: string,
+    start_real_dateMax: string,
+    finish_dateMin: string,
+    finish_dateMax: string,
+    finish_real_dateMin: string,
+    finish_real_dateMax: string,
+    risk: number,
+    priority: number): Promise<PPPO[] | null> {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/PPPOs/`;
+
+    // Construir los parámetros de la URL basados en los argumentos proporcionados
+    let queryParams = `?`;
+    if (company) queryParams += `company=${company}&`;
+    if (parent_id) queryParams += `parent_id=${parent_id}&`;
+    if (search) queryParams += `search=${search}&`;
+    if (planned_valueMin) queryParams += `planned_valueMin=${planned_valueMin}&`;
+    if (planned_valueMax) queryParams += `planned_valueMax=${planned_valueMax}&`;
+    // Repetir este proceso para los demás parámetros
+
+    // Eliminar el último "&" si está presente en los parámetros
+    queryParams = queryParams.slice(0, -1);
+
+    const urlWithParams = apiUrl + queryParams;
+
+    try {
+        const res = await fetch(urlWithParams);
+
+        if (!res.ok) {
+            throw new Error(`Error fetching data: ${res.statusText}`);
+        }
+
+        const data = await res.json() as PPPO[];
+        
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return null;
+    }
+}
