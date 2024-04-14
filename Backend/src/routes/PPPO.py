@@ -205,37 +205,40 @@ async def find_all_pppos_filter(
                 if not (item["priority"] == priority):
                     ok = False
 
-            if start_dateMin is not None:
-                if not (compare_dates(item["start_date"], start_dateMin) >= 0):
-                    ok = False
+            if item["start_date"] != "12/12/2100":
+                if start_dateMin is not None:
+                    if not (compare_dates(item["start_date"], start_dateMin) >= 0):
+                        ok = False
             
-            if start_dateMax is not None:
-                if not (compare_dates(item["start_date"], start_dateMax) <= 0):
-                    ok = False
+                if start_dateMax is not None:
+                    if not (compare_dates(item["start_date"], start_dateMax) <= 0):
+                        ok = False
 
-            if start_real_dateMin is not None:
-                if not (compare_dates(item["start_real_date"], start_real_dateMin) >= 0):
-                    ok = False
-            
-            if start_real_dateMax is not None:
-                if not (compare_dates(item["start_real_date"], start_real_dateMax) <= 0):
-                    ok = False
+            if item["start_real_date"] != "12/12/2100":
+                if start_real_dateMin is not None:
+                    if not (compare_dates(item["start_real_date"], start_real_dateMin) >= 0):
+                        ok = False
+                
+                if start_real_dateMax is not None:
+                    if not (compare_dates(item["start_real_date"], start_real_dateMax) <= 0):
+                        ok = False
 
-            if finish_dateMin is not None:
-                if not (compare_dates(item["finish_date"], finish_dateMin) >= 0):
-                    ok = False
-            
-            if finish_dateMax is not None:
-                if not (compare_dates(item["finish_date"], finish_dateMax) <= 0):
-                    ok = False
-
-            if finish_real_dateMin is not None:
-                if not (compare_dates(item["finish_real_date"], finish_real_dateMin) >= 0):
-                    ok = False
-            
-            if finish_real_dateMax is not None:
-                if not (compare_dates(item["finish_real_date"], finish_real_dateMax) <= 0):
-                    ok = False
+            if item["finish_date"] != "12/12/2100":
+                if finish_dateMin is not None:
+                    if not (compare_dates(item["finish_date"], finish_dateMin) >= 0):
+                        ok = False
+                
+                if finish_dateMax is not None:
+                    if not (compare_dates(item["finish_date"], finish_dateMax) <= 0):
+                        ok = False
+            if item["finish_real_date"] != "12/12/2100":
+                if finish_real_dateMin is not None:
+                    if not (compare_dates(item["finish_real_date"], finish_real_dateMin) >= 0):
+                        ok = False
+                    
+                if finish_real_dateMax is not None:
+                    if not (compare_dates(item["finish_real_date"], finish_real_dateMax) <= 0):
+                        ok = False
 
             #if state is not None:
             #    if not (item["state"] == state):
