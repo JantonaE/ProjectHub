@@ -5,7 +5,7 @@ const idPPPO = Astro.url.searchParams.get("idPPPO");
 <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
     Filter
 </button>
-<div id="popup-modal" tabindex="-1" class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">
+<div id="popup-modal" tabindex="-1" class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 overflow-y-auto">
     <div class="relative p-4 w-full max-w-3xl max-h-3/4">
         <div class="relative bg-white rounded-lg shadow">
             <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="popup-modal">
@@ -14,8 +14,10 @@ const idPPPO = Astro.url.searchParams.get("idPPPO");
                 </svg>
                 <span class="sr-only">Close modal</span>
             </button>
-            <div class="p-4 md:p-5 text-center">
-                form
+            <div class="p-4 md:p-5 text-center mt-24">
+                <label class="mb-3 block  text-2xl font-medium text-[#07074D]">
+                    Filters
+                </label>
                 <div>
                     <div class="mb-5">
                         <label
@@ -153,38 +155,117 @@ const idPPPO = Astro.url.searchParams.get("idPPPO");
                     <div class="-mx-3 flex flex-wrap">
                         <div class="w-full px-3 sm:w-1/2">
                             <div class="mb-5">
-                                <label
-                                    for="earned_valueMin"
-                                    class="mb-3 block text-base font-medium text-[#07074D]"
-                                >
-                                    Minimum Earned Value
+                                <label for="date" class="mb-3 block text-base font-medium text-[#07074D]">
+                                    Planned Start Date
                                 </label>
-                                <input
-                                    type="number"
-                                    min="0"
-                                    name="earned_valueMin"
-                                    id="earned_valueMin"
-                                    placeholder="Enter your minimum earned value"
-                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                />
+                                <div class="flex">
+                                    <div class="w-full sm:w-1/2 pr-1">
+                                        <input
+                                        type="date"
+                                        name="start_dateMin"
+                                        
+                                        id="start_dateMin"
+                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-3 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        />
+                                    </div>
+                                    <div class="w-full sm:w-1/2 pl-1">
+                                        <input
+                                        type="date"
+                                        name="start_dateMax"
+                                        
+                                        id="start_dateMax"
+                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-3 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        />
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
                         <div class="w-full px-3 sm:w-1/2">
                             <div class="mb-5">
-                                <label
-                                    for="earned_valueMax"
-                                    class="mb-3 block text-base font-medium text-[#07074D]"
-                                >
-                                    Maximum Earned value
+                                <label for="date" class="mb-3 block text-base font-medium text-[#07074D]">
+                                    Real Start Date
                                 </label>
-                                <input
-                                    type="number"
-                                    min="0"
-                                    name="earned_valueMax"
-                                    id="earned_valueMax"
-                                    placeholder="Enter your maximum earned value"
-                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                />
+                                <div class="flex">
+                                    <div class="w-full sm:w-1/2 pr-1">
+                                        <input
+                                        type="date"
+                                        name="start_real_dateMin"
+                                        
+                                        id="start_real_dateMin"
+                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-3 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        />
+                                    </div>
+                                    <div class="w-full sm:w-1/2 pl-1">
+                                        <input
+                                        type="date"
+                                        name="start_real_dateMax"
+                                        
+                                        id="start_real_dateMax"
+                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-3 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        />
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="-mx-3 flex flex-wrap">
+                        <div class="w-full px-3 sm:w-1/2">
+                            <div class="mb-5">
+                                <label for="date" class="mb-3 block text-base font-medium text-[#07074D]">
+                                    Planned Finish Date
+                                </label>
+                                <div class="flex">
+                                    <div class="w-full sm:w-1/2 pr-1">
+                                        <input
+                                        type="date"
+                                        name="finish_dateMin"
+                                        
+                                        id="finish_dateMin"
+                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-3 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        />
+                                    </div>
+                                    <div class="w-full sm:w-1/2 pl-1">
+                                        <input
+                                        type="date"
+                                        name="finish_dateMax"
+                                        
+                                        id="finish_dateMax"
+                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-3 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        />
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="w-full px-3 sm:w-1/2">
+                            <div class="mb-5">
+                                <label for="date" class="mb-3 block text-base font-medium text-[#07074D]">
+                                    Real Finish Date
+                                </label>
+                                <div class="flex">
+                                    <div class="w-full sm:w-1/2 pr-1">
+                                        <input
+                                        type="date"
+                                        name="finish_real_dateMin"
+                                        
+                                        id="finish_real_dateMin"
+                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-3 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        />
+                                    </div>
+                                    <div class="w-full sm:w-1/2 pl-1">
+                                        <input
+                                        type="date"
+                                        name="finish_real_dateMax"
+                                        
+                                        id="finish_real_dateMax"
+                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-3 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                        />
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
                         
@@ -239,10 +320,9 @@ const idPPPO = Astro.url.searchParams.get("idPPPO");
                       </div> 
                 </div>
                 
-                <h3 class="mb-5 text-lg font-normal text-gray-500">Are you sure you want to delete this item?</h3>
                 <a href=`/Company/PPPO/Delete?idPPPO=${idPPPO}`>
                     <button data-modal-hide="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
-                        Yes, I'm sure
+                        Filter
                     </button>
                 </a>
                 
