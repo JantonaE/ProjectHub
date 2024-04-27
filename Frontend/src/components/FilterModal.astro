@@ -1,10 +1,14 @@
 ---
 import { getUser } from "../lib/auth";
-import { getFilteredPPPOs } from "../lib/lib";
-import { formatDate } from "../lib/utils";
+import { setFilteredURL,setFilteredButton } from "../lib/filters";
+import { buildAPIUrl } from "../lib/lib";
+import { formatDateFilter } from "../lib/utils";
 
-const parent_id = Astro.url.searchParams.get("parentId");
-console.log("LLegamos");
+let parent_id = Astro.url.searchParams.get("parentId");
+
+if(parent_id == null){
+    parent_id = "";
+}
 let company;
 let user = await getUser();
 if(user == null){
@@ -14,13 +18,11 @@ if(user == null){
   company = user.company;
 }
 
-if (Astro.request.method === "POST") {
+if (Astro.request.method === "POST" ) {
   try {
-    console.log("Entra al post");
     // OBTENER COMPANY DE LA SESION Y padre
     const data = await Astro.request.formData();
 
-    
     const search = data.get("search").toString();
     const planned_valueMin = Number(data.get("planned_valueMin"));
     const planned_valueMax = Number(data.get("planned_valueMax"));
@@ -28,29 +30,26 @@ if (Astro.request.method === "POST") {
     const actual_costMax = Number(data.get("actual_costMax"));
     const earned_valueMin = Number(data.get("earned_valueMin"));
     const earned_valueMax = Number(data.get("earned_valueMax"));
-    const start_dateMin = formatDate(data.get("start_dateMin"));
-    const start_dateMax = formatDate(data.get("start_dateMax"));
-    const start_real_dateMin = formatDate(data.get("start_real_dateMin"));
-    const start_real_dateMax = formatDate(data.get("start_real_dateMax"));
-    const finish_dateMin = formatDate(data.get("finish_dateMin"));
-    const finish_dateMax = formatDate(data.get("finish_dateMax"));
-    const finish_real_dateMin = formatDate(data.get("finish_real_dateMin"));
-    const finish_real_dateMax = formatDate(data.get("finish_real_dateMax"));
+    const start_dateMin = formatDateFilter(data.get("start_dateMin"));
+    const start_dateMax = formatDateFilter(data.get("start_dateMax"));
+    const start_real_dateMin = formatDateFilter(data.get("start_real_dateMin"));
+    const start_real_dateMax = formatDateFilter(data.get("start_real_dateMax"));
+    const finish_dateMin = formatDateFilter(data.get("finish_dateMin"));
+    const finish_dateMax = formatDateFilter(data.get("finish_dateMax"));
+    const finish_real_dateMin = formatDateFilter(data.get("finish_real_dateMin"));
+    const finish_real_dateMax = formatDateFilter(data.get("finish_real_dateMax"));
     const risk = Number(data.get("risk"));
     const priority = Number(data.get("priority"));
-    let lista = await getFilteredPPPOs(company,parent_id,search,planned_valueMin,planned_valueMax,actual_costMin,actual_costMax,
+    console.log("Priority:");
+    console.log(priority);
+
+    let apiFilter = await buildAPIUrl(company,parent_id,search,planned_valueMin,planned_valueMax,actual_costMin,actual_costMax,
         earned_valueMin,earned_valueMax,start_dateMin,start_dateMax,start_real_dateMin,start_real_dateMax,finish_dateMin,
         finish_dateMax,finish_real_dateMin,finish_real_dateMax,risk,priority
     );
-    console.log("Lista");
-    console.log(lista);
-    if (parent_id == ""){
-        return Astro.redirect("/Company/PPPOs");
-    }else{
-        return Astro.redirect(`/Company/PPPO/Sons?parentId=${parent_id}`);
-    }  
+    await setFilteredButton(true);
+    await setFilteredURL(apiFilter);
     
-
 
       }
       catch (error) {
@@ -82,7 +81,7 @@ if (Astro.request.method === "POST") {
                 <div>
                     <div class="mb-5">
                         <label
-                            for="title"
+                            for="search"
                             class="mb-3 block text-base font-medium text-[#07074D]"
                         >
                             Search
@@ -94,7 +93,6 @@ if (Astro.request.method === "POST") {
                             placeholder="Search Title or Code"
                             minlength="3"
                             maxlength="50"
-                            required
                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                         />
                     </div>
@@ -346,7 +344,7 @@ if (Astro.request.method === "POST") {
                             <a class="text-right">High</a>
                           </div>
                             <input
-                              required
+                              
                               type="range"
                               name="risk"
                               id="risk"
@@ -369,7 +367,7 @@ if (Astro.request.method === "POST") {
                             <a class="text-right">High</a>
                           </div>
                           <input
-                          required
+                          
                           type="range"
                           name="priority"
                           id="priority"
@@ -398,10 +396,11 @@ if (Astro.request.method === "POST") {
     const modalButtons = document.querySelectorAll('[data-modal-toggle]');
     const modalCloseButtons = document.querySelectorAll('[data-modal-hide]');
     const modals = document.querySelectorAll('.modal');
-
+    
     modalButtons.forEach(button => {
-        button.addEventListener('click', () => {
+        button.addEventListener('click', () => {        
             const target = button.dataset.modalTarget;
+            localStorage.setItem('filtroCompletado', 'true');
             const modal = document.getElementById(target);
             modal.classList.toggle('hidden');
         });
@@ -409,9 +408,11 @@ if (Astro.request.method === "POST") {
 
     modalCloseButtons.forEach(button => {
         button.addEventListener('click', () => {
+            localStorage.setItem('filtroCompletado', 'true');
             const target = button.dataset.modalHide;
             const modal = document.getElementById(target);
-            modal.classList.add('hidden');
+            modal.classList.add('hidden');         
         });
     });
+
 </script>

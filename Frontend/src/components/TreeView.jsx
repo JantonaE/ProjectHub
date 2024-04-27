@@ -23,7 +23,7 @@ function Dropdown({menuData}) {
           <ul className="submenu">
             {subMenu.map((subItem, index) => (
               <li key={index} onClick={toggleSubMenu}>
-                <svg className="inline-block" xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg> {subItem.label}
+                <svg className="inline-block icon icon-tabler icons-tabler-outline icon-tabler-chevron-down" xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg> {subItem.label}
                 <a className="inline-block align-middle" href={`/Company/PPPO/Sons?parentId=${subItem.parentId}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.25} strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-link">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -48,7 +48,7 @@ function Dropdown({menuData}) {
             {menuData.map((item, index) => (
               <div className="flex items-center">
               <li key={index} onClick={toggleSubMenu}>
-              <svg className="inline-block" xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-down"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg> {item.label} 
+              <svg className="inline-block icon icon-tabler icons-tabler-outline icon-tabler-chevron-down" xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round" ><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg> {item.label} 
                 <a className="inline-block align-middle" href={`/Company/PPPO/Sons?parentId=${item.parentId}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.25} strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-link">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none" />

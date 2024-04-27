@@ -5,10 +5,11 @@ import SideBar from '../../components/SideBar.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import StateComponent from '../../components/StateComponent.astro';
 import { getUser } from '../../lib/auth';
+import { getFilteredButton, getFilteredURL, setFilteredButton } from '../../lib/filters';
+import FilterModal from '../../components/FilterModal.astro';
 
 
 const url = "http://127.0.0.1:8000";
-
 let cid = await getUser();
 let companyId: any;
 if(cid == null){
@@ -17,9 +18,13 @@ if(cid == null){
   companyId = cid.company;
 }
 
-//const companyId = Astro.cookies.get('company');
+
+let apiFilterURL = await getFilteredURL();
+console.log("Api en Main:");
+console.log(apiFilterURL);
 let data;
-async function fetchPortfolios() {
+if(apiFilterURL == null){
+  async function fetchPortfolios() {
     try {
       const response = await fetch(`${url}/Companies/Portfolios/${companyId}`);
       if (response.ok) {
@@ -33,10 +38,31 @@ async function fetchPortfolios() {
     }
   }
 
-await fetchPortfolios();
+  await fetchPortfolios();
 
+}else {
+  async function fetchFilteredPortfolios(api) {
+    try {
+      const response = await fetch(api);
+      if (response.ok) {
+        data = await response.json();
+        
+      } else {
+        throw new Error('Error al obtener portfolios');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  await fetchFilteredPortfolios(apiFilterURL);
+  console.log("Filtrado:");
+
+}
 
 ---
+<script>
+  history.replaceState(null,null,location.pathname);
+</script>
 
 <div class="flex">
   <div class="w-1/5 h-full fixed inset-y-0 left-0 min-w-10">
@@ -47,6 +73,8 @@ await fetchPortfolios();
   <div class="w-4/5 h-full ml-64 overflow-auto">
     <nav class="w-full">
       <Breadcrumb />
+      
+      
     </nav>
     <br>
     <br>
@@ -62,14 +90,25 @@ await fetchPortfolios();
               </a>
             </th>
             <th class="border p-2" colspan="2">
-              HIlasd
+              <FilterModal />
+              <script>
+              
+              document.addEventListener('DOMContentLoaded', function() {
+                // Verificar si el indicador de filtro completado está presente en el localStorage
+                const filtroCompletado = localStorage.getItem('filtroCompletado');
+                if (filtroCompletado === 'true') {
+                  // Si el filtro se ha completado, limpiar el indicador del localStorage
+                  localStorage.removeItem('filtroCompletado');
+                  // Recargar la página PPPOs
+                  window.location.reload();
+                }
+              });
+              </script>
             </th>
             <th class="border p-2">
-              Mas actual
+              
             </th>
-            <th class="border p-2">
-              Mas actual
-            </th>
+            
           </tr>
         </thead>
         <thead>
