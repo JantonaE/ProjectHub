@@ -9,6 +9,8 @@ import StateComponent from '../../../components/StateComponent.astro';
 
 import { getUser } from '../../../lib/auth';
 import DeleteModal from '../../../components/DeleteModal.astro';
+import { setFilteredURL, setParentId } from '../../../lib/filters';
+import { navigate } from 'astro:transitions/client';
 const url = "http://127.0.0.1:8000";
 let cid = await getUser();
 if(cid == null){
@@ -17,6 +19,8 @@ if(cid == null){
 
 let data;
 //const idPPPO = params.get("idPPPO");
+//await setParentId(null);
+//await setFilteredURL(null);
 
 const idPPPO = Astro.url.searchParams.get("idPPPO");
 
@@ -61,7 +65,7 @@ await fetchPPPOs();
                 
                 <p class="mb-4 text-base">
                     Code:
-                    <a class=" text-blue-600 hover:underline" href=`/Company/PPPO/Sons?parentId=${data.idPPPO}`>
+                    <a class=" text-blue-600 hover:underline" href=`/Company/PPPO/Sons?parentId=${data.idPPPO}&filter=true`>
                         {data.code}
                     </a>
                     
