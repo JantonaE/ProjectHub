@@ -20,8 +20,6 @@ if(parentId==null){
   await setParentId(parentId);
 }
 
-console.log(parentId); //ya no tiene padre tras darle a filtrar
-
 if(cid == null){
   return Astro.redirect('/');
 }
@@ -30,22 +28,9 @@ if(filter){
   apiFilterURL=null;
   await setFilteredURL(null);
 }else{
-  console.log("entra");
   apiFilterURL = await getFilteredURL();
-  console.log(apiFilterURL);
 }
-console.log("Filter llega:");
-console.log(filter);
 
-//¿
-/*
-if(parentId == null && apiFilterURL != null){
-  const url = new URL(apiFilterURL);
-  parentId = url.searchParams.get('parent_id');
-  console.log("PARENT: ");
-  console.log(parentId);
-}
-*/
 console.log("Api en Main:");
 console.log(apiFilterURL);
 let data;
@@ -64,14 +49,13 @@ if(apiFilterURL == null){
   console.log(parentId);
   console.log(apiFilterURL);
   await setFilteredURL(apiFilterURL);
-  //await setFilteredURL(null);
 }
 
   
 ---
 <script>
   history.replaceState(null,null,location.pathname);
-  //localStorage.removeItem('filtroCompletado');
+  
 </script>
 <div class="flex">
   <div class="w-1/5 h-full fixed inset-y-0 left-0 min-w-10">
@@ -142,7 +126,7 @@ if(apiFilterURL == null){
                       
                       </td>
                     <td class="border p-2 text-blue-600 hover:underline">
-                      <a href={`/Company/PPPO/Sons?parentId=${portfolio.idPPPO}`}>{portfolio.code}</a>
+                      <a href={`/Company/PPPO/Sons?parentId=${portfolio.idPPPO}&filter=true`}>{portfolio.code}</a>
                       
                       </td>
                       <td class="border p-2">{portfolio.start_date}

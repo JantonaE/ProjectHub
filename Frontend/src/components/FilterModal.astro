@@ -48,12 +48,7 @@ if (Astro.request.method === "POST" ) {
         earned_valueMin,earned_valueMax,start_dateMin,start_dateMax,start_real_dateMin,start_real_dateMax,finish_dateMin,
         finish_dateMax,finish_real_dateMin,finish_real_dateMax,risk,priority
     );
-    //?
-    /*
-    if(parent_id != "" || parent_id !=null){
-        apiFilter= apiFilter+"&parent_id="+parent_id;
-    }
-    */
+
     console.log("Filter Modal:");
     console.log(apiFilter);
     await setFilteredURL(apiFilter);
