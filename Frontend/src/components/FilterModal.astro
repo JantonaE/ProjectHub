@@ -1,14 +1,16 @@
 ---
 import { getUser } from "../lib/auth";
-import { setFilteredURL,setFilteredButton } from "../lib/filters";
+import { setFilteredURL } from "../lib/filters";
 import { buildAPIUrl } from "../lib/lib";
 import { formatDateFilter } from "../lib/utils";
 
-let parent_id = Astro.url.searchParams.get("parentId");
+//let parent_id = Astro.url.searchParams.get("parent_id");
+const {parent_id} = Astro.props;
+const parentId = parent_id;
+console.log("Al modal filter llega:");
+console.log(parent_id);
 
-if(parent_id == null){
-    parent_id = "";
-}
+
 let company;
 let user = await getUser();
 if(user == null){
@@ -40,14 +42,20 @@ if (Astro.request.method === "POST" ) {
     const finish_real_dateMax = formatDateFilter(data.get("finish_real_dateMax"));
     const risk = Number(data.get("risk"));
     const priority = Number(data.get("priority"));
-    console.log("Priority:");
-    console.log(priority);
 
-    let apiFilter = await buildAPIUrl(company,parent_id,search,planned_valueMin,planned_valueMax,actual_costMin,actual_costMax,
+
+    let apiFilter = await buildAPIUrl(company,parentId,search,planned_valueMin,planned_valueMax,actual_costMin,actual_costMax,
         earned_valueMin,earned_valueMax,start_dateMin,start_dateMax,start_real_dateMin,start_real_dateMax,finish_dateMin,
         finish_dateMax,finish_real_dateMin,finish_real_dateMax,risk,priority
     );
-    await setFilteredButton(true);
+    //?
+    /*
+    if(parent_id != "" || parent_id !=null){
+        apiFilter= apiFilter+"&parent_id="+parent_id;
+    }
+    */
+    console.log("Filter Modal:");
+    console.log(apiFilter);
     await setFilteredURL(apiFilter);
     
 
@@ -60,10 +68,10 @@ if (Astro.request.method === "POST" ) {
   } 
 
 ---
-
-<button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+<button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="hover:shadow-form w-full rounded-md bg-[#6A64F1] hover:bg-[#807aee] py-3 px-8 text-center text-base font-semibold text-white outline-none" type="button">
     Filter
 </button>
+
 <div id="popup-modal" tabindex="-1" class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 overflow-y-auto">
     <div class="relative p-4 w-full max-w-3xl max-h-3/4">
         <div class="relative bg-white rounded-lg shadow">
@@ -380,9 +388,11 @@ if (Astro.request.method === "POST" ) {
                 </div>
                 
                 
-                <button data-modal-hide="popup-modal" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                <button data-modal-hide="popup-modal" class="text-white bg-[#6A64F1] hover:bg-[#807aee] focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
                     Filter
                 </button>
+                  
+                
                 
             
                 <button data-modal-hide="popup-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100">No, cancel</button>

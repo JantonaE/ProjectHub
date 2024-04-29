@@ -548,70 +548,19 @@ export async function getPPPOsByIds(ids: string[]): Promise<PPPO[]> {
 }
 
 // Filtros
-export async function getFilteredPPPOs(company: string,
-    parent_id: string,
-    search: string,
-    planned_valueMin: number,
-    planned_valueMax: number,
-    actual_costMin: number,
-    actual_costMax: number,
-    earned_valueMin: number,
-    earned_valueMax: number,
-    start_dateMin: string,
-    start_dateMax: string,
-    start_real_dateMin: string,
-    start_real_dateMax: string,
-    finish_dateMin: string,
-    finish_dateMax: string,
-    finish_real_dateMin: string,
-    finish_real_dateMax: string,
-    risk: number,
-    priority: number): Promise<PPPO[] | null> {
-    const apiUrl = `${import.meta.env.BACKEND_URL}/PPPOs/`;
-
-    // Construir los parámetros de la URL basados en los argumentos proporcionados
-    let queryParams = `?`;
-    if (company) queryParams += `company=${company}&`;
-    if (parent_id) queryParams += `parent_id=${parent_id}&`;
-    if (search) queryParams += `search=${search}&`;
-    if (planned_valueMin) queryParams += `planned_valueMin=${planned_valueMin}&`;
-    if (planned_valueMax) queryParams += `planned_valueMax=${planned_valueMax}&`;
-    if (actual_costMin) queryParams += `actual_costMin=${actual_costMin}&`;
-    if (actual_costMax) queryParams += `actual_costMax=${actual_costMax}&`;
-    if (earned_valueMin) queryParams += `earned_valueMin=${earned_valueMin}&`;
-    if (earned_valueMax) queryParams += `earned_valueMax=${earned_valueMax}&`;
-    if (start_dateMin) queryParams += `start_dateMin=${start_dateMin}&`;
-    if (start_dateMax) queryParams += `start_dateMax=${start_dateMax}&`;
-    if (start_real_dateMin) queryParams += `start_real_dateMin=${start_real_dateMin}&`;
-    if (start_real_dateMax) queryParams += `start_real_dateMax=${start_real_dateMax}&`;
-    if (finish_dateMin) queryParams += `finish_dateMin=${finish_dateMin}&`;
-    if (finish_dateMax) queryParams += `finish_dateMax=${finish_dateMax}&`;
-    if (finish_real_dateMin) queryParams += `finish_real_dateMin=${finish_real_dateMin}&`;
-    if (finish_real_dateMax) queryParams += `finish_real_dateMax=${finish_real_dateMax}&`;
-    if (risk) queryParams += `risk=${risk}&`;
-    if (priority) queryParams += `priority=${priority}&`;
-
-    // Eliminar el último "&" si está presente en los parámetros
-    queryParams = queryParams.slice(0, -1);
-
-    const urlWithParams = apiUrl + queryParams;
-    console.log("Api: ");
-    console.log(urlWithParams);
+export async function fetchFilteredPortfolios(api: string) {
     try {
-        const res = await fetch(urlWithParams);
-
-        if (!res.ok) {
-            throw new Error(`Error fetching data: ${res.statusText}`);
-        }
-
-        const data = await res.json() as PPPO[];
-        
+      const response = await fetch(api);
+      if (response.ok) {
+        const data = await response.json();
         return data;
+      } else {
+        throw new Error('Error al obtener portfolios');
+      }
     } catch (error) {
-        console.error("Error fetching data:", error);
-        return null;
+      console.error(error);
     }
-}
+  }
 
 export function buildAPIUrl(company: string,
     parent_id: string,
@@ -637,7 +586,7 @@ export function buildAPIUrl(company: string,
     // Construir los parámetros de la URL basados en los argumentos proporcionados
     let queryParams = `?`;
     if (company) queryParams += `company=${company}&`;
-    if (parent_id) queryParams += `parent_id=${parent_id}&`;
+    if (parent_id && parent_id != "") queryParams += `parent_id=${parent_id}&`;
     if (search) queryParams += `search=${search}&`;
     if (planned_valueMin) queryParams += `planned_valueMin=${planned_valueMin}&`;
     if (planned_valueMax) queryParams += `planned_valueMax=${planned_valueMax}&`;

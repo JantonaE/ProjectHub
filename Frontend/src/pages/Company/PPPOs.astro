@@ -1,15 +1,15 @@
 ---
-//import Layout from '../../layouts/Layout.astro';
 import SideBar from '../../components/SideBar.astro';
-//import FilterNavBar from '../../components/FilterNavBar.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import StateComponent from '../../components/StateComponent.astro';
 import { getUser } from '../../lib/auth';
-import { getFilteredButton, getFilteredURL, setFilteredButton } from '../../lib/filters';
+import { getFilteredURL,setFilteredURL } from '../../lib/filters';
 import FilterModal from '../../components/FilterModal.astro';
-
+import { fetchFilteredPortfolios, fetchPortfolios } from '../../lib/lib';
+import CleanFilter from '../../components/CleanFilter';
 
 const url = "http://127.0.0.1:8000";
+let filter = Astro.url.searchParams.get("filter");
 let cid = await getUser();
 let companyId: any;
 if(cid == null){
@@ -18,51 +18,36 @@ if(cid == null){
   companyId = cid.company;
 }
 
+let apiFilterURL = null;
+if(filter){
+  apiFilterURL=null;
+  await setFilteredURL(null);
+}else{
+  console.log("entra");
+  apiFilterURL = await getFilteredURL();
+}
 
-let apiFilterURL = await getFilteredURL();
 console.log("Api en Main:");
 console.log(apiFilterURL);
 let data;
-if(apiFilterURL == null){
-  async function fetchPortfolios() {
-    try {
-      const response = await fetch(`${url}/Companies/Portfolios/${companyId}`);
-      if (response.ok) {
-        data = await response.json();
-        
-      } else {
-        throw new Error('Error al obtener portfolios');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
-  await fetchPortfolios();
+if(apiFilterURL == null){
+
+  data = await fetchPortfolios(companyId);
 
 }else {
-  async function fetchFilteredPortfolios(api) {
-    try {
-      const response = await fetch(api);
-      if (response.ok) {
-        data = await response.json();
-        
-      } else {
-        throw new Error('Error al obtener portfolios');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  await fetchFilteredPortfolios(apiFilterURL);
-  console.log("Filtrado:");
 
+  data = await fetchFilteredPortfolios(apiFilterURL);
+  await setFilteredURL(null);
 }
 
 ---
 <script>
   history.replaceState(null,null,location.pathname);
+  //localStorage.removeItem('filtroCompletado');
 </script>
+
+
 
 <div class="flex">
   <div class="w-1/5 h-full fixed inset-y-0 left-0 min-w-10">
@@ -78,7 +63,7 @@ if(apiFilterURL == null){
     </nav>
     <br>
     <br>
-    <div class="flex text-center justify-center m-5">
+    <div class="flex text-center justify-center m-10">
       
       <table class="">
         
@@ -91,12 +76,17 @@ if(apiFilterURL == null){
             </th>
             <th class="border p-2" colspan="2">
               <FilterModal />
+              
               <script>
+              //import { setFilteredURL } from "../../lib/filters";
+
               
               document.addEventListener('DOMContentLoaded', function() {
                 // Verificar si el indicador de filtro completado está presente en el localStorage
+                
                 const filtroCompletado = localStorage.getItem('filtroCompletado');
                 if (filtroCompletado === 'true') {
+                  //setFilteredURL(null);
                   // Si el filtro se ha completado, limpiar el indicador del localStorage
                   localStorage.removeItem('filtroCompletado');
                   // Recargar la página PPPOs
@@ -104,8 +94,10 @@ if(apiFilterURL == null){
                 }
               });
               </script>
+              
             </th>
-            <th class="border p-2">
+            <th class="border p-2" colspan="2">
+              
               
             </th>
             
@@ -121,6 +113,7 @@ if(apiFilterURL == null){
                 <th class="border p-2">Risk</th>
                 <th class="border p-2">Priority</th>
                 <th class="border p-2">P.V / A.C</th>
+                <th class="border p-2">E.V</th>
                 <th class="border p-2">Strategic Goal</th>
                 <th class="border p-2">State</th>
             </tr>
@@ -137,7 +130,7 @@ if(apiFilterURL == null){
                       
                       </td>
                     <td class="border p-2 text-blue-600 hover:underline">
-                      <a href={`/Company/PPPO/Sons?parentId=${portfolio.idPPPO}`}>{portfolio.code}</a>
+                      <a href={`/Company/PPPO/Sons?parentId=${portfolio.idPPPO}&filter=true`}>{portfolio.code}</a>
                       
                       </td>
                     <td class="border p-2">{portfolio.start_date}
@@ -186,16 +179,18 @@ if(apiFilterURL == null){
                       </span>
                     </td>
                     <td class="border p-2">{portfolio.planned_value} - {portfolio.actual_cost == 0 ? "Not Defined" : portfolio.actual_cost}</td>
+                    <td class="border p-2">{portfolio.earned_value == 0 ? "Not Defined" : portfolio.earned_value}</td>
                     <td class="border p-2">{portfolio.strategic_goal}</td>
                     <td class="border p-2 w-20"><StateComponent state={portfolio.state} /></td>
+                    
                 </tr>
             ))
           }
         </tbody>
     </table>
+    
+
     </div>
       
   </div>
 </div>
-
-
