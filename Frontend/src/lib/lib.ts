@@ -602,8 +602,8 @@ export function buildAPIUrl(company: string,
     if (finish_dateMax) queryParams += `finish_dateMax=${finish_dateMax}&`;
     if (finish_real_dateMin) queryParams += `finish_real_dateMin=${finish_real_dateMin}&`;
     if (finish_real_dateMax) queryParams += `finish_real_dateMax=${finish_real_dateMax}&`;
-    if (risk) queryParams += `risk=${risk}&`;
-    if (priority) queryParams += `priority=${priority}&`;
+    if (risk != null) queryParams += `risk=${risk}&`;
+    if (priority != null) queryParams += `priority=${priority}&`;
     if (risk==0) queryParams += `risk=${risk}&`;
     if (priority==0) queryParams += `priority=${priority}&`;
     // Eliminar el último "&" si está presente en los parámetros
