@@ -76,7 +76,7 @@ if(apiFilterURL == null){
             </th>
             <th class="border p-2" colspan="2">
               <FilterModal />
-              
+            </th>  
               <script>
               //import { setFilteredURL } from "../../lib/filters";
 
@@ -95,9 +95,14 @@ if(apiFilterURL == null){
               });
               </script>
               
-            </th>
+            
             <th class="border p-2" colspan="2">
-              
+              <a href={`/Company/PPPOs?filter=true`}>
+                <button class="hover:shadow-form w-full rounded-md bg-[#b75346] hover:bg-[#b7685e] py-3 px-8 text-center text-base font-semibold text-white outline-none">
+                  Clean Filters
+                </button>
+                
+              </a>
               
             </th>
             
