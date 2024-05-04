@@ -1,10 +1,8 @@
 ---
 import SideBar from '../components/SideBar.astro';
 import { getUser } from '../lib/auth';
-import { getPPPOsByIds, getPersonById } from '../lib/lib';
+import { getCompanyById, getPPPOsByIds, getPersonById } from '../lib/lib';
 
-
-const url = "http://127.0.0.1:8000";
 
 let cid = await getUser();
 let companyId: any;
@@ -13,20 +11,24 @@ if(cid == null){
 }else{
   companyId = cid.company;
 }
+
 let person;
 const idPerson = Astro.url.searchParams.get("idPerson");
 let data_external,data_internal;
 console.log("Persona");
 console.log(idPerson);
+let company;
 if(idPerson != null){
     person = await getPersonById(idPerson);
+    console.log("External: ");
     console.log(person?.pppo_external);
     data_external = await getPPPOsByIds(person.pppo_external); // Inicializar como un array vacío
-    console.log(data_external);
+    console.log("Internal: ");
+    console.log(person?.pppo_internal);
     data_internal = await getPPPOsByIds(person.pppo_internal); // Inicializar como un array vacío
-}
 
-
+    company = await getCompanyById(person?.company);
+  }
 
 
 
@@ -42,7 +44,10 @@ if(idPerson != null){
     <div class="w-4/5 h-full ml-64 overflow-auto">
         <div class="flex text-center justify-center items-center">
             <a class="m-5">
-                DNI: {person?.DNI}
+              Company Name: {company?.name}
+            </a>
+            <a class="m-5">
+              Company Code: {company?.code}
             </a>
             <a class="m-5">
                 Full Name: {person?.name}

@@ -1544,6 +1544,237 @@
           }
         }
       }
+    },
+    "/Milestones/{id}": {
+      "get": {
+        "tags": [
+          "Milestones"
+        ],
+        "summary": "Find One Milestone",
+        "description": "Devuelve el milestone con id pasado por par\u00e1metro",
+        "operationId": "find_one_milestone_Milestones__id__get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id del milestone a buscar",
+              "title": "Id"
+            },
+            "description": "Id del milestone a buscar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Milestone-Output"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Milestones"
+        ],
+        "summary": "Delete Milestone",
+        "description": "Elimina el milestone con id pasado por par\u00e1metro",
+        "operationId": "delete_milestone_Milestones__id__delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id del milestone a eliminar",
+              "title": "Id"
+            },
+            "description": "Id del milestone a eliminar"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Milestones"
+        ],
+        "summary": "Update Milestone",
+        "description": "Actualiza el milestone con id pasado por par\u00e1metro y lo devuelve",
+        "operationId": "update_milestone_Milestones__id__put",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id del milestone a actualizar",
+              "title": "Id"
+            },
+            "description": "Id del milestone a actualizar"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Milestone-Input"
+                  }
+                ],
+                "description": "Datos del milestone a actualizar",
+                "title": "Milestone"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Milestone-Output"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Milestones/": {
+      "post": {
+        "tags": [
+          "Milestones"
+        ],
+        "summary": "Create Milestone",
+        "description": "Crea un milestone y lo devuelve",
+        "operationId": "create_milestone_Milestones__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Milestone-Input"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Milestone-Output"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Milestones/Sons/{id}": {
+      "get": {
+        "tags": [
+          "Milestones"
+        ],
+        "summary": "Find Milestone Sons",
+        "description": "Devuelve los milestones con parent_id con id pasado por par\u00e1metro",
+        "operationId": "find_milestone_sons_Milestones_Sons__id__get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Id del milestone a buscar sus hijos",
+              "title": "Id"
+            },
+            "description": "Id del milestone a buscar sus hijos"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Milestone-Output"
+                  },
+                  "title": "Response Find Milestone Sons Milestones Sons  Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1593,6 +1824,239 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "Milestone-Input": {
+        "properties": {
+          "idMilestone": {
+            "type": "string",
+            "title": "Idmilestone"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "company": {
+            "type": "string",
+            "title": "Company"
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "planned_value": {
+            "type": "number",
+            "title": "Planned Value"
+          },
+          "actual_cost": {
+            "type": "number",
+            "title": "Actual Cost"
+          },
+          "planned_date": {
+            "type": "string",
+            "title": "Planned Date"
+          },
+          "real_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Real Date"
+          },
+          "risk": {
+            "type": "number",
+            "title": "Risk"
+          },
+          "priority": {
+            "type": "number",
+            "title": "Priority"
+          },
+          "strategic_goal": {
+            "type": "string",
+            "title": "Strategic Goal"
+          },
+          "earned_value": {
+            "type": "number",
+            "title": "Earned Value"
+          },
+          "ROI": {
+            "type": "number",
+            "title": "Roi"
+          },
+          "cost_benefit": {
+            "type": "number",
+            "title": "Cost Benefit"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "internal_manager": {
+            "type": "string",
+            "title": "Internal Manager"
+          },
+          "external_manager": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External Manager"
+          }
+        },
+        "type": "object",
+        "required": [
+          "idMilestone",
+          "code",
+          "company",
+          "parent_id",
+          "title",
+          "description",
+          "planned_value",
+          "actual_cost",
+          "planned_date",
+          "risk",
+          "priority",
+          "strategic_goal",
+          "earned_value",
+          "ROI",
+          "cost_benefit",
+          "state",
+          "internal_manager",
+          "external_manager"
+        ],
+        "title": "Milestone"
+      },
+      "Milestone-Output": {
+        "properties": {
+          "idMilestone": {
+            "type": "string",
+            "title": "Idmilestone"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "company": {
+            "type": "string",
+            "title": "Company"
+          },
+          "parent_id": {
+            "type": "string",
+            "title": "Parent Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "planned_value": {
+            "type": "number",
+            "title": "Planned Value"
+          },
+          "actual_cost": {
+            "type": "number",
+            "title": "Actual Cost"
+          },
+          "planned_date": {
+            "type": "string",
+            "title": "Planned Date"
+          },
+          "real_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Real Date"
+          },
+          "risk": {
+            "type": "number",
+            "title": "Risk"
+          },
+          "priority": {
+            "type": "number",
+            "title": "Priority"
+          },
+          "strategic_goal": {
+            "type": "string",
+            "title": "Strategic Goal"
+          },
+          "earned_value": {
+            "type": "number",
+            "title": "Earned Value"
+          },
+          "ROI": {
+            "type": "number",
+            "title": "Roi"
+          },
+          "cost_benefit": {
+            "type": "number",
+            "title": "Cost Benefit"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "internal_manager": {
+            "type": "string",
+            "title": "Internal Manager"
+          },
+          "external_manager": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External Manager"
+          }
+        },
+        "type": "object",
+        "required": [
+          "idMilestone",
+          "code",
+          "company",
+          "parent_id",
+          "title",
+          "description",
+          "planned_value",
+          "actual_cost",
+          "planned_date",
+          "real_date",
+          "risk",
+          "priority",
+          "strategic_goal",
+          "earned_value",
+          "ROI",
+          "cost_benefit",
+          "state",
+          "internal_manager",
+          "external_manager"
+        ],
+        "title": "Milestone"
       },
       "PPPO-Input": {
         "properties": {

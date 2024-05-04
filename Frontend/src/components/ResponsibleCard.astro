@@ -34,28 +34,25 @@ if(external != ""){
     </p>
     
     <p class="mb-4 text-base flex items-center">
+
+      
       {
         external === "" && (
+        <div class="flex">
           <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
-         
-        ) 
-      }
-      {
-        external != "" && (
-          <a href=`/Profile?idPerson=${internal_manager.idPerson}`>
-          <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
-         </a>
-        ) 
-      }
-      External Manager: 
-      {
-        external === "" && (
-          <p> Not Defined </p>
+          <p>External Manager: Not Defined </p>
+        </div>
+        
         )
       }
       {
         external != "" && (
-        <a href=`/Profile?idPerson=${external_manager.idPerson}` class="p-1 text-blue-600 hover:underline">{external_manager?.name}</a>
+        <div class="flex">
+        <a href=`/Profile?idPerson=${internal_manager.idPerson}`>
+          <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
+         </a>
+        <p>External Manager: </p>
+        <a href=`/Profile?idPerson=${external_manager.idPerson}` class=" text-blue-600 hover:underline">{external_manager?.name}</a>
         <a href=`mailto:${external_manager?.email}` class="ml-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-mail">
                   <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -63,6 +60,7 @@ if(external != ""){
                   <path d="M3 7l9 6l9 -6" />
               </svg>
           </a>
+        </div>
         ) 
       }
 
