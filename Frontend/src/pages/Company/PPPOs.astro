@@ -6,7 +6,7 @@ import { getUser } from '../../lib/auth';
 import { getFilteredURL,setFilteredURL } from '../../lib/filters';
 import FilterModal from '../../components/FilterModal.astro';
 import { fetchFilteredPortfolios, fetchPortfolios } from '../../lib/lib';
-import CleanFilter from '../../components/CleanFilter';
+
 
 const url = "http://127.0.0.1:8000";
 let filter = Astro.url.searchParams.get("filter");

@@ -42,20 +42,39 @@ if(idPerson != null){
     
    
     <div class="w-4/5 h-full ml-64 overflow-auto">
-        <div class="flex text-center justify-center items-center">
-            <a class="m-5">
-              Company Name: {company?.name}
-            </a>
-            <a class="m-5">
-              Company Code: {company?.code}
-            </a>
-            <a class="m-5">
-                Full Name: {person?.name}
-            </a>
-            <a class="m-5">
-                Email: {person?.email}
-            </a>
-        </div>
+      <div class="flex justify-center items-center">
+
+        <table class="table-auto border mt-5 m-1">
+           <thead>
+            <tr>
+                <th class="border p-2">Company Information</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="px-4 py-2 ">Name: {company?.name}</td>
+                </tr>
+                <tr>
+                    <td class="px-4 py-2">Code: {company?.code}</td>
+                </tr>
+            </tbody>      
+        </table>
+        <table class="table-auto border mt-5 m-1">
+          <thead>
+            <tr>
+                <th class="border p-2">User Information</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+                  <td class="px-4 py-2">Full Name: {person?.name}</td>
+              </tr>
+              <tr>
+                  <td class="px-4 py-2">Email: {person?.email}</td>
+              </tr>
+          </tbody>
+        </table>
+    </div>
         
         <div class="flex text-center justify-center m-5">   
             <table class="">
