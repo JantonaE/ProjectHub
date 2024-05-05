@@ -36,6 +36,30 @@ export interface DeletePppoPPPOsIdDeleteRequest {
     id: string;
 }
 
+export interface FindAllPpposFilterPPPOsGetRequest {
+    parentId?: string;
+    company?: string;
+    search?: string;
+    plannedValueMin?: number;
+    plannedValueMax?: number;
+    actualCostMin?: number;
+    actualCostMax?: number;
+    earnedValueMin?: number;
+    earnedValueMax?: number;
+    risk?: number;
+    priority?: number;
+    startDateMin?: string;
+    startDateMax?: string;
+    startRealDateMin?: string;
+    startRealDateMax?: string;
+    finishDateMin?: string;
+    finishDateMax?: string;
+    finishRealDateMin?: string;
+    finishRealDateMax?: string;
+    sortedBy?: string;
+    desc?: boolean;
+}
+
 export interface FindOnePppoPPPOsIdGetRequest {
     id: string;
 }
@@ -45,13 +69,13 @@ export interface FindPppoAncestorWithCodePPPOsBrotherAncestorGetRequest {
     code?: string;
 }
 
+export interface FindPppoAncestorsPPPOsAncestorsIdGetRequest {
+    id: string;
+}
+
 export interface FindPppoBrothersWithCodePPPOsBrotherGetRequest {
     id?: string;
     code?: string;
-}
-
-export interface FindPppoSonsPPPOsAncestorsIdGetRequest {
-    id: string;
 }
 
 export interface FindPppoSonsPPPOsSonsIdGetRequest {
@@ -141,11 +165,95 @@ export class PPPOsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Devuelve una lista de pppos
-     * Find All Pppos
+     * Devuelve una lista de PPPO filtrados
+     * Find All Pppos Filter
      */
-    async findAllPpposPPPOsGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<PPPOOutput>>> {
+    async findAllPpposFilterPPPOsGetRaw(requestParameters: FindAllPpposFilterPPPOsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<PPPOOutput>>> {
         const queryParameters: any = {};
+
+        if (requestParameters['parentId'] != null) {
+            queryParameters['parent_id'] = requestParameters['parentId'];
+        }
+
+        if (requestParameters['company'] != null) {
+            queryParameters['company'] = requestParameters['company'];
+        }
+
+        if (requestParameters['search'] != null) {
+            queryParameters['search'] = requestParameters['search'];
+        }
+
+        if (requestParameters['plannedValueMin'] != null) {
+            queryParameters['planned_valueMin'] = requestParameters['plannedValueMin'];
+        }
+
+        if (requestParameters['plannedValueMax'] != null) {
+            queryParameters['planned_valueMax'] = requestParameters['plannedValueMax'];
+        }
+
+        if (requestParameters['actualCostMin'] != null) {
+            queryParameters['actual_costMin'] = requestParameters['actualCostMin'];
+        }
+
+        if (requestParameters['actualCostMax'] != null) {
+            queryParameters['actual_costMax'] = requestParameters['actualCostMax'];
+        }
+
+        if (requestParameters['earnedValueMin'] != null) {
+            queryParameters['earned_valueMin'] = requestParameters['earnedValueMin'];
+        }
+
+        if (requestParameters['earnedValueMax'] != null) {
+            queryParameters['earned_valueMax'] = requestParameters['earnedValueMax'];
+        }
+
+        if (requestParameters['risk'] != null) {
+            queryParameters['risk'] = requestParameters['risk'];
+        }
+
+        if (requestParameters['priority'] != null) {
+            queryParameters['priority'] = requestParameters['priority'];
+        }
+
+        if (requestParameters['startDateMin'] != null) {
+            queryParameters['start_dateMin'] = requestParameters['startDateMin'];
+        }
+
+        if (requestParameters['startDateMax'] != null) {
+            queryParameters['start_dateMax'] = requestParameters['startDateMax'];
+        }
+
+        if (requestParameters['startRealDateMin'] != null) {
+            queryParameters['start_real_dateMin'] = requestParameters['startRealDateMin'];
+        }
+
+        if (requestParameters['startRealDateMax'] != null) {
+            queryParameters['start_real_dateMax'] = requestParameters['startRealDateMax'];
+        }
+
+        if (requestParameters['finishDateMin'] != null) {
+            queryParameters['finish_dateMin'] = requestParameters['finishDateMin'];
+        }
+
+        if (requestParameters['finishDateMax'] != null) {
+            queryParameters['finish_dateMax'] = requestParameters['finishDateMax'];
+        }
+
+        if (requestParameters['finishRealDateMin'] != null) {
+            queryParameters['finish_real_dateMin'] = requestParameters['finishRealDateMin'];
+        }
+
+        if (requestParameters['finishRealDateMax'] != null) {
+            queryParameters['finish_real_dateMax'] = requestParameters['finishRealDateMax'];
+        }
+
+        if (requestParameters['sortedBy'] != null) {
+            queryParameters['sortedBy'] = requestParameters['sortedBy'];
+        }
+
+        if (requestParameters['desc'] != null) {
+            queryParameters['desc'] = requestParameters['desc'];
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -160,11 +268,11 @@ export class PPPOsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Devuelve una lista de pppos
-     * Find All Pppos
+     * Devuelve una lista de PPPO filtrados
+     * Find All Pppos Filter
      */
-    async findAllPpposPPPOsGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<PPPOOutput>> {
-        const response = await this.findAllPpposPPPOsGetRaw(initOverrides);
+    async findAllPpposFilterPPPOsGet(requestParameters: FindAllPpposFilterPPPOsGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<PPPOOutput>> {
+        const response = await this.findAllPpposFilterPPPOsGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -244,6 +352,41 @@ export class PPPOsApi extends runtime.BaseAPI {
     }
 
     /**
+     * Devuelve los ancestros del id pasado por parámetro
+     * Find Pppo Ancestors
+     */
+    async findPppoAncestorsPPPOsAncestorsIdGetRaw(requestParameters: FindPppoAncestorsPPPOsAncestorsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<PPPOOutput>>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling findPppoAncestorsPPPOsAncestorsIdGet().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/PPPOs/Ancestors/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(PPPOOutputFromJSON));
+    }
+
+    /**
+     * Devuelve los ancestros del id pasado por parámetro
+     * Find Pppo Ancestors
+     */
+    async findPppoAncestorsPPPOsAncestorsIdGet(requestParameters: FindPppoAncestorsPPPOsAncestorsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<PPPOOutput>> {
+        const response = await this.findPppoAncestorsPPPOsAncestorsIdGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
      * Verifica si hay algún hermano con el mismo código del padre
      * Find Pppo Brothers With Code
      */
@@ -280,41 +423,6 @@ export class PPPOsApi extends runtime.BaseAPI {
      */
     async findPppoBrothersWithCodePPPOsBrotherGet(requestParameters: FindPppoBrothersWithCodePPPOsBrotherGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<boolean> {
         const response = await this.findPppoBrothersWithCodePPPOsBrotherGetRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Devuelve los ancestros del id pasado por parámetro
-     * Find Pppo Sons
-     */
-    async findPppoSonsPPPOsAncestorsIdGetRaw(requestParameters: FindPppoSonsPPPOsAncestorsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<PPPOOutput>>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling findPppoSonsPPPOsAncestorsIdGet().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/PPPOs/Ancestors/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(PPPOOutputFromJSON));
-    }
-
-    /**
-     * Devuelve los ancestros del id pasado por parámetro
-     * Find Pppo Sons
-     */
-    async findPppoSonsPPPOsAncestorsIdGet(requestParameters: FindPppoSonsPPPOsAncestorsIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<PPPOOutput>> {
-        const response = await this.findPppoSonsPPPOsAncestorsIdGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

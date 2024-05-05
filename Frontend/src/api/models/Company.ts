@@ -43,6 +43,12 @@ export interface Company {
      * @memberof Company
      */
     name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Company
+     */
+    admin: string;
 }
 
 /**
@@ -53,6 +59,7 @@ export function instanceOfCompany(value: object): boolean {
     if (!('code' in value)) return false;
     if (!('nIF' in value)) return false;
     if (!('name' in value)) return false;
+    if (!('admin' in value)) return false;
     return true;
 }
 
@@ -70,6 +77,7 @@ export function CompanyFromJSONTyped(json: any, ignoreDiscriminator: boolean): C
         'code': json['code'],
         'nIF': json['NIF'],
         'name': json['name'],
+        'admin': json['admin'],
     };
 }
 
@@ -83,6 +91,7 @@ export function CompanyToJSON(value?: Company | null): any {
         'code': value['code'],
         'NIF': value['nIF'],
         'name': value['name'],
+        'admin': value['admin'],
     };
 }
 

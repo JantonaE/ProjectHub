@@ -1,4 +1,5 @@
 apis/CompaniesApi.ts
+apis/MilestonesApi.ts
 apis/PPPOsApi.ts
 apis/PersonsApi.ts
 apis/StatesApi.ts
@@ -7,6 +8,8 @@ index.ts
 models/Company.ts
 models/HTTPValidationError.ts
 models/LocationInner.ts
+models/MilestoneInput.ts
+models/MilestoneOutput.ts
 models/PPPOInput.ts
 models/PPPOOutput.ts
 models/PersonInput.ts

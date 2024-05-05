@@ -3,6 +3,7 @@ import State from "../api/models/State"
 //import Company from "../api/models/Company"
 import type { Person } from "../api/models/Person";
 import type { Company } from "../api/models/Company";
+import type {Milestone} from "../api/models/Milestone";
 
 export async function createPPPO(
     radioButton: Number,
@@ -610,4 +611,147 @@ export function buildAPIUrl(company: string,
     queryParams = queryParams.slice(0, -1);
 
     return apiUrl + queryParams;
+}
+/*
+@milestone.get("/Milestones/Sons/{id}", tags=["Milestones"], response_model=list[Milestone], description="Devuelve los milestones con parent_id con id pasado por parámetro")
+async def find_milestone_sons(id: str = Path(description="Id del milestone a buscar sus hijos")) -> list[Milestone]:
+    resList = []
+    for port in MilestoneEntityList(conn.ProjectHub.Milestone.find()):
+        if port["parent_id"] == id:
+            resList.append(MilestoneEntity(conn.ProjectHub.Milestone.find_one({"_id": ObjectId(port["id"])})))
+
+    return resList
+*/
+
+export async function getMilestoneFromFather(id: string): Promise<Milestone[]> {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/Milestones/Sons/${id}`;
+    
+    try {
+        const res = await fetch(apiUrl);
+        
+        if (!res.ok) {
+            throw new Error(`Error fetching data: ${res.statusText}`);
+        }
+        
+        const data = await res.json() as Milestone;
+        
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return null;
+    }
+}
+
+
+export async function createMilestone(
+    title: string,
+    description: string,
+    code: string,
+    strategic_goal: string,
+    planned_value: Number,
+    actual_cost: Number | null,
+    planned_date: string,
+    real_date: string | null,
+    risk: number,
+    priority: number,
+    internal_manager: string,
+    external_manager: string,
+    company: string,
+    parent_id: string,
+    state: string
+) :Milestone {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/Milestones/`;
+
+    try {
+        const res = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                idMilestone: "",
+                code: code,
+                company: company,
+                parent_id: parent_id,
+                title: title,
+                description: description,
+                planned_value: planned_value,     
+                actual_cost: actual_cost,  
+                planned_date: planned_date,    
+                real_date: real_date, 
+                risk: risk,
+                priority: priority,
+                strategic_goal: strategic_goal,
+                earned_value: 0,
+                ROI: 0,
+                cost_benefit: 0,            
+                state: state,
+                internal_manager: internal_manager,
+                external_manager: external_manager
+            }),
+        });
+    
+        if (!res.ok) {
+            throw new Error(`Error fetching data: ${res.statusText}`);
+        }
+    
+        const data = await res.json() as PPPO;
+    
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return null;
+    }
+}
+
+
+export async function getMilestoneById(id: string): Promise<Milestone | null> {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/Milestones/${id}`;
+    
+    try {
+        const res = await fetch(apiUrl);
+        
+        if (!res.ok) {
+            throw new Error(`Error fetching data: ${res.statusText}`);
+        }
+        
+        const data = await res.json() as Milestone;
+        
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return null;
+    }
+}
+
+
+export async function updateMilestone(
+    MilestoneId: string,
+    updatedMilestone: Milestone
+): Promise<Milestone | null> {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/Milestones/${MilestoneId}`;
+    let updateResponse: Response;
+
+    try {
+        // Realizar la solicitud de actualización del Milestone
+        updateResponse = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedMilestone),
+        });
+
+        if (!updateResponse.ok) {
+            throw new Error('Error al actualizar el Milestone');
+        }
+
+        
+        return updatedMilestone;
+
+    } catch (error) {
+        console.error('Error:', error);
+        console.error('Update failed response:', await updateResponse?.text());
+        return null;
+    }
 }
