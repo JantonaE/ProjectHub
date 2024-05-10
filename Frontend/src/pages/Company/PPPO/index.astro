@@ -5,7 +5,7 @@ import Breadcrumb from '../../../components/Breadcrumb.astro';
 import DatesCard from '../../../components/DatesCard.astro';
 import ResponsibleCard from '../../../components/ResponsibleCard.astro';
 import StateComponent from '../../../components/StateComponent.astro';
-
+import Graph from '../../../components/GraphLineChart.jsx';
 
 import { getUser } from '../../../lib/auth';
 import DeleteModal from '../../../components/DeleteModal.astro';
@@ -41,6 +41,13 @@ await fetchPPPOs();
 
 
 let milestones = await getMilestoneFromFather(idPPPO);
+
+
+const graphLineChart1 = milestones.map(milestone => ({
+  name: milestone.code,
+  pv: milestone.planned_value,
+  ac: milestone.actual_cost
+}));
 
 ---
 <div class="flex">
@@ -108,7 +115,7 @@ let milestones = await getMilestoneFromFather(idPPPO);
                         <DeleteModal idPPPO={idPPPO} />
                     </p>
                 </div>
-                
+                <Graph data={graphLineChart1} />
               </div>
             </div>
           
