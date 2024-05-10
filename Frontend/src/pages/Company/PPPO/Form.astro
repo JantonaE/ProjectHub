@@ -486,7 +486,7 @@ console.log("hey");
         Code
         </label>
         {
-          milestone == null && (
+          milestone == null && updatePPPO == null && (
           <input
           type="text"
           name="code"
@@ -495,19 +495,49 @@ console.log("hey");
           value={updatePPPO ? updatePPPO.code : ""}
           minlength="2"
           maxlength="10"
+          
+          class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+        />
+          )
+        }
+        {
+          milestone == null && updatePPPO &&  (
+          <input
+          type="text"
+          name="code"
+          id="code"
+          placeholder="Code"
+          value={updatePPPO.code}
+          minlength="2"
+          maxlength="10"
           disabled
           class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
         />
           )
         }
         {
-          milestone && (
+          milestone && updateMilestone == null && (
           <input
           type="text"
           name="code"
           id="code"
           placeholder="Code"
           value={updateMilestone ? updateMilestone.code : ""}
+          minlength="2"
+          maxlength="10"
+
+          class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+        />
+          )
+        }
+        {
+          milestone && updateMilestone &&  (
+          <input
+          type="text"
+          name="code"
+          id="code"
+          placeholder="Code"
+          value={updateMilestone.code}
           minlength="2"
           maxlength="10"
           disabled
