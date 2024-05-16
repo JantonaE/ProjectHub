@@ -133,10 +133,20 @@ const graphRealDate= milestones.map(milestone => ({
               <ResponsibleCard internal={data.internal_manager} external={data.external_manager} />
             </div>
           </div>
+          
+          <hr class="border border-black w-full mt-3 mb-3">
+          <h5 class="mb-2 text-xl font-medium leading-tight text-center">
+            Real Dates
+          </h5>
+
           <RealDateGraph data={graphRealDate} />
-          <div class="text-center bg-slate-500">
-            HITOS
-          </div>
+
+          <hr class="border border-black w-full mt-3 mb-3">
+
+          <h5 class="mb-2 text-xl font-medium leading-tight text-center">
+            Milestones
+          </h5>
+         
           <table class="">
       
             <thead>

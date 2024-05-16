@@ -15,7 +15,6 @@ const App = ({data}) => {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <h1>Real Date</h1>
       <div className="App">
         <LineChart width={730} height={250} data={data}
         margin={{ top: 5, right: 50, left: 20, bottom: 5 }}>
