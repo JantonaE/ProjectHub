@@ -7,6 +7,8 @@ import ResponsibleCard from '../../../components/ResponsibleCard.astro';
 import StateComponent from '../../../components/StateComponent.astro';
 import Graph from '../../../components/GraphLineChart.jsx';
 
+import RealDateGraph from '../../../components/GraphRealTime.jsx';
+
 import { getUser } from '../../../lib/auth';
 import DeleteModal from '../../../components/DeleteModal.astro';
 import { setFilteredURL, setParentId } from '../../../lib/filters';
@@ -49,6 +51,12 @@ const graphLineChart1 = milestones.map(milestone => ({
   ac: milestone.actual_cost
 }));
 
+const graphRealDate= milestones.map(milestone => ({
+  date: milestone.real_date,
+  pv: milestone.planned_value,
+  ac: milestone.actual_cost,
+  ev: milestone.earned_value
+}));
 ---
 <div class="flex">
     <div class="w-1/5 h-full fixed inset-y-0 left-0 min-w-10">
@@ -115,7 +123,7 @@ const graphLineChart1 = milestones.map(milestone => ({
                         <DeleteModal idPPPO={idPPPO} />
                     </p>
                 </div>
-                <Graph data={graphLineChart1} />
+                
               </div>
             </div>
           
@@ -125,7 +133,7 @@ const graphLineChart1 = milestones.map(milestone => ({
               <ResponsibleCard internal={data.internal_manager} external={data.external_manager} />
             </div>
           </div>
-          
+          <RealDateGraph data={graphRealDate} />
           <div class="text-center bg-slate-500">
             HITOS
           </div>
