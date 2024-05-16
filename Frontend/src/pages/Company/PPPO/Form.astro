@@ -86,6 +86,7 @@ if (Astro.request.method === "POST") {
       const strategic_goal = data.get("strategic_goal").toString();
       const planned_value = Number(data.get("planned_value"));
       const actual_cost = Number(data.get("actual_cost"));
+      const earned_value = Number(data.get("earned_value"));
       
       let start_date;
       let finish_date;
@@ -129,6 +130,7 @@ if (Astro.request.method === "POST") {
             strategic_goal,
             planned_value,
             actual_cost,
+            earned_value,
             start_date,
             finish_date,
             start_real_date,
@@ -177,7 +179,7 @@ if (Astro.request.method === "POST") {
           risk: risk,
           priority: priority,
           strategic_goal: strategic_goal,
-          earned_value: updatePPPO.earned_value,
+          earned_value: earned_value,
           ROI: updatePPPO.ROI,
           cost_benefit: updatePPPO.cost_benefit,
           PPPO: updatePPPO.PPPO,
@@ -210,6 +212,7 @@ if (Astro.request.method === "POST") {
             strategic_goal,
             planned_value,
             actual_cost,
+            earned_value,
             planned_date,
             real_date,
             risk,
@@ -252,7 +255,7 @@ if (Astro.request.method === "POST") {
           risk: risk,
           priority: priority,
           strategic_goal: strategic_goal,
-          earned_value: updateMilestone.earned_value,
+          earned_value: earned_value,
           ROI: updateMilestone.ROI,
           cost_benefit: updateMilestone.cost_benefit,
           state: state,
@@ -562,7 +565,7 @@ console.log("hey");
       </div>
       
       <div class="-mx-3 flex flex-wrap">
-        <div class="w-full px-3 sm:w-1/2">
+        <div class="w-full px-3 sm:w-1/3">
           <div class="mb-5">
             <label
               for="planned_value"
@@ -578,7 +581,7 @@ console.log("hey");
               name="planned_value"
               value={updatePPPO ? updatePPPO.planned_value : ""}
               id="planned_value"
-              placeholder="Enter your planned value"
+              placeholder="Enter your P.V"
               class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
             />
               )
@@ -591,7 +594,7 @@ console.log("hey");
               name="planned_value"
               value={updateMilestone ? updateMilestone.planned_value : ""}
               id="planned_value"
-              placeholder="Enter your planned value"
+              placeholder="Enter your P.V"
               class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
             />
               )
@@ -599,7 +602,7 @@ console.log("hey");
             
           </div>
         </div>
-        <div class="w-full px-3 sm:w-1/2">
+        <div class="w-full px-3 sm:w-1/3">
           <div class="mb-5">
             <label
               for="actual_cost"
@@ -615,7 +618,7 @@ console.log("hey");
               value={updatePPPO && updatePPPO.actual_cost != 0 ? updatePPPO.actual_cost : ""}
               name="actual_cost"
               id="actual_cost"
-              placeholder="Enter your actual cost"
+              placeholder="Enter your A.C"
               class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
             />
               ) 
@@ -628,7 +631,44 @@ console.log("hey");
               value={updateMilestone && updateMilestone.actual_cost != 0 ? updateMilestone.actual_cost : ""}
               name="actual_cost"
               id="actual_cost"
-              placeholder="Enter your actual cost"
+              placeholder="Enter your A.C"
+              class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+            />
+              )
+            }
+            
+          </div>
+        </div>
+        <div class="w-full px-3 sm:w-1/3">
+          <div class="mb-5">
+            <label
+              for="earned_value"
+              class="mb-3 block text-base font-medium text-[#07074D]"
+            >
+              Earned Value
+            </label>
+            {
+              milestone == null && (
+              <input
+              type="number"
+              min="0"
+              value={updatePPPO && updatePPPO.earned_value != 0 ? updatePPPO.earned_value : ""}
+              name="earned_value"
+              id="earned_value"
+              placeholder="Enter your E.V"
+              class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+            />
+              ) 
+            }
+            {
+              milestone && (
+              <input
+              type="number"
+              min="0"
+              value={updateMilestone && updateMilestone.earned_value != 0 ? updateMilestone.earned_value : ""}
+              name="earned_value"
+              id="earned_value"
+              placeholder="Enter your E.V"
               class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
             />
               )
