@@ -23,9 +23,11 @@ const App = ({data}) => {
         <YAxis />
         <Tooltip />
         <Legend layout="horizontal" verticalAlign="top" align="center" />
+        
         <Line type="monotone" dataKey="pv" stroke="#8884d8" />
         <Line type="monotone" dataKey="ac" stroke="#82ca9d" />
         <Line type="monotone" dataKey="ev" stroke="#26234c" />
+        
         </LineChart>
       </div>
     </div>

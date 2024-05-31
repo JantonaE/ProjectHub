@@ -97,8 +97,11 @@ if(idPerson != null){
                   data_internal && data_internal.map((portfolio) => (
                       <tr >
                           <td class="border p-2">
-                            Portfolio
-                            </td>
+                            {portfolio.PPPO === 0 ? "Portfolio" : 
+                            portfolio.PPPO === 1 ? "Program" :
+                            portfolio.PPPO === 2 ? "Project" :
+                            "Operation"}
+                      </td>
                           <td class="border p-2 text-blue-600 hover:underline">
                             <a href={`/Company/PPPO?idPPPO=${portfolio.idPPPO}`}>{portfolio.title}</a>
                             
@@ -135,8 +138,11 @@ if(idPerson != null){
                   data_external && data_external.map((portfolio) => (
                       <tr >
                           <td class="border p-2">
-                            Portfolio
-                            </td>
+                            {portfolio.PPPO === 0 ? "Portfolio" : 
+                            portfolio.PPPO === 1 ? "Program" :
+                            portfolio.PPPO === 2 ? "Project" :
+                            "Operation"}
+                          </td>
                           <td class="border p-2 text-blue-600 hover:underline">
                             <a href={`/Company/PPPO?idPPPO=${portfolio.idPPPO}`}>{portfolio.title}</a>
                             

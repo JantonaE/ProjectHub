@@ -54,7 +54,7 @@ const graphRealDate= milestones.map(milestone => ({
   ac: milestone.actual_cost,
   ev: milestone.earned_value
 }));
-
+/*
 const totalPlannedValue = milestones.reduce((sum, milestone) => sum + milestone.planned_value, 0);
 const totalActualCost = milestones.reduce((sum, milestone) => sum + milestone.actual_cost, 0);
 const totalEarnedValue = milestones.reduce((sum, milestone) => sum + milestone.earned_value, 0);
@@ -63,6 +63,12 @@ const totalCPI = totalActualCost !== 0 ? (totalEarnedValue / totalActualCost).to
 const totalSPI = totalPlannedValue !== 0 ? (totalEarnedValue / totalPlannedValue).toFixed(3) : "Not Defined";
 console.log("Totla spi");
 console.log(totalCPI);
+*/
+
+const lastMilestone = milestones.length > 0 ? milestones[milestones.length - 1] : null;
+const lastPlannedValue = lastMilestone ? lastMilestone.planned_value : "Not Defined";
+const lastActualCost = lastMilestone ? (lastMilestone.actual_cost === 0 ? "Not Defined" : lastMilestone.actual_cost) : "Not Defined";
+const lastEarnedValue = lastMilestone ? (lastMilestone.earned_value === 0 ? "Not Defined" : lastMilestone.earned_value) : "Not Defined";
 ---
 <div class="flex">
     <div class="w-1/5 h-full fixed inset-y-0 left-0 min-w-10">
@@ -143,7 +149,7 @@ console.log(totalCPI);
             </div>
           </div>
           
-          <hr class="border border-black w-full mt-6 mb-6">
+          <hr class="border bg-white shadow-secondary-1 dark:bg-surface-dark w-full mt-6 mb-6">
           
           <div class="grid grid-rows-1 grid-cols-1 md:grid-cols-4">
             
@@ -159,19 +165,19 @@ console.log(totalCPI);
                 </h5>
                 <div class="justify-center">
                   <p class="mb-4 text-base">
-                    Total Planned Value: {totalPlannedValue}
+                    Planned Value (P.V): {lastMilestone === null ? "Not Defined" : lastPlannedValue}
                   </p>
                   <p class="mb-4 text-base">
-                    Total Actual Cost: {totalActualCost}
+                    Actual Cost (A.C): {lastMilestone === null ? "Not Defined" : lastActualCost}
                   </p>
                   <p class="mb-4 text-base">
-                    Total Earned Value: {totalEarnedValue}
+                    Earned Value (E.V): {lastMilestone === null ? "Not Defined" : lastEarnedValue}
                   </p>
                   <p class="mb-4 text-base">
-                    Cost Performance Index (C.P.I): {totalCPI}
+                    Cost Performance Index (C.P.I): {(lastEarnedValue/lastActualCost).toFixed(3)}
                   </p>
                   <p class="mb-4 text-base">
-                    Schedule Performance Index (S.P.I): {totalSPI}
+                    Schedule Performance Index (S.P.I): {(lastEarnedValue/lastPlannedValue).toFixed(3)}
                   </p>
                 </div>
                 
@@ -181,7 +187,7 @@ console.log(totalCPI);
           
           
 
-          <hr class="border border-black w-full mt-6 mb-6">
+          <hr class="border bg-white shadow-secondary-1 dark:bg-surface-dark w-full mt-6 mb-6">
 
           <h5 class="mb-2 text-xl font-medium leading-tight text-center">
             Milestones
@@ -208,9 +214,11 @@ console.log(totalCPI);
                     <th class="border p-2">Planned Date / <br> Real Date</th>
                     <th class="border p-2">Risk</th>
                     <th class="border p-2">Priority</th>
-                    <th class="border p-2">P.V - A.C</th>
+                    <th class="border p-2">P.V</th>
+                    <th class="border p-2">A.C</th>
                     <th class="border p-2">E.V</th>
-                    <th class="border p-2">C.P.I / S.P.I</th>
+                    <th class="border p-2">C.P.I</th>
+                    <th class="border p-2">S.P.I</th>
                     <th class="border p-2">State</th>
                 </tr>
             </thead>
@@ -226,13 +234,16 @@ console.log(totalCPI);
                         <td class="border p-2 text-blue-600 hover:underline">
                           {milestone.code}                         
                           </td>
-                        <td class="border p-2">{milestone.planned_date}
-                          - <br><span class={milestone.planned_date === "12/12/2100" ? "text-gray-600" : 
-                            "text-black"}>
-                          {milestone.real_date === "12/12/2100" ? "Not Defined" : 
-                          milestone.real_date
-                          }
-                          </span></td>
+                          <td class="border p-2">
+                              {milestone.planned_date} - <br />
+                              <span class={milestone.planned_date === "12/12/2100" ? "text-gray-600" : "text-black"}>
+                                {milestone.real_date === "12/12/2100" ? (
+                                  "Not Defined"
+                                ) : (
+                                  <strong>{milestone.real_date}</strong>
+                                )}
+                              </span>
+                            </td>
                         
                         
                         
@@ -256,11 +267,17 @@ console.log(totalCPI);
                         }
                           </span>
                         </td>
-                        <td class="border p-2">{milestone.planned_value} - {milestone.actual_cost == 0 ? "Not Defined" : milestone.actual_cost}</td>
+                        <td class="border p-2">{milestone.planned_value} </td>
+                        <td class="border p-2">
+                          {milestone.actual_cost == 0 ? "Not Defined" : milestone.actual_cost}
+                        </td>
                         <td class="border p-2">{milestone.earned_value == 0 ? "Not Defined" : milestone.earned_value}</td>
                         <td class="border p-2">
-                          {(milestone.earned_value == 0 || milestone.actual_cost == 0  ) ? "Not Defined" : (milestone.earned_value / milestone.actual_cost).toFixed(2)} /
-                          {(milestone.earned_value == 0 || milestone.planned_value == 0  ) ? "Not Defined" : (milestone.earned_value / milestone.planned_value).toFixed(2)}
+                          {(milestone.earned_value == 0 || milestone.actual_cost == 0  ) ? "Not Defined" : (milestone.earned_value / milestone.actual_cost).toFixed(3)} 
+                          
+                        </td>
+                        <td class="border p-2">
+                          {(milestone.earned_value == 0 || milestone.planned_value == 0  ) ? "Not Defined" : (milestone.earned_value / milestone.planned_value).toFixed(3)}
                         </td>
                         <td class="border p-2 w-20"><StateComponent state={milestone.state} /></td>
                         <td class="border p-2 w-20">
