@@ -19,7 +19,8 @@ let cid = await getUser();
 if(cid == null){
   return Astro.redirect('/');
 }
-
+console.log("user: ");
+console.log(cid.idPerson);
 let data;
 
 
@@ -30,6 +31,7 @@ async function fetchPPPOs() {
         const response = await fetch(`${url}/PPPOs/${idPPPO}`);
         if (response.ok) {
             data = await response.json();
+            
         } else {
             throw new Error('Error al obtener portfolios');
         }
@@ -110,7 +112,8 @@ const graphRealDate= milestones.map(milestone => ({
                     Strategic Goal: <br>
                      {data.strategic_goal}
                 </p>
-                <div class="w-full flex">
+                {(data.internal_manager == cid.idPerson || data.external_manager == cid.idPerson) && (
+                  <div class="w-full flex">
                     <p class="mb-4 text-base m-2">
                         <a class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" href={`/Company/PPPO/Form?parentId=${data.parent_id}&update=${data.idPPPO}`}>Update</a>
                     </p>
@@ -118,6 +121,8 @@ const graphRealDate= milestones.map(milestone => ({
                         <DeleteModal idPPPO={idPPPO} />
                     </p>
                 </div>
+                )}
+                
                 
               </div>
             </div>
