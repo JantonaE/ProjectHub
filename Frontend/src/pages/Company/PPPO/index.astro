@@ -54,6 +54,15 @@ const graphRealDate= milestones.map(milestone => ({
   ac: milestone.actual_cost,
   ev: milestone.earned_value
 }));
+
+const totalPlannedValue = milestones.reduce((sum, milestone) => sum + milestone.planned_value, 0);
+const totalActualCost = milestones.reduce((sum, milestone) => sum + milestone.actual_cost, 0);
+const totalEarnedValue = milestones.reduce((sum, milestone) => sum + milestone.earned_value, 0);
+
+const totalCPI = totalActualCost !== 0 ? (totalEarnedValue / totalActualCost).toFixed(3) : "Not Defined";
+const totalSPI = totalPlannedValue !== 0 ? (totalEarnedValue / totalPlannedValue).toFixed(3) : "Not Defined";
+console.log("Totla spi");
+console.log(totalCPI);
 ---
 <div class="flex">
     <div class="w-1/5 h-full fixed inset-y-0 left-0 min-w-10">
@@ -68,7 +77,7 @@ const graphRealDate= milestones.map(milestone => ({
         
         <div class="grid grid-cols-1 grid-rows-1 md:grid-cols-4">
             <div
-              class="ml-10 me-4 block rounded-lg bg-white shadow-secondary-1 dark:bg-surface-dark dark:text-white text-surface md:col-span-3">
+              class="ml-10 block rounded-lg bg-white shadow-secondary-1 dark:bg-surface-dark dark:text-white text-surface md:col-span-3">
               <div class="p-6">
                 <h5
                   class="mb-2 text-xl font-medium leading-tight">
@@ -135,11 +144,42 @@ const graphRealDate= milestones.map(milestone => ({
           </div>
           
           <hr class="border border-black w-full mt-6 mb-6">
-          <h5 class="mb-2 text-xl font-medium leading-tight text-center">
-            Real Dates
-          </h5>
-
-          <RealDateGraph data={graphRealDate} />
+          
+          <div class="grid grid-rows-1 grid-cols-1 md:grid-cols-4">
+            
+            <div class="mt-6 md:col-span-3 gap-4 flex items-center justify-center">
+              <RealDateGraph data={graphRealDate} />
+            </div>
+            
+            <div class="gap-4 mt-6 md:col-span-1 rounded-lg bg-white shadow-secondary-1 dark:bg-surface-dark dark:text-white text-surface">          
+              <div class="p-6 border">
+                <h5
+                  class="mb-2 text-xl font-medium leading-tight text-center">
+                  Economic Values
+                </h5>
+                <div class="justify-center">
+                  <p class="mb-4 text-base">
+                    Total Planned Value: {totalPlannedValue}
+                  </p>
+                  <p class="mb-4 text-base">
+                    Total Actual Cost: {totalActualCost}
+                  </p>
+                  <p class="mb-4 text-base">
+                    Total Earned Value: {totalEarnedValue}
+                  </p>
+                  <p class="mb-4 text-base">
+                    Cost Performance Index (C.P.I): {totalCPI}
+                  </p>
+                  <p class="mb-4 text-base">
+                    Schedule Performance Index (S.P.I): {totalSPI}
+                  </p>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          
+          
 
           <hr class="border border-black w-full mt-6 mb-6">
 
@@ -147,7 +187,7 @@ const graphRealDate= milestones.map(milestone => ({
             Milestones
           </h5>
          
-          <table class="mb-3">
+          <table class="mb-6">
       
             <thead>
               <tr>
@@ -168,8 +208,9 @@ const graphRealDate= milestones.map(milestone => ({
                     <th class="border p-2">Planned Date / <br> Real Date</th>
                     <th class="border p-2">Risk</th>
                     <th class="border p-2">Priority</th>
-                    <th class="border p-2">P.V / A.C</th>
+                    <th class="border p-2">P.V - A.C</th>
                     <th class="border p-2">E.V</th>
+                    <th class="border p-2">C.P.I / S.P.I</th>
                     <th class="border p-2">State</th>
                 </tr>
             </thead>
@@ -217,6 +258,10 @@ const graphRealDate= milestones.map(milestone => ({
                         </td>
                         <td class="border p-2">{milestone.planned_value} - {milestone.actual_cost == 0 ? "Not Defined" : milestone.actual_cost}</td>
                         <td class="border p-2">{milestone.earned_value == 0 ? "Not Defined" : milestone.earned_value}</td>
+                        <td class="border p-2">
+                          {(milestone.earned_value == 0 || milestone.actual_cost == 0  ) ? "Not Defined" : (milestone.earned_value / milestone.actual_cost).toFixed(2)} /
+                          {(milestone.earned_value == 0 || milestone.planned_value == 0  ) ? "Not Defined" : (milestone.earned_value / milestone.planned_value).toFixed(2)}
+                        </td>
                         <td class="border p-2 w-20"><StateComponent state={milestone.state} /></td>
                         <td class="border p-2 w-20">
                           <a class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" href={`/Company/PPPO/Form?parentId=${milestone.parent_id}&update=${milestone.idMilestone}&milestone=1`}>Update</a>
