@@ -98,6 +98,13 @@ const lastEarnedValue = lastMilestone ? (lastMilestone.earned_value === 0 ? "Not
                     
                 </p>
                 <p class="mb-4 text-base">
+                  Budget at Completion (B.A.C):
+                  <a >
+                      {data.planned_value}
+                  </a>
+                  
+              </p>
+                <p class="mb-4 text-base">
                     Risk: 
                      <span class={data.risk === 0 ? "text-green-500" : 
                      data.risk === 1 ? "text-yellow-500" : 
