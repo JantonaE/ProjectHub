@@ -2,8 +2,8 @@
 import PopUpLogin from '../components/PopUpLogin';
 import Layout from '../layouts/Layout.astro';
 import { setUser } from '../lib/auth';
-import * as lib from "../lib/lib"
-
+import * as lib from "../lib/lib";
+import * as utils from "../lib/utils";
 setUser(null); // ?¿?
 
 if (Astro.request.method === "POST") {
@@ -13,9 +13,11 @@ if (Astro.request.method === "POST") {
 	console.log(data);
 	const email = data.get("email").toString();
     const password = data.get("password").toString();
+	const hash_psw = await utils.hashPassword(password);
+	console.log(hash_psw);
 	const res = await lib.loginUser(
       email,
-      password
+      hash_psw
   );
 	console.log("Sesion");
 	console.log(res);

@@ -3,7 +3,7 @@
 import { getUser } from "../../lib/auth";
 
 import { createPerson, getCompanyById } from "../../lib/lib";
-
+import * as utils from "../lib/utils";
 
 let company;
 
@@ -27,8 +27,8 @@ if (Astro.request.method === "POST") {
     const name = data.get("name").toString();
     const email = data.get("email").toString();
     const password = data.get("password").toString();
-
-    const persona = await createPerson(DNI,name,email,password,company);
+    const hash_psw = await utils.hashPassword(password);
+    const persona = await createPerson(DNI,name,email,hash_psw,company);
     console.log(persona);
     
     return Astro.redirect("/Company/PPPOs");
