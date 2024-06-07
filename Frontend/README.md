@@ -1,3 +1,7 @@
+## Requisitos
+
+- Node.js
+
 ## Instalar las dependencias
 ### Las dependencias estarán ya designadas en el archivo package.json. Para instalarlas, ejecutamos el comando:
 
@@ -12,6 +16,12 @@ npm install --force
 npm run openapi
 ```
 
+## Utilizar Flowbite
+```sh
+npm install flowbite-react
+```
+
+
 ## Iniciar el servidor
 ### Ya una vez instaladas las dependencias y obtenidos los modelos, podemos iniciar el cliente en local con el comando:
 
@@ -19,8 +29,4 @@ npm run openapi
 npm run astro dev
 ```
 
-## Utilizar Flowbite
-```sh
-npm install flowbite-react
-```
 
