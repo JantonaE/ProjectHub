@@ -11,9 +11,6 @@ from fastapi import Query
 
 pppo = APIRouter()
 
-#@pppo.get("/PPPOs/", tags=["PPPOs"], response_model=list[PPPO], description="Devuelve una lista de pppos")
-#async def find_all_pppos() -> list[PPPO]:
-#    return PPPOEntityList(conn.ProjectHub.PPPO.find())
 
 @pppo.get("/PPPOs/{id}", tags=["PPPOs"], response_model=PPPO, description="Devuelve el pppo con id pasado por parámetro")
 async def find_one_pppo(id: str = Path(description="Id del pppo a buscar")) -> PPPO:
