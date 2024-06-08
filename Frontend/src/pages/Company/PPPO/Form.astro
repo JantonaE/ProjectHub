@@ -956,14 +956,37 @@ console.log("hey");
             >
               Internal Manager
             </label>
-            <select required name="internal_manager" id="internal_manager" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+            {
+              milestone == null && (
+              <select required name="internal_manager" id="internal_manager" 
+             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
               {
                 persons && persons.map((person) => (
-                  <option value={person.idPerson}>{person.name}</option>
+                  <option value={person.idPerson}
+                  selected={update && person.idPerson === updatePPPO.internal_manager}
+                  >{person.name}</option>
                 ))
               }
               
             </select>
+              )
+            }
+            {
+              milestone && (
+              <select required name="internal_manager" id="internal_manager" 
+             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+              {
+                persons && persons.map((person) => (
+                  <option value={person.idPerson}
+                  selected={update && person.idPerson === updateMilestone.internal_manager}
+                  >{person.name}</option>
+                ))
+              }
+              
+            </select>
+              )
+            }
+            
               
             </div>
           </div>
@@ -976,15 +999,35 @@ console.log("hey");
             >
               External Manager
             </label>
-            <select name="external_manager" id="external_manager" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+            {
+              milestone == null && (
+              <select name="external_manager" id="external_manager" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
               <option value="">None</option>
               {
                 persons && persons.map((person) => (
-                  <option value={person.idPerson}>{person.name}</option>
+                  <option value={person.idPerson}
+                  selected={update && person.idPerson === updatePPPO.external_manager}>{person.name}</option>
                 ))
               }
               
             </select>
+              )
+            }
+            {
+              milestone && (
+              <select name="external_manager" id="external_manager" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+              <option value="">None</option>
+              {
+                persons && persons.map((person) => (
+                  <option value={person.idPerson}
+                  selected={update && person.idPerson === updateMilestone.external_manager}>{person.name}</option>
+                ))
+              }
+              
+            </select>
+              )
+            }
+            
               
             </div>
           </div>
