@@ -199,10 +199,14 @@ if (Astro.request.method === "POST") {
           console.log(updatePPPO.external_manager);
           console.log("Anteriores managers");
           // Hay q eliminar los anteriores de la lista
-          if(external_manager != "" && external_manager != updatePPPO.external_manager){
-            await lib.removePersonExternalManager(updatedData.idPPPO,updatePPPO.external_manager);
+          if(external_manager != ""){
+      
             await lib.updatePersonExternalManager(updatedData.idPPPO,external_manager);
           }
+          if(external_manager != updatePPPO.external_manager){
+            await lib.removePersonExternalManager(updatedData.idPPPO,updatePPPO.external_manager);
+          }
+
           if(internal_manager != updatePPPO.internal_manager){
             await lib.removePersonInternalManager(updatedData.idPPPO,updatePPPO.internal_manager);
             await lib.updatePersonInternalManager(updatedData.idPPPO,internal_manager);
