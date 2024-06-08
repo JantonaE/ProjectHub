@@ -299,6 +299,12 @@ export async function updatePersonExternalManager(pppoId: string, external_pppo:
         }
         const person = await response.json() as Person;
         
+         // Verificar si pppoId ya está en pppo_external
+        if (person.pppo_external.includes(pppoId)) {
+            console.log(`pppoId ${pppoId} ya está en la lista pppo_external`);
+            return person; // Retorna la persona tal cual si ya está en la lista
+        }
+
         // Actualizar el array pppo_external
         const updatedPppoExternal = [...person.pppo_external, pppoId];
 
@@ -340,6 +346,67 @@ export async function updatePersonExternalManager(pppoId: string, external_pppo:
     }
 }
 
+export async function removePersonExternalManager(pppoId: string, external_pppo: string) {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/Persons/${external_pppo}`;
+    let updateResponse: Response;
+    console.log(apiUrl);
+    try {
+        // Obtener la persona por su external_pppo o internal_pppo
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error('Error al obtener la persona');
+        }
+        const person = await response.json() as Person;
+
+        // Verificar si pppoId está en pppo_external
+        if (!person.pppo_external.includes(pppoId)) {
+            console.log(`pppoId ${pppoId} no está en la lista pppo_external`);
+            return person; // Retorna la persona tal cual si no está en la lista
+        }
+
+        // Actualizar el array pppo_external removiendo pppoId
+        const updatedPppoExternal = person.pppo_external.filter(id => id !== pppoId);
+
+        const updatedUserData = {
+            "idPerson": person.idPerson,
+            "DNI": person.DNI,
+            "name": person.name,
+            "email": person.email,
+            "pppo_internal": person.pppo_internal,
+            "pppo_external": updatedPppoExternal,
+            "password": person.password,
+            "company": person.company,
+            "admin": person.admin,
+        };
+
+        const apiUrlUpdate = `${import.meta.env.BACKEND_URL}/Persons/${person.idPerson}`;
+        console.log(person);
+        console.log(apiUrlUpdate);
+        // Actualizar la persona
+        updateResponse = await fetch(apiUrlUpdate, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedUserData),
+        });
+
+        if (!updateResponse.ok) {
+            throw new Error('Error al actualizar la persona');
+        }
+
+        // Devolver la persona actualizada
+        return updatedUserData;
+
+    } catch (error) {
+        console.error('Error:', error);
+        if (updateResponse) {
+            console.error('Update failed response:', await updateResponse.text());
+        }
+        return null;
+    }
+}
+
 
 export async function updatePersonInternalManager(pppoId: string, internal_pppo: string) {
     // Determinar qué campo usar para buscar a la persona
@@ -356,6 +423,12 @@ export async function updatePersonInternalManager(pppoId: string, internal_pppo:
         }
         const person = await response.json() as Person;
         
+         // Verificar si pppoId ya está en pppo_internal
+         if (person.pppo_internal.includes(pppoId)) {
+            console.log(`pppoId ${pppoId} ya está en la lista pppo_internal`);
+            return person; // Retorna la persona tal cual si ya está en la lista
+        }
+
         // Actualizar el array pppo_external
         const updatedPppoInternal = [...person.pppo_internal, pppoId];
 
@@ -393,6 +466,67 @@ export async function updatePersonInternalManager(pppoId: string, internal_pppo:
     } catch (error) {
         console.error('Error:', error);
         console.error('Update failed response:', await updateResponse?.text());
+        return null;
+    }
+}
+
+export async function removePersonInternalManager(pppoId: string, internal_pppo: string) {
+    const apiUrl = `${import.meta.env.BACKEND_URL}/Persons/${internal_pppo}`;
+    let updateResponse: Response;
+    console.log(apiUrl);
+    try {
+        // Obtener la persona por su external_pppo o internal_pppo
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error('Error al obtener la persona');
+        }
+        const person = await response.json() as Person;
+
+        // Verificar si pppoId está en pppo_external
+        if (!person.pppo_internal.includes(pppoId)) {
+            console.log(`pppoId ${pppoId} no está en la lista pppo_internal`);
+            return person; // Retorna la persona tal cual si no está en la lista
+        }
+
+        // Actualizar el array pppo_external removiendo pppoId
+        const updatedPppoInternal = person.pppo_internal.filter(id => id !== pppoId);
+
+        const updatedUserData = {
+            "idPerson": person.idPerson,
+            "DNI": person.DNI,
+            "name": person.name,
+            "email": person.email,
+            "pppo_internal": updatedPppoInternal,
+            "pppo_external": person.pppo_external,
+            "password": person.password,
+            "company": person.company,
+            "admin": person.admin,
+        };
+
+        const apiUrlUpdate = `${import.meta.env.BACKEND_URL}/Persons/${person.idPerson}`;
+        console.log(person);
+        console.log(apiUrlUpdate);
+        // Actualizar la persona
+        updateResponse = await fetch(apiUrlUpdate, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedUserData),
+        });
+
+        if (!updateResponse.ok) {
+            throw new Error('Error al actualizar la persona');
+        }
+
+        // Devolver la persona actualizada
+        return updatedUserData;
+
+    } catch (error) {
+        console.error('Error:', error);
+        if (updateResponse) {
+            console.error('Update failed response:', await updateResponse.text());
+        }
         return null;
     }
 }

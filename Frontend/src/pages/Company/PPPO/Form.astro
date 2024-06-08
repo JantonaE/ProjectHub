@@ -20,6 +20,9 @@ let states;
 let radioButton;
 let company;
 let user = await getUser();
+
+
+
 if(user == null){
   console.log("redirect");
   return Astro.redirect('/');
@@ -106,9 +109,7 @@ if (Astro.request.method === "POST") {
         planned_date = formatDate(data.get("planned_date"));
       }
       
-      
-
-      
+    
 
       const risk = Number(data.get("risk"));
       const priority = Number(data.get("priority"));
@@ -192,12 +193,21 @@ if (Astro.request.method === "POST") {
           // Llamar a la función updatePPPO con el ID del PPPO y los datos actualizados
           await lib.updatePPPO(update, updatedData);
           formSent = true;
-          // Internal Manager update pppo
-          // External Manager update pppo
-          if(external_manager != ""){
+          
+          console.log("Anteriores managers");
+          console.log(updatePPPO.internal_manager);
+          console.log(updatePPPO.external_manager);
+          console.log("Anteriores managers");
+          // Hay q eliminar los anteriores de la lista
+          if(external_manager != "" && external_manager != updatePPPO.external_manager){
+            await lib.removePersonExternalManager(updatedData.idPPPO,updatePPPO.external_manager);
             await lib.updatePersonExternalManager(updatedData.idPPPO,external_manager);
           }
-          await lib.updatePersonInternalManager(updatedData.idPPPO,internal_manager);
+          if(internal_manager != updatePPPO.internal_manager){
+            await lib.removePersonInternalManager(updatedData.idPPPO,updatePPPO.internal_manager);
+            await lib.updatePersonInternalManager(updatedData.idPPPO,internal_manager);
+          }
+          
           
           return Astro.redirect(`/Company/PPPO?idPPPO=${update}`);
           
