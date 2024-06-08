@@ -162,23 +162,23 @@ if(apiFilterURL == null){
                     </td>
                     <td class="border p-2">
                       <span class={portfolio.risk === 0 ? "text-green-500" : 
-              portfolio.risk === 1 ? "text-yellow-500" : 
-              "text-red-500"}>
-                      {portfolio.risk === 0 ? "Low" : 
-                      portfolio.risk === 1 ? "Medium" :
-                      "High"
-                    }
-                      </span>
+                     portfolio.risk === 1 ? "text-yellow-500" : 
+                     "text-red-500"}>  
+                     {portfolio.risk === 0 ? "Low" : 
+                     portfolio.risk === 1 ? "Medium" :
+                     "High"
+                   }
+                     </span>
                       </td>
                     <td class="border p-2">
-                      <span class={portfolio.risk === 0 ? "text-green-500" : 
-                      portfolio.priority === 1 ? "text-yellow-500" : 
-                      "text-red-500"}>  
-                      {portfolio.priority === 0 ? "Low" : 
-                      portfolio.priority === 1 ? "Medium" :
-                      "High"
-                    }
-                      </span>
+                      <span class={portfolio.priority === 0 ? "text-green-500" : 
+                    portfolio.priority  === 1 ? "text-yellow-500" : 
+                    "text-red-500"}>  
+                    {portfolio.priority  === 0 ? "Low" : 
+                    portfolio.priority  === 1 ? "Medium" :
+                    "High"
+                  }
+                    </span>
                     </td>
                     <td class="border p-2">{portfolio.planned_value} - {portfolio.actual_cost == 0 ? "Not Defined" : portfolio.actual_cost}</td>
                     <td class="border p-2">{portfolio.earned_value == 0 ? "Not Defined" : portfolio.earned_value}</td>
